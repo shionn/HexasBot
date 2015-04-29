@@ -1,0 +1,14 @@
+# import de vieux projet
+.svn
+lib
+bin
+
+# maven
+target/*
+
+# eclipse
+.classpath
+.settings
+.project
+
+/target/
