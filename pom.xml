@@ -51,7 +51,32 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.lesscss</groupId>
+				<artifactId>lesscss-maven-plugin</artifactId>
+				<version>1.7.0.1.1</version>
+				<configuration>
+					<outputDirectory>${project.basedir}/src/main/webapp/generated-css</outputDirectory>
+					<!-- <excludes> -->
+					<!-- <exclude>fragment/*</exclude> -->
+					<!-- <exclude>bootstrap/**/*</exclude> -->
+					<!-- </excludes> -->
+					<includes>
+            <include>bootstrap.less</include>
+            <include>theme.less</include>
+					</includes>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+						<phase>generate-resources</phase>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
+
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>

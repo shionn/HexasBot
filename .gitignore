@@ -11,4 +11,5 @@ target/*
 .settings
 .project
 
-/target/
+src/main/webapp/generated-css/
+
