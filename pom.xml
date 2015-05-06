@@ -57,13 +57,9 @@
 				<version>1.7.0.1.1</version>
 				<configuration>
 					<outputDirectory>${project.basedir}/src/main/webapp/generated-css</outputDirectory>
-					<!-- <excludes> -->
-					<!-- <exclude>fragment/*</exclude> -->
-					<!-- <exclude>bootstrap/**/*</exclude> -->
-					<!-- </excludes> -->
 					<includes>
-            <include>bootstrap.less</include>
-            <include>theme.less</include>
+						<include>bootstrap.less</include>
+						<include>theme.less</include>
 					</includes>
 				</configuration>
 				<executions>
