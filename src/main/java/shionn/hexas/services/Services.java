@@ -17,6 +17,8 @@ public class Services extends Application {
 
 	@Override
 	public Set<Class<?>> getClasses() {
-		return new HashSet<Class<?>>();
+		Set<Class<?>> classes = new HashSet<Class<?>>();
+		classes.add(AuthService.class);
+		return classes;
 	}
 }

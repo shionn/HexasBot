@@ -7,7 +7,7 @@
 		<listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
 		<listener-class>shionn.hexas.task.StartUp</listener-class>
 	</listener>
-	
+
 	<resource-env-ref>
 		<resource-env-ref-name>BeanManager</resource-env-ref-name>
 		<resource-env-ref-type>javax.enterprise.inject.spi.BeanManager</resource-env-ref-type>
@@ -17,14 +17,14 @@
 		<param-value>org.jboss.resteasy.cdi.CdiInjectorFactory</param-value>
 	</context-param>
 
-	<!-- <filter> -->
-	<!-- <filter-name>AuthFilter</filter-name> -->
-	<!-- <filter-class>collections.auth.AuthFilter</filter-class> -->
-	<!-- </filter> -->
-	<!-- <filter-mapping> -->
-	<!-- <filter-name>AuthFilter</filter-name> -->
-	<!-- <url-pattern>/paint/*</url-pattern> -->
-	<!-- </filter-mapping> -->
+	<filter>
+		<filter-name>AuthFilter</filter-name>
+		<filter-class>shionn.hexas.auth.AuthFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AuthFilter</filter-name>
+		<url-pattern>/channel/*</url-pattern>
+	</filter-mapping>
 
 	<servlet>
 		<servlet-name>Resteasy</servlet-name>
@@ -38,7 +38,8 @@
 
 	<servlet-mapping>
 		<servlet-name>Resteasy</servlet-name>
-		<url-pattern>/paint/*</url-pattern>
+		<url-pattern>/channel/*</url-pattern>
+		<url-pattern>/auth/*</url-pattern>
 	</servlet-mapping>
 
 	<welcome-file-list>

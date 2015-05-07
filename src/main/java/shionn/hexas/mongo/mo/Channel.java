@@ -18,6 +18,16 @@ public class Channel {
 
 	private List<SimpleCommand> simpleCommands = new ArrayList<>();
 
+	private String password = "undifined";
+
+	public Channel() {
+	}
+
+	public Channel(String name, String password) {
+		this.name = name;
+		this.password = password;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -32,6 +42,14 @@ public class Channel {
 
 	public void setSimpleCommands(List<SimpleCommand> simples) {
 		this.simpleCommands = simples;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }
