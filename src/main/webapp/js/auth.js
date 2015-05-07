@@ -34,14 +34,11 @@ var Auth = function() {
 	};
 
 	this.error = function(data) {
-		alert(data.status + " "+ data.statusText);
+		alert(data.status + " " + data.statusText);
 	};
 
 	this.refreshAuthentified = function(auth) {
-		$("#main").empty();
-		if (!auth) {
-			this.auth.html(auth, "#main");
-		}
+		this.auth.html(auth, "#main");
 	};
 
 	this.requestAuthentified();
