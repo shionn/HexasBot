@@ -44,7 +44,7 @@ public class AuthFilterTest {
 
     @Test
     public void testDoFilter() throws Exception {
-        when(session.getAttribute("user")).thenReturn("foo");
+		when(session.getAttribute("channel")).thenReturn("foo");
         filter.doFilter(request, response, chain);
         verify(chain).doFilter(request, response);
     }

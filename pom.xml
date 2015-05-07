@@ -3,9 +3,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>shionn.bot</groupId>
-	<artifactId>HexasBot</artifactId>
+	<artifactId>Hexas</artifactId>
 	<version>0.1</version>
-	<name>HexasBot</name>
+	<name>Hexas</name>
 	<packaging>war</packaging>
 
 	<properties>
