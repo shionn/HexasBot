@@ -1,5 +1,8 @@
 package shionn.hexas.mongo.mo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.mongojack.Id;
 
 /**
@@ -12,13 +15,23 @@ public class Channel {
 
 	@Id
 	private String name;
-	
+
+	private List<SimpleCommand> simpleCommands = new ArrayList<>();
+
 	public String getName() {
 		return name;
 	}
 	
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public List<SimpleCommand> getSimpleCommands() {
+		return simpleCommands;
+	}
+
+	public void setSimpleCommands(List<SimpleCommand> simples) {
+		this.simpleCommands = simples;
 	}
 
 }

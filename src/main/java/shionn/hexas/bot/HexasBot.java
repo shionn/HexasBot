@@ -1,7 +1,10 @@
 package shionn.hexas.bot;
 
+import java.io.IOException;
+
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
+import org.pircbotx.exception.IrcException;
 
 /**
  * Code sous licence GPLv3 (http://www.gnu.org/licenses/gpl.html)
@@ -19,8 +22,14 @@ public class HexasBot extends PircBotX {
 		super.shutdown(true);
 	}
 
+	public void start() throws IOException, IrcException {
+		super.startBot();
+	}
+
 	public void join(String channel) {
 		super.sendIRC().joinChannel(channel);
 	}
+
+
 
 }

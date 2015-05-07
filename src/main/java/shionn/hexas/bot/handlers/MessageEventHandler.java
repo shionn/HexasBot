@@ -1,10 +1,15 @@
 package shionn.hexas.bot.handlers;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.mongojack.JacksonDBCollection;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
+import shionn.hexas.bot.messages.MessageBuilderFactoy;
+import shionn.hexas.mongo.mo.Channel;
+import shionn.hexas.mongo.mo.SimpleCommand;
 
 /**
  * 
@@ -17,16 +22,21 @@ import shionn.hexas.bot.HexasBot;
 @Named
 public class MessageEventHandler {
 
-	public void handle(MessageEvent<HexasBot> event) {
-		String message = event.getMessage();
-		if (message.startsWith("!")) {
-			switch (message) {
-			case "!test":
-				event.getChannel().send().message("Ton test marche : " + event.getUser().getNick());
-				break;
+	@Inject
+	private JacksonDBCollection<Channel, String> channels;
 
-			default:
-				break;
+	@Inject
+	private MessageBuilderFactoy messages;
+
+	public void handle(MessageEvent<HexasBot> event) {
+		if (event.getMessage().indexOf('!') == 0) {
+			Channel channel = channels.findOneById(event.getChannel().getName());
+
+			for (SimpleCommand command : channel.getSimpleCommands()) {
+				if (event.getMessage().startsWith(command.getCommande())) {
+					event.getChannel().send()
+							.message(messages.build(command.getMessage()).event(event).message());
+				}
 			}
 		}
 	}

@@ -8,12 +8,12 @@ import javax.inject.Inject;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import org.mongojack.JacksonDBCollection;
 import org.pircbotx.exception.IrcException;
 import org.slf4j.Logger;
 
 import shionn.hexas.bot.HexasBot;
-import shionn.hexas.mongo.mo.Channel;
+import shionn.hexas.bot.HexasBotJoinChannelTask;
+import shionn.hexas.configuration.ConfigurationKey;
 
 /**
  * Code sous licence GPLv3 (http://www.gnu.org/licenses/gpl.html)
@@ -27,40 +27,32 @@ public class StartUp implements ServletContextListener {
 	private Logger logger;
 
 	@Inject
-	private HexasBot bot;
-	
+	@shionn.hexas.configuration.Configuration(ConfigurationKey.BotAutoJoinDelai)
+	private int delai;
+
+	@Inject
+	private HexasBotJoinChannelTask joinChannelTask;
+
 	@Inject
 	private ScheduledExecutorService executor;
-	
+
 	@Inject
-	private JacksonDBCollection<Channel, String> channels;
+	private HexasBot bot;
 
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
-		startBot();
-		executor.schedule(new Runnable() {
-			@Override
-			public void run() {
-				for (Channel channel : channels.find()) {
-					bot.join(channel.getName());
-				}
-				bot.join("#gshionn");
-			}
-		}, 10, TimeUnit.SECONDS);
-	}
-
-	public void startBot() {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				try {
 					logger.info("Hexas bot lancé");
-					bot.startBot();
+					bot.start();
 				} catch (IOException | IrcException e) {
 					logger.error("Erreur lors du lancement du bot", e);
 				}
 			}
 		}).start();
+		executor.scheduleAtFixedRate(joinChannelTask, 10, delai * 60, TimeUnit.SECONDS);
 	}
 
 	@Override
