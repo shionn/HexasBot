@@ -10,8 +10,7 @@ package shionn.hexas.configuration;
  */
 public enum ConfigurationKey {
 
-	BotName("botname"),
-	
+	BotName("irc.login"),
 	IrcHost("irc.host"),
 	IrcPort("irc.port"),
 	IrcPass("irc.pass"),

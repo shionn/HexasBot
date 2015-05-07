@@ -82,26 +82,6 @@
 
 	</build>
 
-	<profiles>
-		<profile>
-			<id>dev</id>
-			<properties>
-				<mongodb.host>192.168.1.135</mongodb.host>
-				<mongodb.port>27017</mongodb.port>
-				<skiptest>false</skiptest>
-			</properties>
-		</profile>
-		<profile>
-			<id>dedibox</id>
-			<properties>
-				<mongodb.host>127.0.0.1</mongodb.host>
-				<mongodb.port>27017</mongodb.port>
-				<tomcat.url>http://195.154.9.45:8080/manager/text</tomcat.url>
-				<tomcat.server>DediBox</tomcat.server>
-			</properties>
-		</profile>
-	</profiles>
-
 	<dependencies>
 		<!-- bot -->
 		<dependency>

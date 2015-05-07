@@ -13,3 +13,4 @@ target/*
 
 src/main/webapp/generated-css/
 
+/target/
