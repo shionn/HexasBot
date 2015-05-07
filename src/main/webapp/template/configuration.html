@@ -12,18 +12,50 @@
 {{#data.simpleCommands}}
 <div class="container" role="simple-command">
 	<div class="col-md-3">
-		<input type="text" name="command" value="{{command}}" class="form-control" />
+		<input type="text" name="command" value="{{command}}" placeholder="!commande" class="form-control" />
 	</div>
-	<div class="col-md-7">
-		<input type="text" name="message" value="{{message}}" class="form-control" />
+	<div class="col-md-8">
+		<input type="text" name="message" value="{{message}}" placeholder="message" class="form-control" />
 	</div>
-	<div class="col-md-2">
+	<div class="col-md-1">
 		<button type="button" class="btn btn-danger center" role="delete">
 			<span class="glyphicon glyphicon-trash"></span>
 		</button>
 	</div>
 </div>
 {{/data.simpleCommands}}
+
+<div class="container">
+	<div class="col-md-12">
+		<h1>
+			Timer
+			<button type="button" class="btn btn-info" role="add-timer">
+				Ajouter <span class="glyphicon glyphicon-plus"></span>
+			</button>
+		</h1>
+	</div>
+</div>
+
+{{#data.timers}} 
+<div class="container" role="timer">
+	<div class="col-md-2">
+		<input type="number" name="delayTime" value="{{delayTime}}" placeholder="delai (minute)"
+			class="form-control" />
+	</div>
+	<div class="col-md-2">
+		<input type="number" name="delayMessage" value="{{delayMessage}}" placeholder="delai (nbMessage)"
+			class="form-control" />
+	</div>
+	<div class="col-md-7">
+		<input type="text" name="message" value="{{message}}" placeholder="message" class="form-control" />
+	</div>
+	<div class="col-md-1">
+		<button type="button" class="btn btn-danger center" role="delete">
+			<span class="glyphicon glyphicon-trash"></span>
+		</button>
+	</div>
+</div>
+{{/data.timers}}
 
 <div class="container">
 	<div class="col-md-12">
