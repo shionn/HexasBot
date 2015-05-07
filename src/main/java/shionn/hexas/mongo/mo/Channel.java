@@ -1,8 +1,5 @@
 package shionn.hexas.mongo.mo;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.mongojack.Id;
 
 /**
@@ -15,10 +12,6 @@ public class Channel {
 
 	@Id
 	private String name;
-
-	private List<SimpleCommand> simpleCommands = new ArrayList<>();
-
-	private List<Timer> timers = new ArrayList<>();
 
 	private String password = "undifined";
 
@@ -38,28 +31,12 @@ public class Channel {
 		this.name = name;
 	}
 
-	public List<SimpleCommand> getSimpleCommands() {
-		return simpleCommands;
-	}
-
-	public void setSimpleCommands(List<SimpleCommand> simples) {
-		this.simpleCommands = simples;
-	}
-
 	public String getPassword() {
 		return password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public List<Timer> getTimers() {
-		return timers;
-	}
-
-	public void setTimers(List<Timer> timers) {
-		this.timers = timers;
 	}
 
 }

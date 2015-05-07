@@ -11,6 +11,8 @@ import org.mongojack.JacksonDBCollection;
 import shionn.hexas.configuration.Configuration;
 import shionn.hexas.configuration.ConfigurationKey;
 import shionn.hexas.mongo.mo.Channel;
+import shionn.hexas.mongo.mo.ChannelConfiguration;
+import shionn.hexas.mongo.mo.ChannelData;
 
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -24,32 +26,42 @@ import com.mongodb.MongoClient;
  */
 public class JacksonDBCollectionFactory {
 
-    @Inject
-    private MongoClient client;
+	@Inject
+	private MongoClient client;
 
-    @Inject
+	@Inject
 	@Configuration(ConfigurationKey.MongoDB)
-    private String database;
+	private String database;
 
 	@Produces
 	public JacksonDBCollection<Channel, String> channels() {
 		return collection(Channel.class, String.class);
 	}
 
-    private <Type, Key> JacksonDBCollection<Type, Key> collection(Class<Type> type, Class<Key> key) {
-        return JacksonDBCollection.wrap(collection(type), type, key);
-    }
+	@Produces
+	public JacksonDBCollection<ChannelConfiguration, String> configurations() {
+		return collection(ChannelConfiguration.class, String.class);
+	}
 
-    private DBCollection collection(Class<?> type) {
-        return collection(type.getSimpleName());
-    }
+	@Produces
+	public JacksonDBCollection<ChannelData, String> datas() {
+		return collection(ChannelData.class, String.class);
+	}
 
-    private DBCollection collection(String name) {
-        return db().getCollection(name.toLowerCase());
-    }
+	private <Type, Key> JacksonDBCollection<Type, Key> collection(Class<Type> type, Class<Key> key) {
+		return JacksonDBCollection.wrap(collection(type), type, key);
+	}
 
-    private DB db() {
-        return client.getDB(database);
-    }
+	private DBCollection collection(Class<?> type) {
+		return collection(type.getSimpleName());
+	}
+
+	private DBCollection collection(String name) {
+		return db().getCollection(name.toLowerCase());
+	}
+
+	private DB db() {
+		return client.getDB(database);
+	}
 
 }

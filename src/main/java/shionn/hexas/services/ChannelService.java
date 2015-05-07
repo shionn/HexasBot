@@ -13,7 +13,7 @@ import javax.ws.rs.core.MediaType;
 import org.mongojack.JacksonDBCollection;
 
 import shionn.hexas.auth.Session;
-import shionn.hexas.mongo.mo.Channel;
+import shionn.hexas.mongo.mo.ChannelConfiguration;
 
 /**
  * Code sous licence GPLv3 (http://www.gnu.org/licenses/gpl.html)
@@ -24,23 +24,28 @@ import shionn.hexas.mongo.mo.Channel;
 @Path("channel")
 public class ChannelService {
 	@Inject
-	private JacksonDBCollection<Channel, String> channels;
+	private JacksonDBCollection<ChannelConfiguration, String> channels;
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Channel save(Channel channel, @Context HttpServletRequest request) {
-		// channels.findAndModify(DBQuery.is("_id", new Session(request).getChannel()), channel)
+	public ChannelConfiguration save(ChannelConfiguration channel,
+			@Context HttpServletRequest request) {
 		String id = new Session(request).getChannel();
-		channel.setPassword(channels.findOneById(id).getPassword());
 		channels.updateById(id, channel);
 		return channel;
 	}
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Channel load(@Context HttpServletRequest request) {
-		return channels.findOneById(new Session(request).getChannel());
+	public ChannelConfiguration load(@Context HttpServletRequest request) {
+		String id = new Session(request).getChannel();
+		ChannelConfiguration configuration = channels.findOneById(id);
+		if (configuration == null) {
+			configuration = new ChannelConfiguration(id);
+			channels.insert(configuration);
+		}
+		return configuration;
 	}
 
 }

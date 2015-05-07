@@ -7,7 +7,7 @@ import org.mongojack.JacksonDBCollection;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
-import shionn.hexas.mongo.mo.Channel;
+import shionn.hexas.mongo.mo.ChannelConfiguration;
 import shionn.hexas.mongo.mo.SimpleCommand;
 import shionn.hexas.mongo.mo.Timer;
 
@@ -23,7 +23,7 @@ import shionn.hexas.mongo.mo.Timer;
 public class MessageEventHandler {
 
 	@Inject
-	private JacksonDBCollection<Channel, String> channels;
+	private JacksonDBCollection<ChannelConfiguration, String> channels;
 
 	@Inject
 	private SimpleCommandHandler simple;
@@ -32,7 +32,7 @@ public class MessageEventHandler {
 	private TimerHandler timerHandler;
 
 	public void handle(MessageEvent<HexasBot> event) {
-		Channel channel = channels.findOneById(event.getChannel().getName());
+		ChannelConfiguration channel = channels.findOneById(event.getChannel().getName());
 		if (event.getMessage().indexOf('!') == 0) {
 			for (SimpleCommand command : channel.getSimpleCommands()) {
 				simple.handle(command, event);
