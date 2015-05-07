@@ -16,7 +16,7 @@ var Auth = function() {
 			type : 'POST',
 			contentType : 'application/json',
 			data : JSON.stringify({
-				user : login,
+				channel : login,
 				password : pass
 			}),
 			success : $.proxy(this.refreshAuthentified, this),
@@ -38,6 +38,7 @@ var Auth = function() {
 	};
 
 	this.refreshAuthentified = function(auth) {
+		$("#main").empty();
 		if (!auth) {
 			this.auth.html(auth, "#main");
 		}

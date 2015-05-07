@@ -33,7 +33,7 @@ public class MessageEventHandler {
 			Channel channel = channels.findOneById(event.getChannel().getName());
 
 			for (SimpleCommand command : channel.getSimpleCommands()) {
-				if (event.getMessage().startsWith(command.getCommande())) {
+				if (event.getMessage().startsWith(command.getCommand())) {
 					event.getChannel().send()
 							.message(messages.build(command.getMessage()).event(event).message());
 				}

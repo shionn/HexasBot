@@ -4,13 +4,38 @@ var MTemplate = function(template) {
 	var html = null;
 
 	this.appendTo = function(values, target) {
+		var data = this.decorate(values);
 		if (html == null) {
 			$.get("template/"+template+".html", function(template) {
 				html = template;
-				$(Mustache.render(html, this.decorate(values))).appendTo(target);
+				$(Mustache.render(html, data)).appendTo(target);
 			}, "html");
 		} else {
-			$(Mustache.render(html, this.decorate(values))).appendTo(target);
+			$(Mustache.render(html, data)).appendTo(target);
+		}
+	};
+
+	this.insertAfter = function(values, target) {
+		var data = this.decorate(values);
+		if (html == null) {
+			$.get("template/"+template+".html", function(template) {
+				html = template;
+				$(Mustache.render(html, data)).insertAfter(target);
+			}, "html");
+		} else {
+			$(Mustache.render(html, data)).insertAfter(target);
+		}
+	};
+
+	this.prependTo = function(values, target) {
+		var data = this.decorate(values);
+		if (html == null) {
+			$.get("template/"+template+".html", function(template) {
+				html = template;
+				$(Mustache.render(html, data)).prependTo(target);
+			}, "html");
+		} else {
+			$(Mustache.render(html, data)).prependTo(target);
 		}
 	};
 

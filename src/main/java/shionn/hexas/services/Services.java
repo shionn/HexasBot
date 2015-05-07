@@ -19,6 +19,7 @@ public class Services extends Application {
 	public Set<Class<?>> getClasses() {
 		Set<Class<?>> classes = new HashSet<Class<?>>();
 		classes.add(AuthService.class);
+		classes.add(ChannelService.class);
 		return classes;
 	}
 }

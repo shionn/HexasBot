@@ -10,7 +10,7 @@ package shionn.hexas.mongo.mo;
  */
 public class SimpleCommand {
 
-	private String commande;
+	private String command;
 
 	private String message;
 
@@ -22,12 +22,12 @@ public class SimpleCommand {
 		this.message = message;
 	}
 
-	public String getCommande() {
-		return commande;
+	public String getCommand() {
+		return command;
 	}
 
-	public void setCommande(String commande) {
-		this.commande = commande;
+	public void setCommand(String command) {
+		this.command = command;
 	}
 
 }
