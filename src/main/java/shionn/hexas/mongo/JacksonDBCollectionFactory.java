@@ -12,7 +12,7 @@ import shionn.hexas.configuration.Configuration;
 import shionn.hexas.configuration.ConfigurationKey;
 import shionn.hexas.mongo.mo.Channel;
 import shionn.hexas.mongo.mo.ChannelConfiguration;
-import shionn.hexas.mongo.mo.ChannelData;
+import shionn.hexas.mongo.mo.adventure.Player;
 
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -44,8 +44,8 @@ public class JacksonDBCollectionFactory {
 	}
 
 	@Produces
-	public JacksonDBCollection<ChannelData, String> datas() {
-		return collection(ChannelData.class, String.class);
+	public JacksonDBCollection<Player, String> datas() {
+		return collection(Player.class, String.class);
 	}
 
 	private <Type, Key> JacksonDBCollection<Type, Key> collection(Class<Type> type, Class<Key> key) {

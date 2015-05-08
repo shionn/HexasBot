@@ -31,15 +31,22 @@ public class MessageEventHandler {
 	@Inject
 	private TimerHandler timerHandler;
 
+	@Inject
+	private AdventureHandler adventure;
+
 	public void handle(MessageEvent<HexasBot> event) {
 		ChannelConfiguration channel = channels.findOneById(event.getChannel().getName());
 		if (event.getMessage().indexOf('!') == 0) {
 			for (SimpleCommand command : channel.getSimpleCommands()) {
 				simple.handle(command, event);
 			}
-		}
-		for (Timer timer : channel.getTimers()) {
-			timerHandler.handle(timer, event);
+			if (channel.getAdventure().isActivated()) {
+				adventure.handle(channel.getAdventure(), event);
+			}
+		} else {
+			for (Timer timer : channel.getTimers()) {
+				timerHandler.handle(timer, event);
+			}
 		}
 	}
 

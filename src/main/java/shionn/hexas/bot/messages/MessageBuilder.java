@@ -7,6 +7,9 @@ import org.apache.commons.lang3.text.StrSubstitutor;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
+import shionn.hexas.mongo.mo.adventure.Drop;
+import shionn.hexas.mongo.mo.adventure.Monster;
+import shionn.hexas.mongo.mo.adventure.Player;
 
 public class MessageBuilder {
 
@@ -19,14 +22,45 @@ public class MessageBuilder {
 		this.message = message;
 	}
 
+	public String message() {
+		return new StrSubstitutor(substitution).replace(message);
+	}
+
+	public MessageBuilder append(String message) {
+		this.message = this.message.concat(" ").concat(message);
+		return this;
+	}
+
+
 	public MessageBuilder event(MessageEvent<HexasBot> event) {
 		substitution.put("user", event.getUser().getNick());
 		substitution.put("channel", event.getChannel().getName());
 		return this;
 	}
 
-	public String message() {
-		return new StrSubstitutor(substitution).replace(message);
+
+	public MessageBuilder player(Player player) {
+		return this;
+	}
+
+	public MessageBuilder monster(Monster monster) {
+		substitution.put("monster", monster.getName());
+		substitution.put("xp", Integer.toString(monster.getXp()));
+		return this;
+	}
+
+	public void send(MessageEvent<HexasBot> event) {
+		event.getChannel().send().message(event(event).message());
+	}
+
+	public MessageBuilder drop(Drop drop) {
+		substitution.put("item", drop.getItem());
+		return this;
+	}
+
+	public MessageBuilder po(int po) {
+		substitution.put("po", Integer.toString(po));
+		return this;
 	}
 
 }
