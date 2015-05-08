@@ -26,6 +26,8 @@ public class Player {
 
 	private Map<String, Integer> items = new HashMap<>();
 
+	private long lastBattle;
+
 	public Player() {
 	}
 
@@ -73,5 +75,12 @@ public class Player {
 		this.items = items;
 	}
 
+	public long getLastBattle() {
+		return lastBattle;
+	}
+
+	public void setLastBattle(long lastBattle) {
+		this.lastBattle = lastBattle;
+	}
 
 }

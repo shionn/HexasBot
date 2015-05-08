@@ -63,4 +63,9 @@ public class MessageBuilder {
 		return this;
 	}
 
+	public MessageBuilder coldDown(int coldDown) {
+		substitution.put("coldDown", Integer.toString(coldDown));
+		return this;
+	}
+
 }

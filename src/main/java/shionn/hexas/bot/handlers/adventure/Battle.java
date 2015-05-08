@@ -49,6 +49,7 @@ public class Battle {
 			message.append(adventure.getMessages().getItemGain()).drop(drop);
 		}
 		message.send(event);
+		player.setLastBattle(System.currentTimeMillis());
 		players.save(player);
 	}
 
@@ -69,7 +70,7 @@ public class Battle {
 	private Drop findDrop(Adventure adventure, Monster monster) {
 		List<Drop> drops = new ArrayList<>();
 		for (Drop drop : adventure.getDrops()) {
-			if (drop.getMonster().equals(monster.getName()) && drop.getRate() < seed.nextInt(100)) {
+			if (drop.getMonster().equals(monster.getName()) && drop.getRate() > seed.nextInt(100)) {
 				drops.add(drop);
 			}
 		}

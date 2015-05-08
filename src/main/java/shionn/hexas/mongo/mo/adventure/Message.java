@@ -11,6 +11,7 @@ package shionn.hexas.mongo.mo.adventure;
 public class Message {
 	private String battleWin;
 	private String battleLoose;
+	private String battleColdDown;
 	private String xpGain;
 	private String xpLoose;
 	private String pvLoose;
@@ -97,4 +98,13 @@ public class Message {
 	public void setLvlUp(String lvlUp) {
 		this.lvlUp = lvlUp;
 	}
+
+	public String getBattleColdDown() {
+		return battleColdDown;
+	}
+
+	public void setBattleColdDown(String battleColdDown) {
+		this.battleColdDown = battleColdDown;
+	}
+
 }

@@ -8,6 +8,7 @@ import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
 import shionn.hexas.bot.handlers.adventure.Battle;
+import shionn.hexas.bot.messages.MessageBuilder;
 import shionn.hexas.mongo.mo.adventure.Adventure;
 import shionn.hexas.mongo.mo.adventure.Player;
 
@@ -22,18 +23,29 @@ import shionn.hexas.mongo.mo.adventure.Player;
 @Named
 public class AdventureHandler {
 
+	private static final int MILLIS_IN_MIN = 60 * 1000;
+
 	@Inject
 	private JacksonDBCollection<Player, String> players;
 
 	@Inject
 	private Battle battle;
 
-
 	public void handle(Adventure adventure, MessageEvent<HexasBot> event) {
 		Player player = getPlayer(adventure, event);
 		if (event.getMessage().equals(adventure.getCommands().getBattle())) {
-			battle.run(player, adventure, event);
+			if (isNotTooEarly(adventure, player)) {
+				battle.run(player, adventure, event);
+			} else {
+				new MessageBuilder(adventure.getMessages().getBattleColdDown()).coldDown(
+						adventure.getCommands().getBattleColdDown()).send(event);
+			}
 		}
+	}
+
+	private boolean isNotTooEarly(Adventure adventure, Player player) {
+		return player.getLastBattle() + adventure.getCommands().getBattleColdDown() * MILLIS_IN_MIN <= System
+				.currentTimeMillis();
 	}
 
 	private Player getPlayer(Adventure adventure, MessageEvent<HexasBot> event) {
@@ -45,6 +57,5 @@ public class AdventureHandler {
 		}
 		return player;
 	}
-
 
 }
