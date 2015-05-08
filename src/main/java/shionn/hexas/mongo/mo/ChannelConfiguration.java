@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.mongojack.Id;
 
+import shionn.hexas.mongo.mo.adventure.Adventure;
+
 /**
  * Code sous licence GPLv3 (http://www.gnu.org/licenses/gpl.html)
  *
@@ -19,6 +21,8 @@ public class ChannelConfiguration {
 	private List<SimpleCommand> simpleCommands = new ArrayList<>();
 
 	private List<Timer> timers = new ArrayList<>();
+
+	private Adventure adventure;
 
 	public ChannelConfiguration() {
 	}
@@ -49,6 +53,14 @@ public class ChannelConfiguration {
 
 	public void setTimers(List<Timer> timers) {
 		this.timers = timers;
+	}
+
+	public Adventure getAdventure() {
+		return adventure;
+	}
+
+	public void setAdventure(Adventure adventure) {
+		this.adventure = adventure;
 	}
 
 }

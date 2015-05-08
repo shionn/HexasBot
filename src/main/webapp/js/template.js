@@ -54,9 +54,9 @@ var MTemplate = function(template) {
 	this.decorate = function(values) {
 		return {
 			data : values,
-			f : function() {
+			onOffButtonClass : function() {
 				return function(text, render) {
-					return render(text);
+					return 'true'==render(text) ? "btn-success": "btn-danger";
 				}
 			}
 		}

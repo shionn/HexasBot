@@ -1,23 +1,25 @@
 <div class="container">
-	<div class="col-md-12">
-		<h1>
-			Commande simple
+	<div class="col-sm-12">
+		<div class="col-sm-6">
+			<span class="h1">Commande simple</span>
+		</div>
+		<div class="col-sm-6">
 			<button type="button" class="btn btn-info" role="add-simple-command">
 				Ajouter <span class="glyphicon glyphicon-plus"></span>
 			</button>
-		</h1>
+		</div>
 	</div>
 </div>
 
 {{#data.simpleCommands}}
 <div class="container" role="simple-command">
-	<div class="col-md-3">
+	<div class="col-sm-3">
 		<input type="text" name="command" value="{{command}}" placeholder="!commande" class="form-control" />
 	</div>
-	<div class="col-md-8">
+	<div class="col-sm-8">
 		<input type="text" name="message" value="{{message}}" placeholder="message" class="form-control" />
 	</div>
-	<div class="col-md-1">
+	<div class="col-sm-1">
 		<button type="button" class="btn btn-danger center" role="delete">
 			<span class="glyphicon glyphicon-trash"></span>
 		</button>
@@ -26,30 +28,33 @@
 {{/data.simpleCommands}}
 
 <div class="container">
-	<div class="col-md-12">
-		<h1>
-			Timer
-			<button type="button" class="btn btn-info" role="add-timer">
-				Ajouter <span class="glyphicon glyphicon-plus"></span>
-			</button>
-		</h1>
+	<div class="col-sm-12">
+		<hr>
+	</div>
+	<div class="col-sm-6">
+		<span class="h1">Timer</span>
+	</div>
+	<div class="col-sm-6">
+		<button type="button" class="btn btn-info" role="add-timer">
+			Ajouter <span class="glyphicon glyphicon-plus"></span>
+		</button>
 	</div>
 </div>
 
-{{#data.timers}} 
+{{#data.timers}}
 <div class="container" role="timer">
-	<div class="col-md-2">
+	<div class="col-sm-2">
 		<input type="number" name="delayTime" value="{{delayTime}}" placeholder="delai (minute)"
 			class="form-control" />
 	</div>
-	<div class="col-md-2">
+	<div class="col-sm-2">
 		<input type="number" name="delayMessage" value="{{delayMessage}}" placeholder="delai (nbMessage)"
 			class="form-control" />
 	</div>
-	<div class="col-md-7">
+	<div class="col-sm-7">
 		<input type="text" name="message" value="{{message}}" placeholder="message" class="form-control" />
 	</div>
-	<div class="col-md-1">
+	<div class="col-sm-1">
 		<button type="button" class="btn btn-danger center" role="delete">
 			<span class="glyphicon glyphicon-trash"></span>
 		</button>
@@ -58,26 +63,242 @@
 {{/data.timers}}
 
 <div class="container">
-	<div class="col-md-12">
+	<div class="col-sm-12">
 		<hr>
 	</div>
-	<div class="col-md-12">
-		<h1>Variables</h1>
+	<div class="col-sm-6">
+		<span class="h1">Aventure</span>
 	</div>
-	<div class="col-md-6">
-		${user} : <em>celui qui à taper la commande</em>
-	</div>
-	<div class="col-md-6">
-		${channel} : <em>channel ou la commande est entrée</em>
+	<div class="col-sm-6">
+		<button type="button"
+			class="btn {{#onOffButtonClass}}{{data.adventure.activated}}{{/onOffButtonClass}} onoff"
+			role="adventure-activated">
+			<span class="glyphicon glyphicon-off"></span>
+		</button>
+		<div class="btn-group">
+			<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
+				aria-expanded="false">
+				Ajouter <span class="glyphicon glyphicon-plus"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="#" role="add-monster">Monstre</a></li>
+				<li><a href="#" role="add-item-drop">Item Drop</a></li>
+			</ul>
+		</div>
 	</div>
 </div>
 
-
-<div class="container">
-	<div class="col-md-12">
+<div class="container" role="adventure-commands">
+	<div class="col-sm-12 h3">Commande</div>
+	<div class="col-sm-2">Combat</div>
+	<div class="col-sm-2">
+		<input type="text" name="battle" value="{{data.adventure.commands.battle}}" placeholder="!battle"
+			class="form-control" />
+	</div>
+	<div class="col-sm-2">
+		<input type="number" name="battleColdDown" value="{{data.adventure.commands.battleColdDown}}"
+			placeholder="cold down" class="form-control" />
+	</div>
+	<div class="col-sm-6">
 		<hr>
 	</div>
-	<div class="col-md-12">
+
+	<div class="col-sm-2">Sac</div>
+	<div class="col-sm-2">
+		<input type="text" name="bag" value="{{data.adventure.commands.bag}}" placeholder="!bag"
+			class="form-control" />
+	</div>
+	<div class="col-sm-8">
+		<hr>
+	</div>
+
+	<div class="col-sm-2">Stat</div>
+	<div class="col-sm-2">
+		<input type="text" name="stat" value="{{data.adventure.commands.stat}}" placeholder="!stat"
+			class="form-control" />
+	</div>
+	<div class="col-sm-8">
+		<hr>
+	</div>
+
+	<div class="col-sm-2">Utiliser un objet</div>
+	<div class="col-sm-2">
+		<input type="text" name="item" value="{{data.adventure.commands.item}}" placeholder="!use"
+			class="form-control" />
+	</div>
+	<div class="col-sm-8">
+		<hr>
+	</div>
+</div>
+
+<div class="container" role="adventure-messages">
+	<div class="col-sm-12 h3">Message</div>
+	<div class="col-sm-2">Victoire</div>
+	<div class="col-sm-10">
+		<input type="text" name="battleWin" value="{{data.adventure.messages.battleWin}}"
+			placeholder="${user} affronte un ${monster}." class="form-control" />
+	</div>
+	<div class="col-sm-2">Défaite</div>
+	<div class="col-sm-10">
+		<input type="text" name="battleLoose" value="{{data.adventure.messages.battleLoose}}"
+			placeholder="${user} perd contre un ${monster}." class="form-control" />
+	</div>
+	<div class="col-sm-2">Gain d'xp</div>
+	<div class="col-sm-10">
+		<input type="text" name="xpGain" value="{{data.adventure.messages.xpGain}}"
+			placeholder="${user} gagne ${xp} xp." class="form-control" />
+	</div>
+	<div class="col-sm-2">Perte d'xp</div>
+	<div class="col-sm-10">
+		<input type="text" name="xpLoose" value="{{data.adventure.messages.xpLoose}}"
+			placeholder="${user} pert ${xp} xp." class="form-control" />
+	</div>
+	<div class="col-sm-2">Perte de pv</div>
+	<div class="col-sm-10">
+		<input type="text" name="pvLoose" value="{{data.adventure.messages.pvLoose}}"
+			placeholder="${user} perd ${pvlost} pv." class="form-control" />
+	</div>
+	<div class="col-sm-2">Gain d'objet</div>
+	<div class="col-sm-10">
+		<input type="text" name="itemGain" value="{{data.adventure.messages.itemGain}}"
+			placeholder="${user} ramasse ${qty} ${item}." class="form-control" />
+	</div>
+	<div class="col-sm-2">Perte d'objet</div>
+	<div class="col-sm-10">
+		<input type="text" name="itemLoose" value="{{data.adventure.messages.itemLoose}}"
+			placeholder="${user} pert ${qty} ${item}." class="form-control" />
+	</div>
+	<div class="col-sm-2">Gain de Po</div>
+	<div class="col-sm-10">
+		<input type="text" name="poGain" value="{{data.adventure.messages.poGain}}"
+			placeholder="${user} gagne ${po} po." class="form-control" />
+	</div>
+	<div class="col-sm-2">Perte de Po</div>
+	<div class="col-sm-10">
+		<input type="text" name="poLoose" value="{{data.adventure.messages.poLoose}}"
+			placeholder="${user} pert ${po} po." class="form-control" />
+	</div>
+	<div class="col-sm-2">Lvl Up !</div>
+	<div class="col-sm-10">
+		<input type="text" name="lvlUp" value="{{data.adventure.messages.lvlUp}}"
+			placeholder="${user} passe lvl ${lvl}." class="form-control" />
+	</div>
+</div>
+
+<div class="container" role="monster-title">
+	<div class="col-sm-12 h3">Monstre</div>
+</div>
+
+{{#data.adventure.monsters}}
+<div class="container" role="monster">
+	<div class="col-sm-3">
+		<input type="text" name="name" value="{{name}}" placeholder="nom" class="form-control" />
+	</div>
+	<div class="col-sm-2">
+		<input type="number" name="xp" value="{{xp}}" placeholder="xp" class="form-control" />
+	</div>
+	<div class="col-sm-2">
+		<input type="text" name="lvl" value="{{lvl}}" placeholder="1-5 (lvl)" class="form-control" />
+	</div>
+	<div class="col-sm-2">
+		<input type="text" name="po" value="{{po}}" placeholder="5-10 (piece d'or)" class="form-control" />
+	</div>
+	<div class="col-sm-1">
+		<button type="button" class="btn btn-danger center" role="delete">
+			<span class="glyphicon glyphicon-trash"></span>
+		</button>
+	</div>
+</div>
+{{/data.adventure.monsters}}
+
+<div class="container" role="item-drop-title">
+	<div class="col-sm-12 h3">Item Drop</div>
+</div>
+
+{{#data.adventure.drops}}
+<div class="container" role="item-drop">
+	<div class="col-sm-3">
+		<input type="text" name="item" value="{{item}}" placeholder="object" class="form-control" />
+	</div>
+	<div class="col-sm-3">
+		<input type="text" name="monster" value="{{monster}}" placeholder="monstre" class="form-control" />
+	</div>
+	<div class="col-sm-2">
+		<input type="number" name="rate" value="{{rate}}" placeholder="5 %" class="form-control" />
+	</div>
+	<div class="col-sm-1">
+		<button type="button" class="btn btn-danger center" role="delete">
+			<span class="glyphicon glyphicon-trash"></span>
+		</button>
+	</div>
+</div>
+{{/data.adventure.drops}}
+
+<div class="container" role="gamer">
+	<div class="col-sm-12 h3">Joueur</div>
+	<div class="col-sm-2">
+		<input type="number" name="xpBase" value="{{data.adventure.gamer.xpBase}}" placeholder="base d'xp"
+			class="form-control" />
+	</div>
+	<div class="col-sm-2">
+		<input type="number" name="xpFactor" value="{{data.adventure.gamer.xpFactor}}"
+			placeholder="facteur d'xp" class="form-control" />
+	</div>
+	<div class="col-sm-8">
+		<em>lvl 1 : <span role="lvl1"></span>, lvl 2 : <span role="lvl2"></span>, lvl 3 : <span
+			role="lvl3"></span>, lvl 4 : <span role="lvl4"></span>, lvl 5 : <span role="lvl5"></span>, lvl 10
+			: <span role="lvl10"></span>, lvl 20 : <span role="lvl20"></span>...
+		</em>
+	</div>
+</div>
+
+<div class="container" role="item use">
+	<div class="col-sm-12 h3">Utilisation ?</div>
+</div>
+
+<div class="container" role="quete-title">
+	<div class="col-sm-12 h3">Quetes ?</div>
+</div>
+
+<div class="container" role="craft-title">
+	<div class="col-sm-12 h3">Craft ?</div>
+</div>
+
+<div class="container">
+	<div class="col-sm-12">
+		<hr>
+	</div>
+	<div class="col-sm-12">
+		<h1>Variables</h1>
+	</div>
+	<div class="col-sm-6">
+		${user} : <em>celui qui à taper la commande</em>
+	</div>
+	<div class="col-sm-6">
+		${channel} : <em>channel ou la commande est entrée</em>
+	</div>
+	<div class="col-sm-6">
+		${monster} : <em>nom du monstre affronté</em>
+	</div>
+	<div class="col-sm-6">
+		${pvlost} : <em>nombre de point de vie perdu</em>
+	</div>
+	<div class="col-sm-6">
+		${xpgain} : <em>nombre d'xp gagné</em>
+	</div>
+	<div class="col-sm-6">
+		${item} : <em>nom de l'item gagné ou utilisé</em>
+	</div>
+	<div class="col-sm-6">
+		${po} : <em>quantité d'argent</em>
+	</div>
+</div>
+
+<div class="container">
+	<div class="col-sm-12">
+		<hr>
+	</div>
+	<div class="col-sm-12">
 		<button type="button" class="btn btn-primary center" role="save">
 			Sauvegarder <span class="glyphicon glyphicon-floppy-disk"></span>
 		</button>
