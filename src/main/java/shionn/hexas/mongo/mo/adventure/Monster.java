@@ -14,6 +14,7 @@ public class Monster {
 	private int xp;
 	private String po;
 	private String lvl;
+	private String damage;
 
 	public String getName() {
 		return name;
@@ -46,4 +47,13 @@ public class Monster {
 	public void setXp(int xp) {
 		this.xp = xp;
 	}
+
+	public String getDamage() {
+		return damage;
+	}
+
+	public void setDamage(String damage) {
+		this.damage = damage;
+	}
+
 }

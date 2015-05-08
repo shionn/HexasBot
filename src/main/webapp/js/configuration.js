@@ -132,21 +132,38 @@ $(function() {
 		$(this).toggleClass("btn-success");
 	});
 
-	var updateLvlCurve = function() {
-		var base = $("#main [name=xpBase]").val();
-		var fact = $("#main [name=xpFactor]").val();
+	var updateXpCurve = function() {
+		var base = +$("#main [name=xpBase]").val();
+		var fact = +$("#main [name=xpFactor]").val();
 		var xpPerLvl = function(lvl) {
 			return Math.floor(Math.pow(fact, lvl) * base);
 		};
-		$("span[role=lvl1]").text(xpPerLvl(0));
-		$("span[role=lvl2]").text(xpPerLvl(1));
-		$("span[role=lvl3]").text(xpPerLvl(2));
-		$("span[role=lvl4]").text(xpPerLvl(3));
-		$("span[role=lvl5]").text(xpPerLvl(4));
-		$("span[role=lvl10]").text(xpPerLvl(9));
-		$("span[role=lvl20]").text(xpPerLvl(19));
+		$("span[role=xp1]").text(xpPerLvl(0));
+		$("span[role=xp2]").text(xpPerLvl(1));
+		$("span[role=xp3]").text(xpPerLvl(2));
+		$("span[role=xp4]").text(xpPerLvl(3));
+		$("span[role=xp5]").text(xpPerLvl(4));
+		$("span[role=xp10]").text(xpPerLvl(9));
+		$("span[role=xp20]").text(xpPerLvl(19));
 	};
 
-	$("#main").on("change", "[name=xpBase]", updateLvlCurve);
-	$("#main").on("change", "[name=xpFactor]", updateLvlCurve);
+	var updatePvCurve = function() {
+		var base = +$("#main [name=pvBase]").val();
+		var fact = +$("#main [name=pvFactor]").val();
+		var perLvl = function(lvl) {
+			return Math.floor(base+fact*(lvl-1));
+		};
+		$("span[role=pv1]").text(perLvl(1));
+		$("span[role=pv2]").text(perLvl(2));
+		$("span[role=pv3]").text(perLvl(3));
+		$("span[role=pv4]").text(perLvl(4));
+		$("span[role=pv5]").text(perLvl(5));
+		$("span[role=pv10]").text(perLvl(10));
+		$("span[role=pv20]").text(perLvl(20));
+	};
+
+	$("#main").on("change", "[name=xpBase]", updateXpCurve);
+	$("#main").on("change", "[name=xpFactor]", updateXpCurve);
+	$("#main").on("change", "[name=pvBase]", updatePvCurve);
+	$("#main").on("change", "[name=pvFactor]", updatePvCurve);
 });

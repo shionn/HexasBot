@@ -1,13 +1,11 @@
 <div class="container">
-	<div class="col-sm-12">
-		<div class="col-sm-6">
-			<span class="h1">Commande simple</span>
-		</div>
-		<div class="col-sm-6">
-			<button type="button" class="btn btn-info" role="add-simple-command">
-				Ajouter <span class="glyphicon glyphicon-plus"></span>
-			</button>
-		</div>
+	<div class="col-sm-6">
+		<span class="h1">Commande simple</span>
+	</div>
+	<div class="col-sm-6">
+		<button type="button" class="btn btn-info" role="add-simple-command">
+			Ajouter <span class="glyphicon glyphicon-plus"></span>
+		</button>
 	</div>
 </div>
 
@@ -153,20 +151,25 @@
 		<input type="text" name="xpLoose" value="{{data.adventure.messages.xpLoose}}"
 			placeholder="${user} pert ${xp} xp." class="form-control" />
 	</div>
+	<div class="col-sm-3">Gain de pv</div>
+	<div class="col-sm-9">
+		<input type="text" name="pvGain" value="{{data.adventure.messages.pvGain}}"
+			placeholder="${user} gagne ${pv} pv." class="form-control" />
+	</div>
 	<div class="col-sm-3">Perte de pv</div>
 	<div class="col-sm-9">
 		<input type="text" name="pvLoose" value="{{data.adventure.messages.pvLoose}}"
-			placeholder="${user} perd ${pvlost} pv." class="form-control" />
+			placeholder="${user} perd ${pv} pv." class="form-control" />
 	</div>
 	<div class="col-sm-3">Gain d'objet</div>
 	<div class="col-sm-9">
 		<input type="text" name="itemGain" value="{{data.adventure.messages.itemGain}}"
-			placeholder="${user} ramasse ${qty} ${item}." class="form-control" />
+			placeholder="${user} ramasse un ${item}." class="form-control" />
 	</div>
 	<div class="col-sm-3">Perte d'objet</div>
 	<div class="col-sm-9">
 		<input type="text" name="itemLoose" value="{{data.adventure.messages.itemLoose}}"
-			placeholder="${user} pert ${qty} ${item}." class="form-control" />
+			placeholder="${user} pert ${item}." class="form-control" />
 	</div>
 	<div class="col-sm-3">Gain de Po</div>
 	<div class="col-sm-9">
@@ -183,15 +186,27 @@
 		<input type="text" name="lvlUp" value="{{data.adventure.messages.lvlUp}}"
 			placeholder="${user} passe lvl ${lvl}." class="form-control" />
 	</div>
+  <div class="col-sm-3">Message de Stat</div>
+  <div class="col-sm-9">
+		<input type="text" name="stat" value="{{data.adventure.messages.stat}}"
+			placeholder="${user}, ${pv}/${maxPv} pv, lvl ${lvl}(${xp}/${nextXp} xp), ${po} POs." class="form-control" />
+	</div>
 	<div class="col-sm-3">Message de colddown</div>
 	<div class="col-sm-9">
 		<input type="text" name="battleColdDown" value="{{data.adventure.messages.battleColdDown}}"
-			placeholder="${user}, tu as dois attendre ${coldDown} minute entre deux attaques." class="form-control" />
+			placeholder="${user}, tu as dois attendre ${coldDown} minute entre deux attaques."
+			class="form-control" />
 	</div>
 </div>
 
 <div class="container" role="monster-title">
 	<div class="col-sm-12 h3">Monstre</div>
+	<div class="col-sm-3 text-center">Nom</div>
+	<div class="col-sm-2 text-center">Xp</div>
+	<div class="col-sm-2 text-center">Lvl</div>
+	<div class="col-sm-2 text-center">Po</div>
+	<div class="col-sm-2 text-center">Dégats</div>
+	<div class="col-sm-1"></div>
 </div>
 
 {{#data.adventure.monsters}}
@@ -207,6 +222,10 @@
 	</div>
 	<div class="col-sm-2">
 		<input type="text" name="po" value="{{po}}" placeholder="5-10 (piece d'or)" class="form-control" />
+	</div>
+	<div class="col-sm-2">
+		<input type="text" name="damage" value="{{damage}}" placeholder="7-9 (degats)"
+			class="form-control" />
 	</div>
 	<div class="col-sm-1">
 		<button type="button" class="btn btn-danger center" role="delete">
@@ -250,9 +269,24 @@
 			placeholder="facteur d'xp" class="form-control" />
 	</div>
 	<div class="col-sm-8">
-		<em>lvl 1 : <span role="lvl1"></span>, lvl 2 : <span role="lvl2"></span>, lvl 3 : <span
-			role="lvl3"></span>, lvl 4 : <span role="lvl4"></span>, lvl 5 : <span role="lvl5"></span>, lvl 10
-			: <span role="lvl10"></span>, lvl 20 : <span role="lvl20"></span>...
+		<em>lvl 1 : <span role="xp1"></span>, lvl 2 : <span role="xp2"></span>, lvl 3 : <span
+			role="xp3"></span>, lvl 4 : <span role="xp4"></span>, lvl 5 : <span role="xp5"></span>, lvl 10 :
+			<span role="xp10"></span>, lvl 20 : <span role="xp20"></span>...
+		</em>
+	</div>
+	<div class="col-sm-12"></div>
+	<div class="col-sm-2">
+		<input type="number" name="pvBase" value="{{data.adventure.gamer.pvBase}}"
+			placeholder="base de pv" class="form-control" />
+	</div>
+	<div class="col-sm-2">
+		<input type="number" name="pvFactor" value="{{data.adventure.gamer.pvFactor}}"
+			placeholder="facteur de pv" class="form-control" />
+	</div>
+	<div class="col-sm-8">
+		<em>lvl 1 : <span role="pv1"></span>, lvl 2 : <span role="pv2"></span>, lvl 3 : <span
+			role="pv3"></span>, lvl 4 : <span role="pv4"></span>, lvl 5 : <span role="pv5"></span>, lvl 10 :
+			<span role="pv10"></span>, lvl 20 : <span role="pv20"></span>...
 		</em>
 	</div>
 </div>

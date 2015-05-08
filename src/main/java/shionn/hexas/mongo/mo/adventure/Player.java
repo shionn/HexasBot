@@ -24,6 +24,10 @@ public class Player {
 
 	private int po = 0;
 
+	private int pv = 0;
+
+	private int maxPv = 0;
+
 	private Map<String, Integer> items = new HashMap<>();
 
 	private long lastBattle;
@@ -81,6 +85,22 @@ public class Player {
 
 	public void setLastBattle(long lastBattle) {
 		this.lastBattle = lastBattle;
+	}
+
+	public int getPv() {
+		return pv;
+	}
+
+	public void setPv(int pv) {
+		this.pv = pv;
+	}
+
+	public int getMaxPv() {
+		return maxPv;
+	}
+
+	public void setMaxPv(int maxPv) {
+		this.maxPv = maxPv;
 	}
 
 }

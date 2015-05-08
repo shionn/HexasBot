@@ -13,9 +13,9 @@ import java.util.List;
 public class Adventure {
 
 	private boolean activated;
-	
+
 	private Command commands;
-	
+
 	private Message messages;
 
 	private List<Monster> monsters;
@@ -23,6 +23,7 @@ public class Adventure {
 	private List<Drop> drops;
 
 	private Gamer gamer;
+
 
 	public boolean isActivated() {
 		return activated;
@@ -71,6 +72,5 @@ public class Adventure {
 	public void setDrops(List<Drop> drops) {
 		this.drops = drops;
 	}
-
 
 }

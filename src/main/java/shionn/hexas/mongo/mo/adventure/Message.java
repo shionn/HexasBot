@@ -14,12 +14,14 @@ public class Message {
 	private String battleColdDown;
 	private String xpGain;
 	private String xpLoose;
+	private String pvGain;
 	private String pvLoose;
 	private String itemGain;
 	private String itemLoose;
 	private String poGain;
 	private String poLoose;
 	private String lvlUp;
+	private String stat;
 
 	public String getBattleWin() {
 		return battleWin;
@@ -105,6 +107,22 @@ public class Message {
 
 	public void setBattleColdDown(String battleColdDown) {
 		this.battleColdDown = battleColdDown;
+	}
+
+	public String getPvGain() {
+		return pvGain;
+	}
+
+	public void setPvGain(String pvGain) {
+		this.pvGain = pvGain;
+	}
+
+	public String getStat() {
+		return stat;
+	}
+
+	public void setStat(String stat) {
+		this.stat = stat;
 	}
 
 }

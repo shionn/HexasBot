@@ -8,6 +8,7 @@ import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
 import shionn.hexas.bot.handlers.adventure.Battle;
+import shionn.hexas.bot.handlers.adventure.Stat;
 import shionn.hexas.bot.messages.MessageBuilder;
 import shionn.hexas.mongo.mo.adventure.Adventure;
 import shionn.hexas.mongo.mo.adventure.Player;
@@ -31,6 +32,9 @@ public class AdventureHandler {
 	@Inject
 	private Battle battle;
 
+	@Inject
+	private Stat stat;
+
 	public void handle(Adventure adventure, MessageEvent<HexasBot> event) {
 		Player player = getPlayer(adventure, event);
 		if (event.getMessage().equals(adventure.getCommands().getBattle())) {
@@ -40,6 +44,8 @@ public class AdventureHandler {
 				new MessageBuilder(adventure.getMessages().getBattleColdDown()).coldDown(
 						adventure.getCommands().getBattleColdDown()).send(event);
 			}
+		} else if (event.getMessage().equals(adventure.getCommands().getStat())) {
+			stat.run(player, adventure, event);
 		}
 	}
 
@@ -49,10 +55,12 @@ public class AdventureHandler {
 	}
 
 	private Player getPlayer(Adventure adventure, MessageEvent<HexasBot> event) {
-		String key = event.getUser().getNick() + event.getChannel();
+		String key = event.getUser().getNick() + event.getChannel().getName();
 		Player player = players.findOneById(key);
 		if (player == null) {
 			player = new Player(key);
+			player.setPv(adventure.getGamer().getPvBase());
+			player.setMaxPv(adventure.getGamer().getPvBase());
 			players.insert(player);
 		}
 		return player;

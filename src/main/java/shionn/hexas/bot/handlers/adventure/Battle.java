@@ -38,19 +38,42 @@ public class Battle {
 
 	public void run(Player player, Adventure adventure, MessageEvent<HexasBot> event) {
 		Monster monster = findMonster(adventure, player);
-		player.setXp(player.getXp() + monster.getXp());
-		int po = randomInterval(monster.getPo());
-		player.setPo(player.getPo() + po);
-		Drop drop = drop(adventure, monster, player);
-		MessageBuilder message = new MessageBuilder(adventure.getMessages().getBattleWin())
-				.append(adventure.getMessages().getXpGain())
-				.append(adventure.getMessages().getPoGain()).player(player).monster(monster).po(po);
-		if (drop !=null) {
-			message.append(adventure.getMessages().getItemGain()).drop(drop);
+		int damage = damage(player, monster);
+		if (player.getPv() > 0) {
+			player.setXp(player.getXp() + monster.getXp());
+			int po = randomInterval(monster.getPo());
+			player.setPo(player.getPo() + po);
+			Drop drop = drop(adventure, monster, player);
+			MessageBuilder message = new MessageBuilder(adventure.getMessages().getBattleWin())
+					.append(adventure.getMessages().getPvLoose())
+					.append(adventure.getMessages().getXpGain())
+					.append(adventure.getMessages().getPoGain())
+					.player(player)
+					.monster(monster)
+					.pv(damage).po(po);
+			if (drop != null) {
+				message.append(adventure.getMessages().getItemGain()).drop(drop);
+			}
+			message.send(event);
+		} else {
+			int po = randomInterval(monster.getPo());
+			player.setPo(player.getPo() - po);
+			player.setXp(player.getXp() - monster.getXp());
+			player.setPv(player.getMaxPv());
+			new MessageBuilder(adventure.getMessages().getBattleLoose())
+					.append(adventure.getMessages().getPvGain())
+					.append(adventure.getMessages().getXpLoose())
+					.append(adventure.getMessages().getPoLoose()).monster(monster).po(po)
+					.player(player).send(event);
 		}
-		message.send(event);
 		player.setLastBattle(System.currentTimeMillis());
 		players.save(player);
+	}
+
+	private int damage(Player player, Monster monster) {
+		int damage = randomInterval(monster.getDamage());
+		player.setPv(player.getPv() - damage);
+		return damage;
 	}
 
 	private Drop drop(Adventure adventure, Monster monster, Player player) {
@@ -65,7 +88,6 @@ public class Battle {
 		}
 		return drop;
 	}
-
 
 	private Drop findDrop(Adventure adventure, Monster monster) {
 		List<Drop> drops = new ArrayList<>();
@@ -105,8 +127,8 @@ public class Battle {
 		return min <= player.getLvl() && player.getLvl() <= max;
 	}
 
-	private int randomInterval(String po) {
-		Matcher m = INTERVAL.matcher(po);
+	private int randomInterval(String inter) {
+		Matcher m = INTERVAL.matcher(inter);
 		int value = 0;
 		if (m.find()) {
 			int min = Integer.parseInt(m.group(1));

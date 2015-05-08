@@ -1,9 +1,5 @@
 package shionn.hexas.mongo.mo.adventure;
 
-import java.math.BigDecimal;
-
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 /**
  * Profile d'evolution des joueur dans {@link Adventure}
@@ -15,9 +11,12 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
  */
 public class Gamer {
 	private int xpBase;
-	@JsonSerialize(using = ToStringSerializer.class)
-	// @JsonDeserialize(using = BigDecimalDeserializer.class)
-	private BigDecimal xpFactor;
+	// @JsonSerialize(using = ToStringSerializer.class)
+	private float xpFactor;
+
+	private int pvBase;
+	// @JsonSerialize(using = ToStringSerializer.class)
+	private float pvFactor;
 
 	public int getXpBase() {
 		return xpBase;
@@ -27,12 +26,28 @@ public class Gamer {
 		this.xpBase = xpBase;
 	}
 
-	public BigDecimal getXpFactor() {
+	public float getXpFactor() {
 		return xpFactor;
 	}
 
-	public void setXpFactor(BigDecimal xpFactor) {
+	public void setXpFactor(float xpFactor) {
 		this.xpFactor = xpFactor;
+	}
+
+	public int getPvBase() {
+		return pvBase;
+	}
+
+	public void setPvBase(int pvBase) {
+		this.pvBase = pvBase;
+	}
+
+	public float getPvFactor() {
+		return pvFactor;
+	}
+
+	public void setPvFactor(float pvFactor) {
+		this.pvFactor = pvFactor;
 	}
 
 }
