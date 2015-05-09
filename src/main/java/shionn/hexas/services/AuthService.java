@@ -44,7 +44,7 @@ public class AuthService {
 			valid = true;
 		}
 		return Response.status(valid ? Response.Status.ACCEPTED : Response.Status.UNAUTHORIZED)
-				.entity(true).build();
+				.entity(valid).build();
 
 	}
 
