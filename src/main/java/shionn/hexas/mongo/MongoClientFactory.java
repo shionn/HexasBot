@@ -20,22 +20,27 @@ import com.mongodb.MongoClient;
  */
 public class MongoClientFactory {
 
-    @Inject
+	@Inject
 	@Configuration(ConfigurationKey.MongoHost)
-    private String host;
+	private String host;
 
-    @Inject
+	@Inject
 	@Configuration(ConfigurationKey.MongoPort)
-    private int port;
+	private int port;
 
-    @Produces
-    @Singleton
-    public MongoClient build() throws UnknownHostException {
-        return new MongoClient(host, port);
-    }
+	@Inject
+	private org.slf4j.Logger logger;
 
-    public void close(@Disposes MongoClient client) {
-        client.close();
-    }
+	@Produces
+	@Singleton
+	public MongoClient build() throws UnknownHostException {
+		logger.info("Open Mongo Client");
+		return new MongoClient(host, port);
+	}
+
+	public void close(@Disposes MongoClient client) {
+		logger.info("Close Mongo Client");
+		client.close();
+	}
 
 }

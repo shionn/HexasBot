@@ -11,12 +11,10 @@ package shionn.hexas.mongo.mo.adventure;
  */
 public class Gamer {
 	private int xpBase;
-	// @JsonSerialize(using = ToStringSerializer.class)
 	private float xpFactor;
 
 	private int pvBase;
-	// @JsonSerialize(using = ToStringSerializer.class)
-	private float pvFactor;
+	private int pvFactor;
 
 	public int getXpBase() {
 		return xpBase;
@@ -42,11 +40,11 @@ public class Gamer {
 		this.pvBase = pvBase;
 	}
 
-	public float getPvFactor() {
+	public int getPvFactor() {
 		return pvFactor;
 	}
 
-	public void setPvFactor(float pvFactor) {
+	public void setPvFactor(int pvFactor) {
 		this.pvFactor = pvFactor;
 	}
 

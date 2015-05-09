@@ -7,6 +7,7 @@ import org.mongojack.JacksonDBCollection;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
+import shionn.hexas.bot.handlers.adventure.Bag;
 import shionn.hexas.bot.handlers.adventure.Battle;
 import shionn.hexas.bot.handlers.adventure.Stat;
 import shionn.hexas.bot.messages.MessageBuilder;
@@ -35,6 +36,9 @@ public class AdventureHandler {
 	@Inject
 	private Stat stat;
 
+	@Inject
+	private Bag bag;
+
 	public void handle(Adventure adventure, MessageEvent<HexasBot> event) {
 		Player player = getPlayer(adventure, event);
 		if (event.getMessage().equals(adventure.getCommands().getBattle())) {
@@ -46,6 +50,8 @@ public class AdventureHandler {
 			}
 		} else if (event.getMessage().equals(adventure.getCommands().getStat())) {
 			stat.run(player, adventure, event);
+		} else if (event.getMessage().equals(adventure.getCommands().getBag())) {
+			bag.run(player, adventure, event);
 		}
 	}
 

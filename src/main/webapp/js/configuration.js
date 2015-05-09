@@ -108,6 +108,8 @@ var Configuration = function() {
 
 	this.display = function(data) {
 		this.tPage.html(data, "#main");
+		this.updatePvCurve();
+		this.updateXpCurve();
 	};
 
 	this.error = function(data) {
@@ -121,18 +123,8 @@ var Configuration = function() {
 	$("#main").on("click", "a[role=add-item-drop]", $.proxy(this.addItem, this));
 	$("#main").on("click", "button[role=delete]", $.proxy(this.remove, this));
 	$("nav").on("click", "[href=#configuration]", $.proxy(this.load, this));
-
-};
-
-$(function() {
-	new Configuration();
-
-	$("#main").on("click", "button.onoff", function() {
-		$(this).toggleClass("btn-danger");
-		$(this).toggleClass("btn-success");
-	});
-
-	var updateXpCurve = function() {
+	
+	this.updateXpCurve = function() {
 		var base = +$("#main [name=xpBase]").val();
 		var fact = +$("#main [name=xpFactor]").val();
 		var xpPerLvl = function(lvl) {
@@ -147,7 +139,7 @@ $(function() {
 		$("span[role=xp20]").text(xpPerLvl(19));
 	};
 
-	var updatePvCurve = function() {
+	this.updatePvCurve = function() {
 		var base = +$("#main [name=pvBase]").val();
 		var fact = +$("#main [name=pvFactor]").val();
 		var perLvl = function(lvl) {
@@ -162,8 +154,20 @@ $(function() {
 		$("span[role=pv20]").text(perLvl(20));
 	};
 
-	$("#main").on("change", "[name=xpBase]", updateXpCurve);
-	$("#main").on("change", "[name=xpFactor]", updateXpCurve);
-	$("#main").on("change", "[name=pvBase]", updatePvCurve);
-	$("#main").on("change", "[name=pvFactor]", updatePvCurve);
+	$("#main").on("change", "[name=xpBase]", this.updateXpCurve);
+	$("#main").on("change", "[name=xpFactor]", this.updateXpCurve);
+	$("#main").on("change", "[name=pvBase]", this.updatePvCurve);
+	$("#main").on("change", "[name=pvFactor]", this.updatePvCurve);
+
+
+};
+
+$(function() {
+	new Configuration();
+
+	$("#main").on("click", "button.onoff", function() {
+		$(this).toggleClass("btn-danger");
+		$(this).toggleClass("btn-success");
+	});
+
 });

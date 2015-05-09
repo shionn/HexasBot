@@ -18,4 +18,20 @@ public class NextLvl {
 				.getGamer().getXpBase());
 	}
 
+	public boolean lvlUp(Adventure adventure, Player player) {
+		boolean lvlUp = false;
+		if (player.getXp() >= xp(adventure, player)) {
+			player.setXp(player.getXp() - xp(adventure, player));
+			player.setLvl(player.getLvl() + 1);
+			player.setMaxPv(maxPv(adventure, player));
+			lvlUp = true;
+		}
+		return lvlUp;
+	}
+
+	private int maxPv(Adventure adventure, Player player) {
+		return (int) (adventure.getGamer().getPvBase() + adventure.getGamer().getPvFactor()
+				* (player.getLvl() - 1));
+	}
+
 }

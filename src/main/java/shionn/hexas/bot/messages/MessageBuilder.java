@@ -80,4 +80,9 @@ public class MessageBuilder {
 		return this;
 	}
 
+	public MessageBuilder bag(String bag) {
+		substitution.put("bag", bag);
+		return this;
+	}
+
 }

@@ -186,10 +186,16 @@
 		<input type="text" name="lvlUp" value="{{data.adventure.messages.lvlUp}}"
 			placeholder="${user} passe lvl ${lvl}." class="form-control" />
 	</div>
-  <div class="col-sm-3">Message de Stat</div>
-  <div class="col-sm-9">
+	<div class="col-sm-3">Message de Sac</div>
+	<div class="col-sm-9">
+		<input type="text" name="bag" value="{{data.adventure.messages.bag}}"
+			placeholder="${user}, contenu de votre ${bag}" class="form-control" />
+	</div>
+	<div class="col-sm-3">Message de Stat</div>
+	<div class="col-sm-9">
 		<input type="text" name="stat" value="{{data.adventure.messages.stat}}"
-			placeholder="${user}, ${pv}/${maxPv} pv, lvl ${lvl}(${xp}/${nextXp} xp), ${po} POs." class="form-control" />
+			placeholder="${user}, ${pv}/${maxPv} pv, lvl ${lvl}(${xp}/${nextXp} xp), ${po} POs."
+			class="form-control" />
 	</div>
 	<div class="col-sm-3">Message de colddown</div>
 	<div class="col-sm-9">

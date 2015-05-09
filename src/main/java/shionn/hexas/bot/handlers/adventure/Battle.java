@@ -36,38 +36,51 @@ public class Battle {
 
 	private Random seed = new Random();
 
+	@Inject
+	private NextLvl nextLvl;
+
 	public void run(Player player, Adventure adventure, MessageEvent<HexasBot> event) {
 		Monster monster = findMonster(adventure, player);
 		int damage = damage(player, monster);
 		if (player.getPv() > 0) {
-			player.setXp(player.getXp() + monster.getXp());
-			int po = randomInterval(monster.getPo());
-			player.setPo(player.getPo() + po);
-			Drop drop = drop(adventure, monster, player);
-			MessageBuilder message = new MessageBuilder(adventure.getMessages().getBattleWin())
-					.append(adventure.getMessages().getPvLoose())
-					.append(adventure.getMessages().getXpGain())
-					.append(adventure.getMessages().getPoGain())
-					.player(player)
-					.monster(monster)
-					.pv(damage).po(po);
-			if (drop != null) {
-				message.append(adventure.getMessages().getItemGain()).drop(drop);
-			}
-			message.send(event);
+			win(player, monster, damage, adventure, event);
 		} else {
-			int po = randomInterval(monster.getPo());
-			player.setPo(player.getPo() - po);
-			player.setXp(player.getXp() - monster.getXp());
-			player.setPv(player.getMaxPv());
-			new MessageBuilder(adventure.getMessages().getBattleLoose())
-					.append(adventure.getMessages().getPvGain())
-					.append(adventure.getMessages().getXpLoose())
-					.append(adventure.getMessages().getPoLoose()).monster(monster).po(po)
-					.player(player).send(event);
+			loose(player, monster, adventure, event);
 		}
 		player.setLastBattle(System.currentTimeMillis());
 		players.save(player);
+	}
+
+	public void win(Player player, Monster monster, int damage, Adventure adventure,
+			MessageEvent<HexasBot> event) {
+		player.setXp(player.getXp() + monster.getXp());
+		int po = randomInterval(monster.getPo());
+		player.setPo(player.getPo() + po);
+		Drop drop = drop(adventure, monster, player);
+		MessageBuilder message = new MessageBuilder(adventure.getMessages().getBattleWin())
+				.append(adventure.getMessages().getPvLoose())
+				.append(adventure.getMessages().getXpGain())
+				.append(adventure.getMessages().getPoGain());
+		if (nextLvl.lvlUp(adventure, player)) {
+			message.append(adventure.getMessages().getLvlUp());
+		}
+		if (drop != null) {
+			message.append(adventure.getMessages().getItemGain()).drop(drop);
+		}
+		message.player(player).monster(monster).pv(damage).po(po).send(event);
+	}
+
+	public void loose(Player player, Monster monster, Adventure adventure,
+			MessageEvent<HexasBot> event) {
+		int po = randomInterval(monster.getPo());
+		player.setPo(player.getPo() - po);
+		player.setXp(player.getXp() - monster.getXp());
+		player.setPv(player.getMaxPv());
+		new MessageBuilder(adventure.getMessages().getBattleLoose())
+				.append(adventure.getMessages().getPvGain())
+				.append(adventure.getMessages().getXpLoose())
+				.append(adventure.getMessages().getPoLoose()).monster(monster).po(po)
+				.player(player).send(event);
 	}
 
 	private int damage(Player player, Monster monster) {

@@ -22,6 +22,7 @@ public class Message {
 	private String poLoose;
 	private String lvlUp;
 	private String stat;
+	private String bag;
 
 	public String getBattleWin() {
 		return battleWin;
@@ -125,4 +126,11 @@ public class Message {
 		this.stat = stat;
 	}
 
+	public String getBag() {
+		return bag;
+	}
+
+	public void setBag(String bag) {
+		this.bag = bag;
+	}
 }
