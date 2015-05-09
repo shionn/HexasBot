@@ -44,21 +44,27 @@ public class AuthServiceTest {
 
 	@Test
 	public void testAuthentify() throws Exception {
-		assertThat(service.authentify(authentification(CHANNEL, PASSWORD), request)).isTrue();
+		assertThat(
+				(boolean) service.authentify(authentification(CHANNEL, PASSWORD), request)
+						.getEntity()).isTrue();
 		verify(session).removeAttribute(CHANNEL_SESSION_KEY);
 		verify(session).setAttribute(CHANNEL_SESSION_KEY, CHANNEL);
 	}
 
 	@Test
 	public void testAuthentifyWrongPassword() throws Exception {
-		assertThat(service.authentify(authentification(CHANNEL, "foo"), request)).isFalse();
+		assertThat(
+				(boolean) service.authentify(authentification(CHANNEL, "foo"), request).getEntity())
+				.isFalse();
 		verify(session).removeAttribute(CHANNEL_SESSION_KEY);
 		verify(session, never()).setAttribute(eq(CHANNEL_SESSION_KEY), anyObject());
 	}
 
 	@Test
 	public void testAuthentifyWrongUser() throws Exception {
-		assertThat(service.authentify(authentification("bar", PASSWORD), request)).isFalse();
+		assertThat(
+				(boolean) service.authentify(authentification("bar", PASSWORD), request)
+						.getEntity()).isFalse();
 		verify(session).removeAttribute(CHANNEL_SESSION_KEY);
 		verify(session, never()).setAttribute(eq(CHANNEL_SESSION_KEY), anyObject());
 	}

@@ -54,7 +54,6 @@ public class ItemUse {
 		case xpGain:
 			xpGain(player, use, adventure, event);
 			break;
-
 		default:
 			new MessageBuilder("Shionn, n'as pas encore fait : " + use.getUsage()).send(event);
 			break;

@@ -10,6 +10,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.mongojack.JacksonDBCollection;
@@ -32,7 +33,7 @@ public class AuthService {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Boolean authentify(Authentification auth, @Context HttpServletRequest request) {
+	public Response authentify(Authentification auth, @Context HttpServletRequest request) {
 		Channel channel = channels.findOneById(auth.getChannel());
 		String pass = DigestUtils.md5Hex(auth.getPassword());
 		Session session = new Session(request);
@@ -42,7 +43,9 @@ public class AuthService {
 			session.setChannel(auth.getChannel());
 			valid = true;
 		}
-		return valid;
+		return Response.status(valid ? Response.Status.ACCEPTED : Response.Status.UNAUTHORIZED)
+				.entity(true).build();
+
 	}
 
 	@GET
