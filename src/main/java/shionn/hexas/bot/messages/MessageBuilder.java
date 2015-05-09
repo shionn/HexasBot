@@ -85,4 +85,14 @@ public class MessageBuilder {
 		return this;
 	}
 
+	public MessageBuilder item(String item) {
+		substitution.put("item", item);
+		return this;
+	}
+
+	public MessageBuilder var(String var) {
+		substitution.put("var", var);
+		return this;
+	}
+
 }

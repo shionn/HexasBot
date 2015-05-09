@@ -75,12 +75,12 @@ public class Battle {
 		int po = randomInterval(monster.getPo());
 		player.setPo(player.getPo() - po);
 		player.setXp(player.getXp() - monster.getXp());
-		player.setPv(player.getMaxPv());
+		player.setPv(player.getMaxPv() / 2);
 		new MessageBuilder(adventure.getMessages().getBattleLoose())
 				.append(adventure.getMessages().getPvGain())
 				.append(adventure.getMessages().getXpLoose())
-				.append(adventure.getMessages().getPoLoose()).monster(monster).po(po)
-				.player(player).send(event);
+				.append(adventure.getMessages().getPoLoose()).player(player).monster(monster)
+				.po(po).send(event);
 	}
 
 	private int damage(Player player, Monster monster) {

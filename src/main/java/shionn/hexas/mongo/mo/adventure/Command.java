@@ -13,7 +13,7 @@ public class Command {
 	private String battle;
 	private int battleColdDown;
 	private String bag;
-	private String item;
+	private String itemUse;
 	private String stat;
 
 	public String getBattle() {
@@ -40,13 +40,6 @@ public class Command {
 		this.bag = bag;
 	}
 
-	public String getItem() {
-		return item;
-	}
-
-	public void setItem(String item) {
-		this.item = item;
-	}
 
 	public String getStat() {
 		return stat;
@@ -55,4 +48,13 @@ public class Command {
 	public void setStat(String stat) {
 		this.stat = stat;
 	}
+
+	public String getItemUse() {
+		return itemUse;
+	}
+
+	public void setItemUse(String itemUse) {
+		this.itemUse = itemUse;
+	}
+
 }

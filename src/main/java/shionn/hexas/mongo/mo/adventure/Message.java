@@ -23,6 +23,8 @@ public class Message {
 	private String lvlUp;
 	private String stat;
 	private String bag;
+	private String noItem;
+	private String noUse;
 
 	public String getBattleWin() {
 		return battleWin;
@@ -132,5 +134,21 @@ public class Message {
 
 	public void setBag(String bag) {
 		this.bag = bag;
+	}
+
+	public String getNoItem() {
+		return noItem;
+	}
+
+	public void setNoItem(String noItem) {
+		this.noItem = noItem;
+	}
+
+	public String getNoUse() {
+		return noUse;
+	}
+
+	public void setNoUse(String noUse) {
+		this.noUse = noUse;
 	}
 }

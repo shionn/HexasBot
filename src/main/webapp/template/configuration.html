@@ -81,6 +81,7 @@
 			<ul class="dropdown-menu" role="menu">
 				<li><a href="#" role="add-monster">Monstre</a></li>
 				<li><a href="#" role="add-item-drop">Item Drop</a></li>
+				<li><a href="#" role="add-item-use">Utilisation d'Objet</a></li>
 			</ul>
 		</div>
 	</div>
@@ -88,7 +89,7 @@
 
 <div class="container" role="adventure-commands">
 	<div class="col-sm-12 h3">Commande</div>
-	<div class="col-sm-2">Combat</div>
+	<div class="col-sm-3">Combat</div>
 	<div class="col-sm-2">
 		<input type="text" name="battle" value="{{data.adventure.commands.battle}}" placeholder="!battle"
 			class="form-control" />
@@ -97,34 +98,34 @@
 		<input type="number" name="battleColdDown" value="{{data.adventure.commands.battleColdDown}}"
 			placeholder="cold down" class="form-control" />
 	</div>
-	<div class="col-sm-6">
+	<div class="col-sm-5">
 		<hr>
 	</div>
 
-	<div class="col-sm-2">Sac</div>
+	<div class="col-sm-3">Sac</div>
 	<div class="col-sm-2">
 		<input type="text" name="bag" value="{{data.adventure.commands.bag}}" placeholder="!bag"
 			class="form-control" />
 	</div>
-	<div class="col-sm-8">
+	<div class="col-sm-7">
 		<hr>
 	</div>
 
-	<div class="col-sm-2">Stat</div>
+	<div class="col-sm-3">Stat</div>
 	<div class="col-sm-2">
 		<input type="text" name="stat" value="{{data.adventure.commands.stat}}" placeholder="!stat"
 			class="form-control" />
 	</div>
-	<div class="col-sm-8">
+	<div class="col-sm-7">
 		<hr>
 	</div>
 
-	<div class="col-sm-2">Utiliser un objet</div>
+	<div class="col-sm-3">Utiliser un objet</div>
 	<div class="col-sm-2">
-		<input type="text" name="item" value="{{data.adventure.commands.item}}" placeholder="!use"
+		<input type="text" name="itemUse" value="{{data.adventure.commands.itemUse}}" placeholder="!use"
 			class="form-control" />
 	</div>
-	<div class="col-sm-8">
+	<div class="col-sm-7">
 		<hr>
 	</div>
 </div>
@@ -203,6 +204,16 @@
 			placeholder="${user}, tu as dois attendre ${coldDown} minute entre deux attaques."
 			class="form-control" />
 	</div>
+  <div class="col-sm-3">Pas d'objet</div>
+  <div class="col-sm-9">
+    <input type="text" name="noItem" value="{{data.adventure.messages.noItem}}"
+      placeholder="${user}, vous n'avez pas de ${item}" class="form-control" />
+  </div>
+  <div class="col-sm-3">Utilisation inconnue</div>
+  <div class="col-sm-9">
+    <input type="text" name="noUse" value="{{data.adventure.messages.noUse}}"
+      placeholder="${user}, ${item} ne sert à rien" class="form-control" />
+  </div>
 </div>
 
 <div class="container" role="monster-title">
@@ -264,8 +275,45 @@
 </div>
 {{/data.adventure.drops}}
 
+<div class="container" role="item-use-title">
+	<div class="col-sm-12 h3">Utilisation</div>
+</div>
+
+{{#data.adventure.uses}}
+<div class="container" role="item-use">
+	<div class="col-sm-3">
+		<input type="text" name="item" value="{{item}}" placeholder="object" class="form-control" />
+	</div>
+	<div class="col-sm-4">
+		<input type="text" name="message" value="{{message}}" placeholder="message ${var}"
+			class="form-control" />
+	</div>
+	<div class="col-sm-2">
+		<input type="hidden" name="usage" value="{{usage}}">
+		<div class="btn-group auto-drop-down">
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+				aria-expanded="false">
+				{{usage}} <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="#" role="pvGain">Gain Pv</a></li>
+				<li><a href="#" role="xpGain">Gain Xp</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="col-sm-2">
+		<input type="text" name="var" value="{{var}}" placeholder="variable" class="form-control" />
+	</div>
+	<div class="col-sm-1">
+		<button type="button" class="btn btn-danger center" role="delete">
+			<span class="glyphicon glyphicon-trash"></span>
+		</button>
+	</div>
+</div>
+{{/data.adventure.uses}}
+
 <div class="container" role="gamer">
-	<div class="col-sm-12 h3">Joueur</div>
+	<div class="col-sm-12 h3">Courbe d'experience</div>
 	<div class="col-sm-2">
 		<input type="number" name="xpBase" value="{{data.adventure.gamer.xpBase}}" placeholder="base d'xp"
 			class="form-control" />
@@ -297,9 +345,6 @@
 	</div>
 </div>
 
-<div class="container" role="item use">
-	<div class="col-sm-12 h3">Utilisation ?</div>
-</div>
 
 <div class="container" role="quete-title">
 	<div class="col-sm-12 h3">Quetes ?</div>
@@ -336,6 +381,9 @@
 	</div>
 	<div class="col-sm-6">
 		${po} : <em>quantité d'argent</em>
+	</div>
+	<div class="col-sm-6">
+		${bag} : <em>Contenu du sac</em>
 	</div>
 </div>
 

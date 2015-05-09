@@ -7,6 +7,7 @@ var Configuration = function() {
 	this.tTimer = new MTemplate("timer");
 	this.tMonster = new MTemplate("monster");
 	this.tItemDrop = new MTemplate("item-drop");
+	this.tItemUse = new MTemplate("item-use");
 	this.tError = new MTemplate("error");
 
 	this.load = function(event) {
@@ -14,6 +15,7 @@ var Configuration = function() {
 		$.ajax({
 			url : 'channel',
 			type : 'GET',
+			context : this,
 			success : $.proxy(this.display, this),
 			error : $.proxy(this.error)
 		});
@@ -60,6 +62,7 @@ var Configuration = function() {
 			messages : this.extractObject("[role=adventure-messages]"),
 			monsters : this.extractArrayObject("[role=monster]"),
 			drops : this.extractArrayObject("[role=item-drop]"),
+			uses : this.extractArrayObject("[role=item-use]"),
 			gamer : this.extractObject("[role=gamer]")
 		};
 	};
@@ -102,6 +105,12 @@ var Configuration = function() {
 		this.tItemDrop.insertAfter({}, target);
 	};
 
+	this.addItemUse = function(event) {
+		event.preventDefault();
+		var target = $("#main").find("[role=item-use-title]");
+		this.tItemUse.insertAfter({}, target);
+	};
+
 	this.remove = function(event) {
 		$(event.target).parents("[class=container]").remove();
 	};
@@ -115,14 +124,6 @@ var Configuration = function() {
 	this.error = function(data) {
 		alert(data.status + " " + data.statusText);
 	};
-
-	$("#main").on("click", "button[role=save]", $.proxy(this.save, this));
-	$("#main").on("click", "button[role=add-simple-command]", $.proxy(this.addSimpleCommand, this));
-	$("#main").on("click", "button[role=add-timer]", $.proxy(this.addTimer, this));
-	$("#main").on("click", "a[role=add-monster]", $.proxy(this.addMonster, this));
-	$("#main").on("click", "a[role=add-item-drop]", $.proxy(this.addItem, this));
-	$("#main").on("click", "button[role=delete]", $.proxy(this.remove, this));
-	$("nav").on("click", "[href=#configuration]", $.proxy(this.load, this));
 	
 	this.updateXpCurve = function() {
 		var base = +$("#main [name=xpBase]").val();
@@ -159,6 +160,14 @@ var Configuration = function() {
 	$("#main").on("change", "[name=pvBase]", this.updatePvCurve);
 	$("#main").on("change", "[name=pvFactor]", this.updatePvCurve);
 
+	$("#main").on("click", "button[role=save]", $.proxy(this.save, this));
+	$("#main").on("click", "button[role=add-simple-command]", $.proxy(this.addSimpleCommand, this));
+	$("#main").on("click", "button[role=add-timer]", $.proxy(this.addTimer, this));
+	$("#main").on("click", "a[role=add-monster]", $.proxy(this.addMonster, this));
+	$("#main").on("click", "a[role=add-item-drop]", $.proxy(this.addItem, this));
+	$("#main").on("click", "a[role=add-item-use]", $.proxy(this.addItemUse, this));
+	$("#main").on("click", "button[role=delete]", $.proxy(this.remove, this));
+	$("nav").on("click", "[href=#configuration]", $.proxy(this.load, this));
 
 };
 
@@ -168,6 +177,13 @@ $(function() {
 	$("#main").on("click", "button.onoff", function() {
 		$(this).toggleClass("btn-danger");
 		$(this).toggleClass("btn-success");
+	});
+	
+	$("#main").on("click", ".auto-drop-down a", function(event){
+		event.preventDefault();
+		var value = $(this).attr("role");
+		$(this).parents(".auto-drop-down").parent().find("input[type=hidden]").val(value);
+		$(this).parents(".auto-drop-down").find("button").text(value);
 	});
 
 });

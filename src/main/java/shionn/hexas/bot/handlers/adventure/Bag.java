@@ -18,7 +18,6 @@ import shionn.hexas.mongo.mo.adventure.Player;
 public class Bag {
 
 	public void run(Player player, Adventure adventure, MessageEvent<HexasBot> event) {
-
 		new MessageBuilder(adventure.getMessages().getBag()).bag(player.getItems().toString())
 				.send(event);
 	}
