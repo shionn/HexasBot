@@ -8,6 +8,7 @@ var Configuration = function() {
 	this.tMonster = new MTemplate("monster");
 	this.tItemDrop = new MTemplate("item-drop");
 	this.tItemUse = new MTemplate("item-use");
+	this.tCraft = new MTemplate("craft");
 	this.tError = new MTemplate("error");
 
 	this.load = function(event) {
@@ -63,6 +64,7 @@ var Configuration = function() {
 			monsters : this.extractArrayObject("[role=monster]"),
 			drops : this.extractArrayObject("[role=item-drop]"),
 			uses : this.extractArrayObject("[role=item-use]"),
+			schemes : this.extractArrayObject("[role=craft]"),
 			gamer : this.extractObject("[role=gamer]")
 		};
 	};
@@ -103,6 +105,12 @@ var Configuration = function() {
 		event.preventDefault();
 		var target = $("#main").find("[role=item-drop-title]");
 		this.tItemDrop.insertAfter({}, target);
+	};
+
+	this.addCraft = function(event) {
+		event.preventDefault();
+		var target = $("#main").find("[role=craft-title]");
+		this.tCraft.insertAfter({}, target);
 	};
 
 	this.addItemUse = function(event) {
@@ -166,6 +174,7 @@ var Configuration = function() {
 	$("#main").on("click", "a[role=add-monster]", $.proxy(this.addMonster, this));
 	$("#main").on("click", "a[role=add-item-drop]", $.proxy(this.addItem, this));
 	$("#main").on("click", "a[role=add-item-use]", $.proxy(this.addItemUse, this));
+	$("#main").on("click", "a[role=add-craft]", $.proxy(this.addCraft, this));
 	$("#main").on("click", "button[role=delete]", $.proxy(this.remove, this));
 	$("nav").on("click", "[href=#configuration]", $.proxy(this.load, this));
 

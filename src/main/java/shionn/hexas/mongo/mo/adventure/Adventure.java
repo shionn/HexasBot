@@ -18,6 +18,7 @@ public class Adventure {
 	private List<Monster> monsters;
 	private List<Drop> drops;
 	private List<Use> uses;
+	private List<Schema> schemes;
 
 	private Gamer gamer;
 
@@ -75,6 +76,14 @@ public class Adventure {
 
 	public void setUses(List<Use> uses) {
 		this.uses = uses;
+	}
+
+	public List<Schema> getSchemes() {
+		return schemes;
+	}
+
+	public void setSchemes(List<Schema> schemes) {
+		this.schemes = schemes;
 	}
 
 }

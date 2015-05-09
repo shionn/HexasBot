@@ -15,6 +15,7 @@ public class Command {
 	private String bag;
 	private String itemUse;
 	private String stat;
+	private String craft;
 
 	public String getBattle() {
 		return battle;
@@ -55,6 +56,14 @@ public class Command {
 
 	public void setItemUse(String itemUse) {
 		this.itemUse = itemUse;
+	}
+
+	public String getCraft() {
+		return craft;
+	}
+
+	public void setCraft(String craft) {
+		this.craft = craft;
 	}
 
 }

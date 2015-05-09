@@ -23,8 +23,13 @@ public class Message {
 	private String lvlUp;
 	private String stat;
 	private String bag;
+	private String craft;
 	private String noItem;
 	private String noUse;
+	private String noSchema;
+	private String needItem;
+	private String helpCraft;
+	private String helpUse;
 
 	public String getBattleWin() {
 		return battleWin;
@@ -151,4 +156,45 @@ public class Message {
 	public void setNoUse(String noUse) {
 		this.noUse = noUse;
 	}
+
+	public String getNoSchema() {
+		return noSchema;
+	}
+
+	public void setNoSchema(String noSchema) {
+		this.noSchema = noSchema;
+	}
+
+	public String getNeedItem() {
+		return needItem;
+	}
+
+	public void setNeedItem(String needItem) {
+		this.needItem = needItem;
+	}
+
+	public String getCraft() {
+		return craft;
+	}
+
+	public void setCraft(String craft) {
+		this.craft = craft;
+	}
+
+	public String getHelpUse() {
+		return helpUse;
+	}
+
+	public void setHelpUse(String helpUse) {
+		this.helpUse = helpUse;
+	}
+
+	public String getHelpCraft() {
+		return helpCraft;
+	}
+
+	public void setHelpCraft(String helpCraft) {
+		this.helpCraft = helpCraft;
+	}
+
 }

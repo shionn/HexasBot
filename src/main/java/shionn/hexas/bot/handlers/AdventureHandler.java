@@ -42,6 +42,9 @@ public class AdventureHandler {
 	@Inject
 	private ItemUse use;
 
+	@Inject
+	private Craft craft;
+
 	public void handle(Adventure adventure, MessageEvent<HexasBot> event) {
 		Player player = getPlayer(adventure, event);
 		if (event.getMessage().equals(adventure.getCommands().getBattle())) {
@@ -57,6 +60,8 @@ public class AdventureHandler {
 			bag.run(player, adventure, event);
 		} else if (event.getMessage().startsWith(adventure.getCommands().getItemUse())) {
 			use.run(player, adventure, event);
+		} else if (event.getMessage().startsWith(adventure.getCommands().getCraft())) {
+			craft.run(player, adventure, event);
 		}
 	}
 

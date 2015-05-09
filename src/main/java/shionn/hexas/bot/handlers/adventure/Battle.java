@@ -55,7 +55,7 @@ public class Battle {
 			MessageEvent<HexasBot> event) {
 		player.setXp(player.getXp() + monster.getXp());
 		int po = randomInterval(monster.getPo());
-		player.setPo(player.getPo() + po);
+		player.po(po);
 		Drop drop = drop(adventure, monster, player);
 		MessageBuilder message = new MessageBuilder(adventure.getMessages().getBattleWin())
 				.append(adventure.getMessages().getPvLoose())
@@ -92,12 +92,7 @@ public class Battle {
 	private Drop drop(Adventure adventure, Monster monster, Player player) {
 		Drop drop = findDrop(adventure, monster);
 		if (drop != null) {
-			Integer qty = player.getItems().get(drop.getItem());
-			if (qty == null) {
-				qty = 0;
-			}
-			qty++;
-			player.getItems().put(drop.getItem(), qty);
+			player.item(drop.getItem(), 1);
 		}
 		return drop;
 	}

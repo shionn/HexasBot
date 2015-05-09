@@ -103,4 +103,19 @@ public class Player {
 		this.maxPv = maxPv;
 	}
 
+	public int item(String item, int qty) {
+		Integer current = getItems().get(item);
+		if (current == null) {
+			current = 0;
+		}
+		current += qty;
+		getItems().put(item, current);
+		return current;
+	}
+
+	public int po(int po) {
+		this.po += po;
+		return this.po;
+	}
+
 }

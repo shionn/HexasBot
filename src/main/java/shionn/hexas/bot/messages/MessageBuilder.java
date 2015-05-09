@@ -10,6 +10,7 @@ import shionn.hexas.bot.HexasBot;
 import shionn.hexas.mongo.mo.adventure.Drop;
 import shionn.hexas.mongo.mo.adventure.Monster;
 import shionn.hexas.mongo.mo.adventure.Player;
+import shionn.hexas.mongo.mo.adventure.Schema;
 
 public class MessageBuilder {
 
@@ -92,6 +93,15 @@ public class MessageBuilder {
 
 	public MessageBuilder var(String var) {
 		substitution.put("var", var);
+		return this;
+	}
+
+	public MessageBuilder schema(Schema schema) {
+		return item(schema.getItem()).po(schema.getPo()).items(schema.getRequiereds());
+	}
+
+	public MessageBuilder items(String items) {
+		substitution.put("items", items);
 		return this;
 	}
 
