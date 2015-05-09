@@ -34,7 +34,10 @@ public class Craft {
 	public void run(Player player, Adventure adventure, MessageEvent<HexasBot> event) {
 		String item = event.getMessage().replace(adventure.getCommands().getCraft(), "").trim();
 		Schema schema = getSchema(adventure, item);
-		if (schema == null) {
+		if (item.length() == 0) {
+			new MessageBuilder(adventure.getMessages().getHelpCraft()).crafts(
+					findSchemaNames(adventure).toString()).send(event);
+		} else if (schema == null) {
 			new MessageBuilder(adventure.getMessages().getNoSchema()).item(item).send(event);
 		} else {
 			List<String> requireds = findRequiereds(schema);
@@ -91,6 +94,14 @@ public class Craft {
 			}
 		}
 		return schema;
+	}
+
+	private List<String> findSchemaNames(Adventure adventure) {
+		List<String> names = new ArrayList<String>();
+		for (Schema schema : adventure.getSchemes()) {
+			names.add(schema.getItem());
+		}
+		return names;
 	}
 
 }

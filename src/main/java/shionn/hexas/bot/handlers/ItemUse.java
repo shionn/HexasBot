@@ -39,6 +39,8 @@ public class ItemUse {
 			} else {
 				use(player, use, adventure, item, event);
 			}
+		} else if (item.length() == 0) {
+			new MessageBuilder(adventure.getMessages().getHelpUse()).send(event);
 		} else {
 			new MessageBuilder(adventure.getMessages().getNoItem()).item(item).send(event);
 		}

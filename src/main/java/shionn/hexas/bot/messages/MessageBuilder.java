@@ -105,4 +105,9 @@ public class MessageBuilder {
 		return this;
 	}
 
+	public MessageBuilder crafts(String crafts) {
+		substitution.put("crafts", crafts);
+		return this;
+	}
+
 }
