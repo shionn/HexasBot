@@ -5,6 +5,7 @@ import java.util.Iterator;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.mongojack.JacksonDBCollection;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
@@ -26,6 +27,8 @@ import shionn.hexas.mongo.mo.adventure.Use;
 public class ItemUse {
 	@Inject
 	private NextLvl nextLvl;
+	@Inject
+	private JacksonDBCollection<Player, String> players;
 
 	public void run(Player player, Adventure adventure, MessageEvent<HexasBot> event) {
 		String item = event.getMessage().replace(adventure.getCommands().getItemUse(), "").trim();
@@ -56,6 +59,7 @@ public class ItemUse {
 			new MessageBuilder("Shionn, n'as pas encore fait : " + use.getUsage()).send(event);
 			break;
 		}
+		players.save(player);
 	}
 
 	public void pvGain(Player player, Use use, MessageEvent<HexasBot> event) {
