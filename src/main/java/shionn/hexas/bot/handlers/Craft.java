@@ -38,6 +38,7 @@ public class Craft {
 			new MessageBuilder(adventure.getMessages().getHelpCraft()).crafts(
 					findSchemaNames(adventure).toString()).send(event);
 		} else if (schema == null) {
+			player.setLastCraft(System.currentTimeMillis());
 			new MessageBuilder(adventure.getMessages().getNoSchema()).item(item).send(event);
 		} else {
 			List<String> requireds = findRequiereds(schema);
@@ -48,8 +49,8 @@ public class Craft {
 						.items(requireds.toString()).send(event);
 			}
 			player.setLastCraft(System.currentTimeMillis());
-			players.save(player);
 		}
+		players.save(player);
 	}
 
 	public void craft(Player player, Schema schema, List<String> requireds, Adventure adventure,
@@ -90,7 +91,7 @@ public class Craft {
 		Iterator<Schema> schemes = adventure.getSchemes().iterator();
 		while (schema == null && schemes.hasNext()) {
 			Schema current = schemes.next();
-			if (item.equals(current.getItem())) {
+			if (item.equalsIgnoreCase(current.getItem())) {
 				schema = current;
 			}
 		}

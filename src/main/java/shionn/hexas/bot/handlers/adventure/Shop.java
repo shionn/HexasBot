@@ -50,7 +50,7 @@ public class Shop {
 				new MessageBuilder(adventure.getMessages().getShopNotEnouthMoney()).item(item)
 						.send(event);
 			}
-			// player.setLastShop(System.currentTimeMillis());
+			player.setLastShop(System.currentTimeMillis());
 			players.save(player);
 		}
 	}
@@ -65,7 +65,7 @@ public class Shop {
 		Iterator<ItemShop> shops = adventure.getShops().iterator();
 		while (itemShop == null && shops.hasNext()) {
 			ItemShop current = shops.next();
-			if (current.getItem().equals(item)) {
+			if (current.getItem().equalsIgnoreCase(item)) {
 				itemShop = current;
 			}
 		}
