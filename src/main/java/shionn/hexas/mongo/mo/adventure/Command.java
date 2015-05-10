@@ -20,6 +20,8 @@ public class Command {
 	private int statColdDown;
 	private String craft;
 	private int craftColdDown;
+	private String shop;
+	private int shopColdDown;
 
 	public String getBattle() {
 		return battle;
@@ -100,6 +102,22 @@ public class Command {
 
 	public void setCraftColdDown(int craftColdDown) {
 		this.craftColdDown = craftColdDown;
+	}
+
+	public String getShop() {
+		return shop;
+	}
+
+	public void setShop(String shop) {
+		this.shop = shop;
+	}
+
+	public int getShopColdDown() {
+		return shopColdDown;
+	}
+
+	public void setShopColdDown(int shopColdDown) {
+		this.shopColdDown = shopColdDown;
 	}
 
 }

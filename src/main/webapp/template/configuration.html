@@ -29,7 +29,7 @@
 	<div class="col-sm-12">
 		<hr>
 	</div>
-	<div class="col-sm-5">
+	<div class="col-sm-6">
 		<span class="h1">Timer</span>
 	</div>
 	<div class="col-sm-6">
@@ -87,6 +87,7 @@
 				<li><a href="#" role="add-item-drop">Item Drop</a></li>
 				<li><a href="#" role="add-item-use">Utilisation d'Objet</a></li>
 				<li><a href="#" role="add-craft">Patron de Craft</a></li>
+				<li><a href="#" role="add-shop">Entrée de magasin</a></li>
 			</ul>
 		</div>
 	</div>
@@ -158,6 +159,20 @@
 	<div class="col-sm-5">
 		<hr>
 	</div>
+
+	<div class="col-sm-3">Magasin</div>
+	<div class="col-sm-2">
+		<input type="text" name="shop" value="{{data.adventure.commands.shop}}" placeholder="!shop"
+			class="form-control" />
+	</div>
+	<div class="col-sm-2">
+		<input type="number" name="shopColdDown" value="{{data.adventure.commands.shopColdDown}}"
+			placeholder="cold down" class="form-control" />
+	</div>
+	<div class="col-sm-5">
+		<hr>
+	</div>
+
 </div>
 
 <div class="container" role="adventure-messages">
@@ -234,47 +249,112 @@
 			placeholder="${user}, tu as dois attendre ${coldDown} minute entre deux ${command}."
 			class="form-control" />
 	</div>
-	<div class="col-sm-3">Fabrication d'objet</div>
-	<div class="col-sm-9">
-		<input type="text" name="craft" value="{{data.adventure.messages.craft}}"
-			placeholder="${user} fabrique ${item} à partir de ${items} et paye ${po} po."
-			class="form-control" />
+</div>
+<div class="container">
+	<div class="col-sm-2 hidden-xs">
+		<hr>
 	</div>
-	<div class="col-sm-3">Object Requis</div>
-	<div class="col-sm-9">
-		<input type="text" name="needItem" value="{{data.adventure.messages.needItem}}"
-			placeholder="${user}, tu as besoin de ${items} et ${po} piece." class="form-control" />
+	<div class="col-sm-3 h4">Utilisation d'objet</div>
+	<div class="col-sm-7 hidden-xs">
+		<hr>
 	</div>
+</div>
+<div class="container" role="adventure-messages">
 	<div class="col-sm-3">Pas d'objet</div>
 	<div class="col-sm-9">
 		<input type="text" name="noItem" value="{{data.adventure.messages.noItem}}"
 			placeholder="${user}, vous n'avez pas de ${item}." class="form-control" />
-	</div>
-	<div class="col-sm-3">Pas de Schema</div>
-	<div class="col-sm-9">
-		<input type="text" name="noSchema" value="{{data.adventure.messages.noSchema}}"
-			placeholder="${user}, il n'existe pas de plan pour ${item}" class="form-control" />
 	</div>
 	<div class="col-sm-3">Utilisation inconnue</div>
 	<div class="col-sm-9">
 		<input type="text" name="noUse" value="{{data.adventure.messages.noUse}}"
 			placeholder="${user}, ${item} ne sert à rien" class="form-control" />
 	</div>
-	<div class="col-sm-3">Aide craft</div>
+</div>
+
+<div class="container">
+	<div class="col-sm-2 hidden-xs">
+		<hr>
+	</div>
+	<div class="col-sm-3 h4">Craft</div>
+	<div class="col-sm-7 hidden-xs">
+		<hr>
+	</div>
+</div>
+<div class="container" role="adventure-messages">
+	<div class="col-sm-3">Fabrication d'objet</div>
+	<div class="col-sm-9">
+		<input type="text" name="craft" value="{{data.adventure.messages.craft}}"
+			placeholder="${user} fabrique ${item} à partir de ${items} et paye ${po} po."
+			class="form-control" />
+	</div>
+	<div class="col-sm-3">Aide</div>
 	<div class="col-sm-9">
 		<input type="text" name="helpCraft" value="{{data.adventure.messages.helpCraft}}"
 			placeholder="Il est possible de crafter ${crafts}. commande : !craft <objet>"
 			class="form-control" />
 	</div>
-	<div class="col-sm-3">Aide utilisation</div>
+	<div class="col-sm-3">Pas de Schema</div>
 	<div class="col-sm-9">
-		<input type="text" name="helpUse" value="{{data.adventure.messages.helpUse}}"
-			placeholder="Utilisation : !use <objet>" class="form-control" />
+		<input type="text" name="noSchema" value="{{data.adventure.messages.noSchema}}"
+			placeholder="${user}, il n'existe pas de plan pour ${item}" class="form-control" />
+	</div>
+	<div class="col-sm-3">Absence d'object requis</div>
+	<div class="col-sm-9">
+		<input type="text" name="needItem" value="{{data.adventure.messages.needItem}}"
+			placeholder="${user}, tu as besoin de ${items} et ${po} piece." class="form-control" />
+	</div>
+</div>
+
+<div class="container">
+	<div class="col-sm-2 hidden-xs">
+		<hr>
+	</div>
+	<div class="col-sm-3 h4">Magasin</div>
+	<div class="col-sm-7 hidden-xs">
+		<hr>
+	</div>
+</div>
+<div class="container" role="adventure-messages">
+	<div class="col-sm-3">Aide</div>
+	<div class="col-sm-9">
+		<input type="text" name="helpShop" value="{{data.adventure.messages.helpShop}}"
+			placeholder="Utilisation : !shop <objet>, prix : {items}" class="form-control" />
+	</div>
+	<div class="col-sm-3">Description d'objet</div>
+	<div class="col-sm-9">
+		<input type="text" name="itemShopDesc" value="{{data.adventure.messages.itemShopDesc}}"
+			placeholder="${item}: ${sellPrice}po" class="form-control" />
+	</div>
+  <div class="col-sm-3">Message d'achat</div>
+  <div class="col-sm-9">
+		<input type="text" name="shopBuy" value="{{data.adventure.messages.shopBuy}}"
+			placeholder="${user} achete ${item} pour ${po} po." class="form-control" />
+	</div>
+	<div class="col-sm-3">Object indisponible</div>
+	<div class="col-sm-9">
+		<input type="text" name="shopNoItem" value="{{data.adventure.messages.shopNoItem}}"
+			placeholder="Navré, il n'y a pas de ${item} à vendre." class="form-control" />
+	</div>
+	<div class="col-sm-3">Pas assez d'argent</div>
+	<div class="col-sm-9">
+		<input type="text" name="shopNotEnouthMoney"
+			value="{{data.adventure.messages.shopNotEnouthMoney}}"
+			placeholder="Navré ${user}, tu n'as pas assez d'argent." class="form-control" />
 	</div>
 </div>
 
 <div class="container" role="monster-title">
-	<div class="col-sm-12 h3">Monstre</div>
+	<div class="col-sm-12">
+		<hr>
+	</div>
+	<div class="col-sm-12 h3">
+		Monstre
+		<button type="button" class="btn btn-info pull-right" role="add-monster">
+			Ajouter <span class="glyphicon glyphicon-plus"></span>
+		</button>
+	</div>
+
 	<div class="col-sm-3 text-center">Nom</div>
 	<div class="col-sm-2 text-center">Xp</div>
 	<div class="col-sm-2 text-center">Lvl</div>
@@ -310,7 +390,15 @@
 {{/data.adventure.monsters}}
 
 <div class="container" role="item-drop-title">
-	<div class="col-sm-12 h3">Item Drop</div>
+	<div class="col-sm-12">
+		<hr>
+	</div>
+	<div class="col-sm-12 h3">
+		Item Drop
+		<button type="button" class="btn btn-info pull-right" role="add-item-drop">
+			Ajouter <span class="glyphicon glyphicon-plus"></span>
+		</button>
+	</div>
 </div>
 
 {{#data.adventure.drops}}
@@ -333,7 +421,15 @@
 {{/data.adventure.drops}}
 
 <div class="container" role="item-use-title">
-	<div class="col-sm-12 h3">Utilisation</div>
+	<div class="col-sm-12">
+		<hr>
+	</div>
+	<div class="col-sm-12 h3">
+		Utilisation
+		<button type="button" class="btn btn-info pull-right" role="add-item-use">
+			Ajouter <span class="glyphicon glyphicon-plus"></span>
+		</button>
+	</div>
 </div>
 
 {{#data.adventure.uses}}
@@ -370,7 +466,12 @@
 {{/data.adventure.uses}}
 
 <div class="container" role="craft-title">
-	<div class="col-sm-12 h3">Craft</div>
+	<div class="col-sm-12 h3">
+		Craft
+		<button type="button" class="btn btn-info pull-right" role="add-craft">
+			Ajouter <span class="glyphicon glyphicon-plus"></span>
+		</button>
+	</div>
 </div>
 
 {{#data.adventure.schemes}}
@@ -392,6 +493,36 @@
 	</div>
 </div>
 {{/data.adventure.schemes}}
+
+<div class="container" role="shop-title">
+	<div class="col-sm-12 h3">
+		Magasin
+		<button type="button" class="btn btn-info pull-right" role="add-shop">
+			Ajouter <span class="glyphicon glyphicon-plus"></span>
+		</button>
+	</div>
+</div>
+
+{{#data.adventure.shops}}
+<div class="container" role="shop">
+	<div class="col-sm-3">
+		<input type="text" name="item" value="{{item}}" placeholder="object" class="form-control" />
+	</div>
+	<div class="col-sm-3">
+		<input type="number" name="sellPrice" value="{{sellPrice}}" placeholder="prix de vente"
+			class="form-control" />
+	</div>
+	<div class="col-sm-5">
+		<hr>
+	</div>
+	<div class="col-sm-1">
+		<button type="button" class="btn btn-danger center" role="delete">
+			<span class="glyphicon glyphicon-trash"></span>
+		</button>
+	</div>
+</div>
+{{/data.adventure.shops}}
+
 
 <div class="container" role="gamer">
 	<div class="col-sm-12 h3">Courbe d'experience</div>

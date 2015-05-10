@@ -9,6 +9,7 @@ import org.pircbotx.hooks.events.MessageEvent;
 import shionn.hexas.bot.HexasBot;
 import shionn.hexas.bot.handlers.adventure.Bag;
 import shionn.hexas.bot.handlers.adventure.Battle;
+import shionn.hexas.bot.handlers.adventure.Shop;
 import shionn.hexas.bot.handlers.adventure.Stat;
 import shionn.hexas.bot.messages.MessageBuilder;
 import shionn.hexas.mongo.mo.adventure.Adventure;
@@ -45,6 +46,9 @@ public class AdventureHandler {
 	@Inject
 	private Craft craft;
 
+	@Inject
+	private Shop shop;
+
 	public void handle(Adventure adventure, MessageEvent<HexasBot> event) {
 		Player player = getPlayer(adventure, event);
 		if (event.getMessage().equals(adventure.getCommands().getBattle())
@@ -63,6 +67,9 @@ public class AdventureHandler {
 		} else if (event.getMessage().startsWith(adventure.getCommands().getCraft())
 				&& craftNotTooEarly(adventure, player, event)) {
 			craft.run(player, adventure, event);
+		} else if (event.getMessage().startsWith(adventure.getCommands().getShop())
+				&& shopNotTooEarly(adventure, player, event)) {
+			shop.run(player, adventure, event);
 		}
 	}
 
@@ -92,6 +99,11 @@ public class AdventureHandler {
 			MessageEvent<HexasBot> event) {
 		return isNotTooEarly(adventure.getCommands().getCraft(), adventure.getCommands()
 				.getCraftColdDown(), player.getLastCraft(), adventure, event);
+	}
+
+	private boolean shopNotTooEarly(Adventure adventure, Player player, MessageEvent<HexasBot> event) {
+		return isNotTooEarly(adventure.getCommands().getShop(), adventure.getCommands()
+				.getShopColdDown(), player.getLastShop(), adventure, event);
 	}
 
 	private boolean isNotTooEarly(String cmd, int coldDown, long last, Adventure adventure,

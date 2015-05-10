@@ -33,6 +33,11 @@ public class Message {
 	private String needItem;
 	private String helpCraft;
 	private String helpUse;
+	private String helpShop;
+	private String itemShopDesc;
+	private String shopNoItem;
+	private String shopNotEnouthMoney;
+	private String shopBuy;
 
 	public String getBattleWin() {
 		return battleWin;
@@ -200,4 +205,43 @@ public class Message {
 		this.coldDown = coldDown;
 	}
 
+	public String getHelpShop() {
+		return helpShop;
+	}
+
+	public void setHelpShop(String helpShop) {
+		this.helpShop = helpShop;
+	}
+
+	public String getItemShopDesc() {
+		return itemShopDesc;
+	}
+
+	public void setItemShopDesc(String itemShopDesc) {
+		this.itemShopDesc = itemShopDesc;
+	}
+
+	public String getShopNoItem() {
+		return shopNoItem;
+	}
+
+	public void setShopNoItem(String shopNoItem) {
+		this.shopNoItem = shopNoItem;
+	}
+
+	public String getShopNotEnouthMoney() {
+		return shopNotEnouthMoney;
+	}
+
+	public void setShopNotEnouthMoney(String shopNotEnouthMoney) {
+		this.shopNotEnouthMoney = shopNotEnouthMoney;
+	}
+
+	public String getShopBuy() {
+		return shopBuy;
+	}
+
+	public void setShopBuy(String shopBuy) {
+		this.shopBuy = shopBuy;
+	}
 }

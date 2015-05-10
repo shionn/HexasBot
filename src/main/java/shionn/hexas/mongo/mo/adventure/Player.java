@@ -31,6 +31,7 @@ public class Player {
 	private long lastBag;
 	private long lastItemUse;
 	private long lastCraft;
+	private long lastShop;
 
 	public Player() {
 	}
@@ -148,6 +149,14 @@ public class Player {
 
 	public void setLastItemUse(long lastItemUse) {
 		this.lastItemUse = lastItemUse;
+	}
+
+	public long getLastShop() {
+		return lastShop;
+	}
+
+	public void setLastShop(long lastShop) {
+		this.lastShop = lastShop;
 	}
 
 }

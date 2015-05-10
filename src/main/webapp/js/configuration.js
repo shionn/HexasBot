@@ -9,6 +9,7 @@ var Configuration = function() {
 	this.tItemDrop = new MTemplate("item-drop");
 	this.tItemUse = new MTemplate("item-use");
 	this.tCraft = new MTemplate("craft");
+	this.tShop = new MTemplate("shop");
 	this.tError = new MTemplate("error");
 
 	this.load = function(event) {
@@ -58,6 +59,7 @@ var Configuration = function() {
 			drops : this.extractArrayObject("[role=item-drop]"),
 			uses : this.extractArrayObject("[role=item-use]"),
 			schemes : this.extractArrayObject("[role=craft]"),
+			shops : this.extractArrayObject("[role=shop]"),
 			gamer : this.extractObject("[role=gamer]")
 		};
 	};
@@ -105,6 +107,13 @@ var Configuration = function() {
 		var target = $("#main").find("[role=craft-title]");
 		this.tCraft.insertAfter({}, target);
 	};
+	
+	this.addShop = function(event) {
+		event.preventDefault();
+		var target = $("#main").find("[role=shop-title]");
+		this.tShop.insertAfter({}, target);
+	};
+
 
 	this.addItemUse = function(event) {
 		event.preventDefault();
@@ -164,10 +173,11 @@ var Configuration = function() {
 	$("#main").on("click", "button[role=save]", $.proxy(this.save, this));
 	$("#main").on("click", "button[role=add-simple-command]", $.proxy(this.addSimpleCommand, this));
 	$("#main").on("click", "button[role=add-timer]", $.proxy(this.addTimer, this));
-	$("#main").on("click", "a[role=add-monster]", $.proxy(this.addMonster, this));
-	$("#main").on("click", "a[role=add-item-drop]", $.proxy(this.addItem, this));
-	$("#main").on("click", "a[role=add-item-use]", $.proxy(this.addItemUse, this));
-	$("#main").on("click", "a[role=add-craft]", $.proxy(this.addCraft, this));
+	$("#main").on("click", "button[role=add-monster]", $.proxy(this.addMonster, this));
+	$("#main").on("click", "button[role=add-item-drop]", $.proxy(this.addItem, this));
+	$("#main").on("click", "button[role=add-item-use]", $.proxy(this.addItemUse, this));
+	$("#main").on("click", "button[role=add-craft]", $.proxy(this.addCraft, this));
+	$("#main").on("click", "button[role=add-shop]", $.proxy(this.addShop, this));
 	$("#main").on("click", "button[role=delete]", $.proxy(this.remove, this));
 	$("nav").on("click", "[href=#configuration]", $.proxy(this.load, this));
 

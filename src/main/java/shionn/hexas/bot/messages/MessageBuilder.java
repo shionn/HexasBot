@@ -1,13 +1,16 @@
 package shionn.hexas.bot.messages;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.StrSubstitutor;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
 import shionn.hexas.mongo.mo.adventure.Drop;
+import shionn.hexas.mongo.mo.adventure.ItemShop;
 import shionn.hexas.mongo.mo.adventure.Monster;
 import shionn.hexas.mongo.mo.adventure.Player;
 import shionn.hexas.mongo.mo.adventure.Schema;
@@ -23,7 +26,8 @@ public class MessageBuilder {
 	}
 
 	public String message() {
-		return new StrSubstitutor(substitution).replace(message);
+		StrSubstitutor substitutor = new StrSubstitutor(substitution);
+		return substitutor.replace(message);
 	}
 
 	public MessageBuilder append(String message) {
@@ -113,6 +117,14 @@ public class MessageBuilder {
 	public MessageBuilder command(String cmd) {
 		substitution.put("cmd", cmd);
 		return this;
+	}
+
+	public MessageBuilder items(List<String> items) {
+		return items(StringUtils.join(items, ", "));
+	}
+
+	public MessageBuilder item(ItemShop itemShop) {
+		return item(itemShop.getItem()).po(itemShop.getSellPrice());
 	}
 
 }
