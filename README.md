@@ -11,3 +11,14 @@ A faire  :
     - genre loot objet > destruction de magasin
     
 - commande de vol de po avec change de reussite et echec
+
+
+- commande d'attaqu epersonnalié !pied
+
+- equipement modifiant les combat (genre armure épée ....)
+
+
+!battle magic / !battle arme
+
+
+avec les po : acheter des truc au joueur : par exemple un renaming

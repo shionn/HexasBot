@@ -29,7 +29,7 @@
 	<div class="col-sm-12">
 		<hr>
 	</div>
-	<div class="col-sm-6">
+	<div class="col-sm-5">
 		<span class="h1">Timer</span>
 	</div>
 	<div class="col-sm-6">
@@ -49,11 +49,15 @@
 		<input type="number" name="delayMessage" value="{{delayMessage}}" placeholder="delai (nbMessage)"
 			class="form-control" />
 	</div>
-	<div class="col-sm-7">
+	<div class="col-sm-6">
 		<input type="text" name="message" value="{{message}}" placeholder="message" class="form-control" />
 	</div>
-	<div class="col-sm-1">
-		<button type="button" class="btn btn-danger center" role="delete">
+	<div class="col-sm-2 btn-group">
+		<button type="button" class="btn {{#onOffButtonClass}}{{activated}}{{/onOffButtonClass}} onoff">
+			<span class="glyphicon glyphicon-off"></span>
+		</button>
+		<input type="hidden" name="activated" value="{{activated}}">
+		<button type="button" class="btn btn-danger" role="delete">
 			<span class="glyphicon glyphicon-trash"></span>
 		</button>
 	</div>

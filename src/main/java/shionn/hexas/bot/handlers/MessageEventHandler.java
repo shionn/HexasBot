@@ -41,15 +41,21 @@ public class MessageEventHandler {
 	public void handle(MessageEvent<HexasBot> event) {
 		if (!debug || "shi0nn".equals(event.getUser().getNick())) {
 			ChannelConfiguration channel = channels.findOneById(event.getChannel().getName());
-			if (event.getMessage().indexOf('!') == 0) {
-				for (SimpleCommand command : channel.getSimpleCommands()) {
-					simple.handle(command, event);
-				}
-				if (channel.getAdventure().isActivated()) {
-					adventure.handle(channel.getAdventure(), event);
-				}
-			} else {
-				for (Timer timer : channel.getTimers()) {
+			handle(event, channel);
+		}
+	}
+
+	private void handle(MessageEvent<HexasBot> event, ChannelConfiguration channel) {
+		if (event.getMessage().indexOf('!') == 0) {
+			for (SimpleCommand command : channel.getSimpleCommands()) {
+				simple.handle(command, event);
+			}
+			if (channel.getAdventure().isActivated()) {
+				adventure.handle(channel.getAdventure(), event);
+			}
+		} else {
+			for (Timer timer : channel.getTimers()) {
+				if (timer.isActivated()) {
 					timerHandler.handle(timer, event);
 				}
 			}

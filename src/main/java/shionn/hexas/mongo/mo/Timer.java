@@ -17,6 +17,8 @@ public class Timer {
 
 	private String message;
 
+	private boolean activated;
+
 	public int getDelayTime() {
 		return delayTime;
 	}
@@ -41,5 +43,12 @@ public class Timer {
 		this.message = message;
 	}
 
+	public boolean isActivated() {
+		return activated;
+	}
+
+	public void setActivated(boolean activated) {
+		this.activated = activated;
+	}
 
 }

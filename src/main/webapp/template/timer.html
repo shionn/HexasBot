@@ -1,17 +1,19 @@
 <div class="container" role="timer">
 	<div class="col-sm-2">
-		<input type="number" name="delayTime" placeholder="delai (minute)"
-			class="form-control" />
+		<input type="number" name="delayTime" placeholder="delai (minute)" class="form-control" />
 	</div>
 	<div class="col-sm-2">
-		<input type="number" name="delayMessage" placeholder="delai (nbMessage)"
-			class="form-control" />
+		<input type="number" name="delayMessage" placeholder="delai (nbMessage)" class="form-control" />
 	</div>
-	<div class="col-sm-7">
+	<div class="col-sm-6">
 		<input type="text" name="message" placeholder="message" class="form-control" />
 	</div>
-	<div class="col-sm-1">
-		<button type="button" class="btn btn-danger center" role="delete">
+	<div class="col-sm-2 btn-group">
+		<button type="button" class="btn {{#onOffButtonClass}}{{activated}}{{/onOffButtonClass}} onoff">
+			<span class="glyphicon glyphicon-off"></span>
+		</button>
+		<input type="hidden" name="activated" value="{{activated}}">
+		<button type="button" class="btn btn-danger" role="delete">
 			<span class="glyphicon glyphicon-trash"></span>
 		</button>
 	</div>

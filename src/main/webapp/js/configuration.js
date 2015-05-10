@@ -37,19 +37,12 @@ var Configuration = function() {
 	this.buildData = function() {
 		var data = {
 			simpleCommands : new Array(),
-			timers : new Array(),
+			timers : this.extractArrayObject("[role=timer]"),
 			adventure : this.buildAdventure()
 		};
 		$.each($("[role=simple-command]"), function() {
 			data.simpleCommands.push({
 				command : $(this).find("[name=command]").val(),
-				message : $(this).find("[name=message]").val()
-			});
-		});
-		$.each($("[role=timer]"), function() {
-			data.timers.push({
-				delayTime : $(this).find("[name=delayTime]").val(),
-				delayMessage : $(this).find("[name=delayMessage]").val(),
 				message : $(this).find("[name=message]").val()
 			});
 		});
@@ -186,6 +179,8 @@ $(function() {
 	$("#main").on("click", "button.onoff", function() {
 		$(this).toggleClass("btn-danger");
 		$(this).toggleClass("btn-success");
+		var input = $(this).parent().find("input[type=hidden]");
+		input.val(!(input.val() == "true"));
 	});
 	
 	$("#main").on("click", ".auto-drop-down a", function(event){
