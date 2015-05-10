@@ -9,3 +9,5 @@ A faire  :
 
 - trigger sur evenement 
     - genre loot objet > destruction de magasin
+    
+- commande de vol de po avec change de reussite et echec

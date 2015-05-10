@@ -10,6 +10,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<debug>false</debug>
 	</properties>
 
 	<build>
@@ -81,6 +82,15 @@
 		</resources>
 
 	</build>
+
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<debug>true</debug>
+			</properties>
+		</profile>
+	</profiles>
 
 	<dependencies>
 		<!-- bot -->

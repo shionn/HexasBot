@@ -10,6 +10,8 @@ package shionn.hexas.configuration;
  */
 public enum ConfigurationKey {
 
+	Debug("debug", "false"),
+
 	BotAutoJoinDelai("bot.autojoindelai", "5"),
 
 	BotName("irc.login"),

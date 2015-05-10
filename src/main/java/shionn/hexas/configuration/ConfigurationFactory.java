@@ -18,19 +18,25 @@ public class ConfigurationFactory {
 
 	private static final String FILE = "configuration.properties";
 
-    @Produces
+	@Produces
 	@Configuration()
-    public String string(InjectionPoint point) throws IOException {
+	public String string(InjectionPoint point) throws IOException {
 		ConfigurationKey key = point.getAnnotated().getAnnotation(Configuration.class).value();
-        Properties props = new Properties();
+		Properties props = new Properties();
 		props.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(FILE));
 		return props.getProperty(key.key(), key.defolt());
-    }
+	}
 
-    @Produces
+	@Produces
 	@Configuration()
-    public int integer(InjectionPoint point) throws IOException {
-        return Integer.parseInt(string(point));
-    }
+	public int integer(InjectionPoint point) throws IOException {
+		return Integer.parseInt(string(point));
+	}
+
+	@Produces
+	@Configuration()
+	public boolean bool(InjectionPoint point) throws IOException {
+		return Boolean.parseBoolean(string(point));
+	}
 
 }
