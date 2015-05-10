@@ -260,6 +260,11 @@
 	</div>
 </div>
 <div class="container" role="adventure-messages">
+	<div class="col-sm-3">Aide</div>
+	<div class="col-sm-9">
+		<input type="text" name="helpUse" value="{{data.adventure.messages.helpUse}}"
+			placeholder="Commande : !use <objet>" class="form-control" />
+	</div>
 	<div class="col-sm-3">Pas d'objet</div>
 	<div class="col-sm-9">
 		<input type="text" name="noItem" value="{{data.adventure.messages.noItem}}"
@@ -326,8 +331,8 @@
 		<input type="text" name="itemShopDesc" value="{{data.adventure.messages.itemShopDesc}}"
 			placeholder="${item}: ${sellPrice}po" class="form-control" />
 	</div>
-  <div class="col-sm-3">Message d'achat</div>
-  <div class="col-sm-9">
+	<div class="col-sm-3">Message d'achat</div>
+	<div class="col-sm-9">
 		<input type="text" name="shopBuy" value="{{data.adventure.messages.shopBuy}}"
 			placeholder="${user} achete ${item} pour ${po} po." class="form-control" />
 	</div>
