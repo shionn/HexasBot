@@ -1,6 +1,7 @@
 package shionn.hexas.mongo.mo.adventure;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.mongojack.Id;
@@ -24,7 +25,7 @@ public class Player {
 	private int pv = 0;
 	private int maxPv = 0;
 
-	private Map<String, Integer> items = new HashMap<>();
+	private Map<String, Integer> items = new HashMap<String, Integer>();
 
 	private long lastBattle;
 	private long lastStat;
@@ -61,7 +62,7 @@ public class Player {
 	}
 
 	public void setXp(int xp) {
-		this.xp = xp;
+		this.xp = Math.max(xp, 0);
 	}
 
 	public int getPo() {
@@ -110,7 +111,11 @@ public class Player {
 			current = 0;
 		}
 		current += qty;
-		getItems().put(item, current);
+		if (current == 0) {
+			getItems().remove(item);
+		} else {
+			getItems().put(item, current);
+		}
 		return current;
 	}
 
@@ -157,6 +162,15 @@ public class Player {
 
 	public void setLastShop(long lastShop) {
 		this.lastShop = lastShop;
+	}
+
+	public boolean haveItem(String item) {
+		boolean find = false;
+		Iterator<String> ite = getItems().keySet().iterator();
+		while (!find && ite.hasNext()) {
+			find = item.equalsIgnoreCase(ite.next());
+		}
+		return find;
 	}
 
 }

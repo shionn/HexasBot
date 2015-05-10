@@ -32,12 +32,12 @@ public class ItemUse {
 
 	public void run(Player player, Adventure adventure, MessageEvent<HexasBot> event) {
 		String item = event.getMessage().replace(adventure.getCommands().getItemUse(), "").trim();
-		if (haveItem(player, item)) {
+		if (player.haveItem(item)) {
 			Use use = findUse(adventure, item);
 			if (use == null) {
 				new MessageBuilder(adventure.getMessages().getNoUse()).item(item).send(event);
 			} else {
-				use(player, use, adventure, item, event);
+				use(player, use, adventure, event);
 			}
 			player.setLastItemUse(System.currentTimeMillis());
 			players.save(player);
@@ -50,9 +50,9 @@ public class ItemUse {
 		}
 	}
 
-	public void use(Player player, Use use, Adventure adventure, String item,
+	public void use(Player player, Use use, Adventure adventure, 
 			MessageEvent<HexasBot> event) {
-		player.getItems().put(item, player.getItems().get(item) - 1);
+		player.item(use.getItem(), -1);
 		switch (use.getUsage()) {
 		case pvGain:
 			pvGain(player, use, event);
@@ -85,16 +85,11 @@ public class ItemUse {
 		Use use = null;
 		while (use == null && uses.hasNext()) {
 			Use current = uses.next();
-			if (current.getItem().equals(item)) {
+			if (current.getItem().equalsIgnoreCase(item)) {
 				use = current;
 			}
 		}
 		return use;
-	}
-
-	private boolean haveItem(Player player, String item) {
-		Integer qty = player.getItems().get(item);
-		return qty != null && qty > 0;
 	}
 
 }
