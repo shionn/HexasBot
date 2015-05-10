@@ -110,4 +110,9 @@ public class MessageBuilder {
 		return this;
 	}
 
+	public MessageBuilder command(String cmd) {
+		substitution.put("cmd", cmd);
+		return this;
+	}
+
 }

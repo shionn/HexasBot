@@ -47,6 +47,8 @@ public class Craft {
 				new MessageBuilder(adventure.getMessages().getNeedItem()).schema(schema)
 						.items(requireds.toString()).send(event);
 			}
+			player.setLastCraft(System.currentTimeMillis());
+			players.save(player);
 		}
 	}
 
@@ -59,7 +61,6 @@ public class Craft {
 		player.item(schema.getItem(), 1);
 		new MessageBuilder(adventure.getMessages().getCraft()).schema(schema)
 				.items(requireds.toString()).send(event);
-		players.save(player);
 	}
 
 	private boolean haveAllItem(Player player, List<String> requireds, Schema schema) {

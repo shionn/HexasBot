@@ -39,10 +39,14 @@ public class ItemUse {
 			} else {
 				use(player, use, adventure, item, event);
 			}
+			player.setLastItemUse(System.currentTimeMillis());
+			players.save(player);
 		} else if (item.length() == 0) {
 			new MessageBuilder(adventure.getMessages().getHelpUse()).send(event);
 		} else {
 			new MessageBuilder(adventure.getMessages().getNoItem()).item(item).send(event);
+			player.setLastItemUse(System.currentTimeMillis());
+			players.save(player);
 		}
 	}
 
@@ -60,7 +64,6 @@ public class ItemUse {
 			new MessageBuilder("Shionn, n'as pas encore fait : " + use.getUsage()).send(event);
 			break;
 		}
-		players.save(player);
 	}
 
 	public void pvGain(Player player, Use use, MessageEvent<HexasBot> event) {

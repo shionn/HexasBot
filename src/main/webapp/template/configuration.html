@@ -108,7 +108,11 @@
 		<input type="text" name="bag" value="{{data.adventure.commands.bag}}" placeholder="!bag"
 			class="form-control" />
 	</div>
-	<div class="col-sm-7">
+	<div class="col-sm-2">
+		<input type="number" name="bagColdDown" value="{{data.adventure.commands.bagColdDown}}"
+			placeholder="cold down" class="form-control" />
+	</div>
+	<div class="col-sm-5">
 		<hr>
 	</div>
 
@@ -117,7 +121,11 @@
 		<input type="text" name="stat" value="{{data.adventure.commands.stat}}" placeholder="!stat"
 			class="form-control" />
 	</div>
-	<div class="col-sm-7">
+	<div class="col-sm-2">
+		<input type="number" name="statColdDown" value="{{data.adventure.commands.statColdDown}}"
+			placeholder="cold down" class="form-control" />
+	</div>
+	<div class="col-sm-5">
 		<hr>
 	</div>
 
@@ -126,7 +134,11 @@
 		<input type="text" name="itemUse" value="{{data.adventure.commands.itemUse}}" placeholder="!use"
 			class="form-control" />
 	</div>
-	<div class="col-sm-7">
+	<div class="col-sm-2">
+		<input type="number" name="itemUseColdDown" value="{{data.adventure.commands.itemUseColdDown}}"
+			placeholder="cold down" class="form-control" />
+	</div>
+	<div class="col-sm-5">
 		<hr>
 	</div>
 
@@ -135,7 +147,11 @@
 		<input type="text" name="craft" value="{{data.adventure.commands.craft}}" placeholder="!craft"
 			class="form-control" />
 	</div>
-	<div class="col-sm-7">
+	<div class="col-sm-2">
+		<input type="number" name="craftColdDown" value="{{data.adventure.commands.craftColdDown}}"
+			placeholder="cold down" class="form-control" />
+	</div>
+	<div class="col-sm-5">
 		<hr>
 	</div>
 </div>
@@ -210,8 +226,8 @@
 	</div>
 	<div class="col-sm-3">Message de colddown</div>
 	<div class="col-sm-9">
-		<input type="text" name="battleColdDown" value="{{data.adventure.messages.battleColdDown}}"
-			placeholder="${user}, tu as dois attendre ${coldDown} minute entre deux attaques."
+		<input type="text" name="coldDown" value="{{data.adventure.messages.coldDown}}"
+			placeholder="${user}, tu as dois attendre ${coldDown} minute entre deux ${command}."
 			class="form-control" />
 	</div>
 	<div class="col-sm-3">Fabrication d'objet</div>

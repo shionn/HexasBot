@@ -47,27 +47,61 @@ public class AdventureHandler {
 
 	public void handle(Adventure adventure, MessageEvent<HexasBot> event) {
 		Player player = getPlayer(adventure, event);
-		if (event.getMessage().equals(adventure.getCommands().getBattle())) {
-			if (isNotTooEarly(adventure, player)) {
-				battle.run(player, adventure, event);
-			} else {
-				new MessageBuilder(adventure.getMessages().getBattleColdDown()).coldDown(
-						adventure.getCommands().getBattleColdDown()).send(event);
-			}
-		} else if (event.getMessage().equals(adventure.getCommands().getStat())) {
+		if (event.getMessage().equals(adventure.getCommands().getBattle())
+				&& battleNotTooEarly(adventure, player, event)) {
+			battle.run(player, adventure, event);
+		} else if (event.getMessage().equals(adventure.getCommands().getStat())
+				&& statNotTooEarly(adventure, player, event)) {
+			player.setLastStat(System.currentTimeMillis());
 			stat.run(player, adventure, event);
-		} else if (event.getMessage().equals(adventure.getCommands().getBag())) {
+		} else if (event.getMessage().equals(adventure.getCommands().getBag())
+				&& bagNotTooEarly(adventure, player, event)) {
 			bag.run(player, adventure, event);
-		} else if (event.getMessage().startsWith(adventure.getCommands().getItemUse())) {
+		} else if (event.getMessage().startsWith(adventure.getCommands().getItemUse())
+				&& itemUseNotTooEarly(adventure, player, event)) {
 			use.run(player, adventure, event);
-		} else if (event.getMessage().startsWith(adventure.getCommands().getCraft())) {
+		} else if (event.getMessage().startsWith(adventure.getCommands().getCraft())
+				&& craftNotTooEarly(adventure, player, event)) {
 			craft.run(player, adventure, event);
 		}
 	}
 
-	private boolean isNotTooEarly(Adventure adventure, Player player) {
-		return player.getLastBattle() + adventure.getCommands().getBattleColdDown() * MILLIS_IN_MIN <= System
-				.currentTimeMillis();
+	private boolean battleNotTooEarly(Adventure adventure, Player player,
+			MessageEvent<HexasBot> event) {
+		return isNotTooEarly(adventure.getCommands().getBattle(), adventure.getCommands()
+				.getBattleColdDown(), player.getLastBattle(), adventure, event);
+	}
+
+	private boolean statNotTooEarly(Adventure adventure, Player player, MessageEvent<HexasBot> event) {
+		return isNotTooEarly(adventure.getCommands().getStat(), adventure.getCommands()
+				.getStatColdDown(), player.getLastStat(), adventure, event);
+	}
+
+	private boolean bagNotTooEarly(Adventure adventure, Player player, MessageEvent<HexasBot> event) {
+		return isNotTooEarly(adventure.getCommands().getBag(), adventure.getCommands()
+				.getBagColdDown(), player.getLastBag(), adventure, event);
+	}
+
+	private boolean itemUseNotTooEarly(Adventure adventure, Player player,
+			MessageEvent<HexasBot> event) {
+		return isNotTooEarly(adventure.getCommands().getItemUse(), adventure.getCommands()
+				.getItemUseColdDown(), player.getLastItemUse(), adventure, event);
+	}
+
+	private boolean craftNotTooEarly(Adventure adventure, Player player,
+			MessageEvent<HexasBot> event) {
+		return isNotTooEarly(adventure.getCommands().getCraft(), adventure.getCommands()
+				.getCraftColdDown(), player.getLastCraft(), adventure, event);
+	}
+
+	private boolean isNotTooEarly(String cmd, int coldDown, long last, Adventure adventure,
+			MessageEvent<HexasBot> event) {
+		boolean tooEarly = last + coldDown * MILLIS_IN_MIN > System.currentTimeMillis();
+		if (tooEarly) {
+			new MessageBuilder(adventure.getMessages().getColdDown()).command(cmd)
+					.coldDown(coldDown).send(event);
+		}
+		return !tooEarly;
 	}
 
 	private Player getPlayer(Adventure adventure, MessageEvent<HexasBot> event) {

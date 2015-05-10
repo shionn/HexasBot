@@ -1,5 +1,7 @@
 package shionn.hexas.mongo.mo.adventure;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Les messages emis dans une aventure
  * 
@@ -8,10 +10,11 @@ package shionn.hexas.mongo.mo.adventure;
  * @author <b>Shionn</b>, shionn@gmail.com <i>http://shionn.org</i><br>
  *         GCS d- s+:+ a+ C++ UL/M P L+ E--- W++ N K- w-- M+ t+ 5 X R+ !tv b+ D+ G- e+++ h+ r- y+
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Message {
 	private String battleWin;
 	private String battleLoose;
-	private String battleColdDown;
+	private String coldDown;
 	private String xpGain;
 	private String xpLoose;
 	private String pvGain;
@@ -109,14 +112,6 @@ public class Message {
 		this.lvlUp = lvlUp;
 	}
 
-	public String getBattleColdDown() {
-		return battleColdDown;
-	}
-
-	public void setBattleColdDown(String battleColdDown) {
-		this.battleColdDown = battleColdDown;
-	}
-
 	public String getPvGain() {
 		return pvGain;
 	}
@@ -195,6 +190,14 @@ public class Message {
 
 	public void setHelpCraft(String helpCraft) {
 		this.helpCraft = helpCraft;
+	}
+
+	public String getColdDown() {
+		return coldDown;
+	}
+
+	public void setColdDown(String coldDown) {
+		this.coldDown = coldDown;
 	}
 
 }

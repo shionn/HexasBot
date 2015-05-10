@@ -13,9 +13,13 @@ public class Command {
 	private String battle;
 	private int battleColdDown;
 	private String bag;
+	private int bagColdDown;
 	private String itemUse;
+	private int itemUseColdDown;
 	private String stat;
+	private int statColdDown;
 	private String craft;
+	private int craftColdDown;
 
 	public String getBattle() {
 		return battle;
@@ -64,6 +68,38 @@ public class Command {
 
 	public void setCraft(String craft) {
 		this.craft = craft;
+	}
+
+	public int getBagColdDown() {
+		return bagColdDown;
+	}
+
+	public void setBagColdDown(int bagColdDown) {
+		this.bagColdDown = bagColdDown;
+	}
+
+	public int getItemUseColdDown() {
+		return itemUseColdDown;
+	}
+
+	public void setItemUseColdDown(int itemUseColdDown) {
+		this.itemUseColdDown = itemUseColdDown;
+	}
+
+	public int getStatColdDown() {
+		return statColdDown;
+	}
+
+	public void setStatColdDown(int statColdDown) {
+		this.statColdDown = statColdDown;
+	}
+
+	public int getCraftColdDown() {
+		return craftColdDown;
+	}
+
+	public void setCraftColdDown(int craftColdDown) {
+		this.craftColdDown = craftColdDown;
 	}
 
 }

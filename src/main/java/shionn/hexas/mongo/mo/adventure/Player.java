@@ -19,18 +19,18 @@ public class Player {
 	private String key;
 
 	private int lvl = 1;
-
 	private int xp = 0;
-
 	private int po = 0;
-
 	private int pv = 0;
-
 	private int maxPv = 0;
 
 	private Map<String, Integer> items = new HashMap<>();
 
 	private long lastBattle;
+	private long lastStat;
+	private long lastBag;
+	private long lastItemUse;
+	private long lastCraft;
 
 	public Player() {
 	}
@@ -116,6 +116,38 @@ public class Player {
 	public int po(int po) {
 		this.po += po;
 		return this.po;
+	}
+
+	public long getLastCraft() {
+		return lastCraft;
+	}
+
+	public void setLastCraft(long lastCraft) {
+		this.lastCraft = lastCraft;
+	}
+
+	public long getLastStat() {
+		return lastStat;
+	}
+
+	public void setLastStat(long lastStat) {
+		this.lastStat = lastStat;
+	}
+
+	public long getLastBag() {
+		return lastBag;
+	}
+
+	public void setLastBag(long lastBag) {
+		this.lastBag = lastBag;
+	}
+
+	public long getLastItemUse() {
+		return lastItemUse;
+	}
+
+	public void setLastItemUse(long lastItemUse) {
+		this.lastItemUse = lastItemUse;
 	}
 
 }

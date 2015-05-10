@@ -1,7 +1,9 @@
 package shionn.hexas.bot.handlers.adventure;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.mongojack.JacksonDBCollection;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
@@ -19,12 +21,16 @@ import shionn.hexas.mongo.mo.adventure.Player;
  */
 @Named
 public class Stat {
+	@Inject
+	private JacksonDBCollection<Player, String> players;
 
 	private NextLvl nextLvl = new NextLvl();
 
 	public void run(Player player, Adventure adventure, MessageEvent<HexasBot> event) {
+		player.setLastStat(System.currentTimeMillis());
 		new MessageBuilder(adventure.getMessages().getStat()).player(player)
 				.nextXp(nextLvl.xp(adventure, player)).send(event);
+		players.save(player);
 	}
 
 }
