@@ -9,6 +9,8 @@ import org.pircbotx.hooks.events.MessageEvent;
 import shionn.hexas.bot.HexasBot;
 import shionn.hexas.bot.handlers.adventure.BagHandler;
 import shionn.hexas.bot.handlers.adventure.BattleHandler;
+import shionn.hexas.bot.handlers.adventure.CraftHandler;
+import shionn.hexas.bot.handlers.adventure.ItemUseHandle;
 import shionn.hexas.bot.handlers.adventure.ShopHandler;
 import shionn.hexas.bot.handlers.adventure.StatHandler;
 import shionn.hexas.bot.messages.MessageBuilder;
@@ -41,10 +43,10 @@ public class AdventureHandler {
 	private BagHandler bag;
 
 	@Inject
-	private ItemUse use;
+	private ItemUseHandle use;
 
 	@Inject
-	private Craft craft;
+	private CraftHandler craft;
 
 	@Inject
 	private ShopHandler shop;

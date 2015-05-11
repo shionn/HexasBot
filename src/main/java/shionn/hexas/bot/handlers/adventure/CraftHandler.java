@@ -1,4 +1,4 @@
-package shionn.hexas.bot.handlers;
+package shionn.hexas.bot.handlers.adventure;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -24,7 +24,7 @@ import shionn.hexas.mongo.mo.adventure.SchemaMo;
  * @author <b>Shionn</b>, shionn@gmail.com <i>http://shionn.org</i><br>
  *         GCS d- s+:+ a+ C++ UL/M P L+ E--- W++ N K- w-- M+ t+ 5 X R+ !tv b+ D+ G- e+++ h+ r- y+
  */
-public class Craft {
+public class CraftHandler {
 
 	private static final Pattern SPLIT = Pattern.compile("\\&");
 

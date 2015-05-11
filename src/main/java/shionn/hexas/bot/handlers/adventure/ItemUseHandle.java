@@ -1,4 +1,4 @@
-package shionn.hexas.bot.handlers;
+package shionn.hexas.bot.handlers.adventure;
 
 import java.util.Iterator;
 
@@ -9,7 +9,6 @@ import org.mongojack.JacksonDBCollection;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
-import shionn.hexas.bot.handlers.adventure.NextLvl;
 import shionn.hexas.bot.messages.MessageBuilder;
 import shionn.hexas.mongo.mo.adventure.AdventureMo;
 import shionn.hexas.mongo.mo.adventure.PlayerMo;
@@ -24,7 +23,7 @@ import shionn.hexas.mongo.mo.adventure.UseMo;
  *         GCS d- s+:+ a+ C++ UL/M P L+ E--- W++ N K- w-- M+ t+ 5 X R+ !tv b+ D+ G- e+++ h+ r- y+
  */
 @Named
-public class ItemUse {
+public class ItemUseHandle {
 	@Inject
 	private NextLvl nextLvl;
 	@Inject
