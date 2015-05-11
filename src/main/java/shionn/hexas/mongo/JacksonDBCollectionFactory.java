@@ -10,9 +10,9 @@ import org.mongojack.JacksonDBCollection;
 
 import shionn.hexas.configuration.Configuration;
 import shionn.hexas.configuration.ConfigurationKey;
-import shionn.hexas.mongo.mo.Channel;
-import shionn.hexas.mongo.mo.ChannelConfiguration;
-import shionn.hexas.mongo.mo.adventure.Player;
+import shionn.hexas.mongo.mo.ChannelMo;
+import shionn.hexas.mongo.mo.ChannelConfigurationMo;
+import shionn.hexas.mongo.mo.adventure.PlayerMo;
 
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -34,18 +34,18 @@ public class JacksonDBCollectionFactory {
 	private String database;
 
 	@Produces
-	public JacksonDBCollection<Channel, String> channels() {
-		return collection(Channel.class, String.class);
+	public JacksonDBCollection<ChannelMo, String> channels() {
+		return collection(ChannelMo.class, String.class);
 	}
 
 	@Produces
-	public JacksonDBCollection<ChannelConfiguration, String> configurations() {
-		return collection(ChannelConfiguration.class, String.class);
+	public JacksonDBCollection<ChannelConfigurationMo, String> configurations() {
+		return collection(ChannelConfigurationMo.class, String.class);
 	}
 
 	@Produces
-	public JacksonDBCollection<Player, String> datas() {
-		return collection(Player.class, String.class);
+	public JacksonDBCollection<PlayerMo, String> datas() {
+		return collection(PlayerMo.class, String.class);
 	}
 
 	private <Type, Key> JacksonDBCollection<Type, Key> collection(Class<Type> type, Class<Key> key) {

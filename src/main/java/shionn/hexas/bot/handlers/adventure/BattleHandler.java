@@ -13,9 +13,9 @@ import org.mongojack.JacksonDBCollection;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
-import shionn.hexas.mongo.mo.adventure.Adventure;
-import shionn.hexas.mongo.mo.adventure.Monster;
-import shionn.hexas.mongo.mo.adventure.Player;
+import shionn.hexas.mongo.mo.adventure.AdventureMo;
+import shionn.hexas.mongo.mo.adventure.MonsterMo;
+import shionn.hexas.mongo.mo.adventure.PlayerMo;
 
 /**
  * Taite une commande de combat
@@ -30,20 +30,20 @@ public class BattleHandler {
 
 	private static final Pattern INTERVAL = Pattern.compile("(\\d+)-(\\d+)");
 	@Inject
-	private JacksonDBCollection<Player, String> players;
+	private JacksonDBCollection<PlayerMo, String> players;
 
 	private Random seed = new Random();
 
-	public void run(Player player, Adventure adventure, MessageEvent<HexasBot> event) {
-		Monster monster = findMonster(adventure, player);
+	public void run(PlayerMo player, AdventureMo adventure, MessageEvent<HexasBot> event) {
+		MonsterMo monster = findMonster(adventure, player);
 		new Battle(seed, adventure).player(player).monster(monster).run().message().send(event);
 		player.setLastBattle(System.currentTimeMillis());
 		players.save(player);
 	}
 
-	private Monster findMonster(Adventure adventure, Player player) {
-		List<Monster> monsters = new ArrayList<Monster>();
-		for (Monster monster : adventure.getMonsters()) {
+	private MonsterMo findMonster(AdventureMo adventure, PlayerMo player) {
+		List<MonsterMo> monsters = new ArrayList<MonsterMo>();
+		for (MonsterMo monster : adventure.getMonsters()) {
 			if (isAssignable(monster, player)) {
 				monsters.add(monster);
 			}
@@ -54,7 +54,7 @@ public class BattleHandler {
 		return monsters.get(seed.nextInt(monsters.size()));
 	}
 
-	private boolean isAssignable(Monster monster, Player player) {
+	private boolean isAssignable(MonsterMo monster, PlayerMo player) {
 		Matcher m = INTERVAL.matcher(monster.getLvl());
 		int min = 0;
 		int max = 0;

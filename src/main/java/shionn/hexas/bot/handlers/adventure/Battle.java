@@ -7,10 +7,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import shionn.hexas.bot.messages.MessageBuilder;
-import shionn.hexas.mongo.mo.adventure.Adventure;
-import shionn.hexas.mongo.mo.adventure.Drop;
-import shionn.hexas.mongo.mo.adventure.Monster;
-import shionn.hexas.mongo.mo.adventure.Player;
+import shionn.hexas.mongo.mo.adventure.AdventureMo;
+import shionn.hexas.mongo.mo.adventure.DropMo;
+import shionn.hexas.mongo.mo.adventure.MonsterMo;
+import shionn.hexas.mongo.mo.adventure.PlayerMo;
 
 /**
  * Permet de traiter un combat
@@ -23,15 +23,15 @@ import shionn.hexas.mongo.mo.adventure.Player;
 public class Battle {
 	private static final Pattern INTERVAL = Pattern.compile("(\\d+)-(\\d+)");
 
-	private Player player;
-	private Monster monster;
+	private PlayerMo player;
+	private MonsterMo monster;
 	private Random seed;
-	private Adventure adventure;
+	private AdventureMo adventure;
 	private MessageBuilder message = new MessageBuilder("");
 
 	private NextLvl nextLvl = new NextLvl();
 
-	public Battle(Random seed, Adventure adventure) {
+	public Battle(Random seed, AdventureMo adventure) {
 		this.seed = seed;
 		this.adventure = adventure;
 	}
@@ -43,7 +43,6 @@ public class Battle {
 		} else {
 			loose();
 		}
-
 		return this;
 	}
 
@@ -51,7 +50,7 @@ public class Battle {
 		player.xp(monster.getXp());
 		int po = randomInterval(monster.getPo());
 		player.po(po);
-		Drop drop = drop();
+		DropMo drop = drop();
 		message.append(adventure.getMessages().getBattleWin())
 				.append(adventure.getMessages().getPvLoose())
 				.append(adventure.getMessages().getXpGain())
@@ -92,34 +91,34 @@ public class Battle {
 		return value;
 	}
 
-	private Drop drop() {
-		Drop drop = findDrop();
+	private DropMo drop() {
+		DropMo drop = findDrop();
 		if (drop != null) {
 			player.item(drop.getItem(), 1);
 		}
 		return drop;
 	}
 
-	private Drop findDrop() {
-		List<Drop> drops = new ArrayList<>();
-		for (Drop drop : adventure.getDrops()) {
+	private DropMo findDrop() {
+		List<DropMo> drops = new ArrayList<>();
+		for (DropMo drop : adventure.getDrops()) {
 			if (drop.getMonster().equals(monster.getName()) && drop.getRate() > seed.nextInt(100)) {
 				drops.add(drop);
 			}
 		}
-		Drop drop = null;
+		DropMo drop = null;
 		if (!drops.isEmpty()) {
 			drop = drops.get(seed.nextInt(drops.size()));
 		}
 		return drop;
 	}
 
-	public Battle player(Player player) {
+	public Battle player(PlayerMo player) {
 		this.player = player;
 		return this;
 	}
 
-	public Battle monster(Monster monster) {
+	public Battle monster(MonsterMo monster) {
 		this.monster = monster;
 		return this;
 	}

@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  *         GCS d- s+:+ a+ C++ UL/M P L+ E--- W++ N K- w-- M+ t+ 5 X R+ !tv b+ D+ G- e+++ h+ r- y+
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Message {
+public class MessageMo {
 	private String battleWin;
 	private String battleLoose;
 	private String coldDown;

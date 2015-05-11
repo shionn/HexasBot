@@ -15,9 +15,9 @@ import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
 import shionn.hexas.bot.messages.MessageBuilder;
-import shionn.hexas.mongo.mo.adventure.Adventure;
-import shionn.hexas.mongo.mo.adventure.ItemShop;
-import shionn.hexas.mongo.mo.adventure.Player;
+import shionn.hexas.mongo.mo.adventure.AdventureMo;
+import shionn.hexas.mongo.mo.adventure.ItemShopMo;
+import shionn.hexas.mongo.mo.adventure.PlayerMo;
 
 /**
  * Gere le magasin dans l'aventure
@@ -31,15 +31,15 @@ import shionn.hexas.mongo.mo.adventure.Player;
 public class ShopHandler {
 
 	@Inject
-	private JacksonDBCollection<Player, String> players;
+	private JacksonDBCollection<PlayerMo, String> players;
 
 
-	public void run(Player player, Adventure adventure, MessageEvent<HexasBot> event) {
+	public void run(PlayerMo player, AdventureMo adventure, MessageEvent<HexasBot> event) {
 		String item = event.getMessage().replace(adventure.getCommands().getShop(), "").trim();
 		if (item.length() == 0) {
 			help(adventure, event);
 		} else {
-			ItemShop itemShop = findItemShop(adventure, item);
+			ItemShopMo itemShop = findItemShop(adventure, item);
 			if (itemShop == null) {
 				new MessageBuilder(adventure.getMessages().getShopNoItem()).item(item).send(event);
 			} else if (haveEnouth(itemShop, player)) {
@@ -56,15 +56,15 @@ public class ShopHandler {
 	}
 
 
-	private boolean haveEnouth(ItemShop itemShop, Player player) {
+	private boolean haveEnouth(ItemShopMo itemShop, PlayerMo player) {
 		return player.getPo() >= itemShop.getSellPrice();
 	}
 
-	private ItemShop findItemShop(Adventure adventure, String item) {
-		ItemShop itemShop = null;
-		Iterator<ItemShop> shops = adventure.getShops().iterator();
+	private ItemShopMo findItemShop(AdventureMo adventure, String item) {
+		ItemShopMo itemShop = null;
+		Iterator<ItemShopMo> shops = adventure.getShops().iterator();
 		while (itemShop == null && shops.hasNext()) {
-			ItemShop current = shops.next();
+			ItemShopMo current = shops.next();
 			if (current.getItem().equalsIgnoreCase(item)) {
 				itemShop = current;
 			}
@@ -72,9 +72,9 @@ public class ShopHandler {
 		return itemShop ;
 	}
 
-	public void help(Adventure adventure, MessageEvent<HexasBot> event) {
+	public void help(AdventureMo adventure, MessageEvent<HexasBot> event) {
 		List<String> items = new ArrayList<>();
-		for (ItemShop itemShop : adventure.getShops()) {
+		for (ItemShopMo itemShop : adventure.getShops()) {
 			Map<String, Object> subtitution = new HashMap<String, Object>();
 			subtitution.put("item", itemShop.getItem());
 			subtitution.put("sellPrice", itemShop.getSellPrice());

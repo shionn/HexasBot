@@ -11,9 +11,9 @@ import org.pircbotx.hooks.events.MessageEvent;
 import shionn.hexas.bot.HexasBot;
 import shionn.hexas.bot.handlers.adventure.NextLvl;
 import shionn.hexas.bot.messages.MessageBuilder;
-import shionn.hexas.mongo.mo.adventure.Adventure;
-import shionn.hexas.mongo.mo.adventure.Player;
-import shionn.hexas.mongo.mo.adventure.Use;
+import shionn.hexas.mongo.mo.adventure.AdventureMo;
+import shionn.hexas.mongo.mo.adventure.PlayerMo;
+import shionn.hexas.mongo.mo.adventure.UseMo;
 
 /**
  * Traite les commande d'utilisation d'item
@@ -28,12 +28,12 @@ public class ItemUse {
 	@Inject
 	private NextLvl nextLvl;
 	@Inject
-	private JacksonDBCollection<Player, String> players;
+	private JacksonDBCollection<PlayerMo, String> players;
 
-	public void run(Player player, Adventure adventure, MessageEvent<HexasBot> event) {
+	public void run(PlayerMo player, AdventureMo adventure, MessageEvent<HexasBot> event) {
 		String item = event.getMessage().replace(adventure.getCommands().getItemUse(), "").trim();
 		if (player.haveItem(item)) {
-			Use use = findUse(adventure, item);
+			UseMo use = findUse(adventure, item);
 			if (use == null) {
 				new MessageBuilder(adventure.getMessages().getNoUse()).item(item).send(event);
 			} else {
@@ -50,7 +50,7 @@ public class ItemUse {
 		}
 	}
 
-	public void use(Player player, Use use, Adventure adventure, 
+	public void use(PlayerMo player, UseMo use, AdventureMo adventure, 
 			MessageEvent<HexasBot> event) {
 		player.item(use.getItem(), -1);
 		switch (use.getUsage()) {
@@ -66,12 +66,12 @@ public class ItemUse {
 		}
 	}
 
-	public void pvGain(Player player, Use use, MessageEvent<HexasBot> event) {
+	public void pvGain(PlayerMo player, UseMo use, MessageEvent<HexasBot> event) {
 		player.setPv(Math.min(player.getPv() + Integer.parseInt(use.getVar()), player.getMaxPv()));
 		new MessageBuilder(use.getMessage()).var(use.getVar()).send(event);
 	}
 
-	public void xpGain(Player player, Use use, Adventure adventure, MessageEvent<HexasBot> event) {
+	public void xpGain(PlayerMo player, UseMo use, AdventureMo adventure, MessageEvent<HexasBot> event) {
 		player.setXp(player.getXp() + Integer.parseInt(use.getVar()));
 		MessageBuilder message = new MessageBuilder(use.getMessage()).var(use.getVar());
 		if (nextLvl.lvlUp(adventure, player)) {
@@ -81,11 +81,11 @@ public class ItemUse {
 		message.send(event);
 	}
 
-	private Use findUse(Adventure adventure, String item) {
-		Iterator<Use> uses = adventure.getUses().iterator();
-		Use use = null;
+	private UseMo findUse(AdventureMo adventure, String item) {
+		Iterator<UseMo> uses = adventure.getUses().iterator();
+		UseMo use = null;
 		while (use == null && uses.hasNext()) {
-			Use current = uses.next();
+			UseMo current = uses.next();
 			if (current.getItem().equalsIgnoreCase(item)) {
 				use = current;
 			}

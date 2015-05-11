@@ -12,8 +12,8 @@ import shionn.hexas.bot.handlers.adventure.BattleHandler;
 import shionn.hexas.bot.handlers.adventure.ShopHandler;
 import shionn.hexas.bot.handlers.adventure.StatHandler;
 import shionn.hexas.bot.messages.MessageBuilder;
-import shionn.hexas.mongo.mo.adventure.Adventure;
-import shionn.hexas.mongo.mo.adventure.Player;
+import shionn.hexas.mongo.mo.adventure.AdventureMo;
+import shionn.hexas.mongo.mo.adventure.PlayerMo;
 
 /**
  * Traite les commandes pour l'aventure
@@ -29,7 +29,7 @@ public class AdventureHandler {
 	private static final int MILLIS_IN_MIN = 60 * 1000;
 
 	@Inject
-	private JacksonDBCollection<Player, String> players;
+	private JacksonDBCollection<PlayerMo, String> players;
 
 	@Inject
 	private BattleHandler battle;
@@ -49,8 +49,8 @@ public class AdventureHandler {
 	@Inject
 	private ShopHandler shop;
 
-	public void handle(Adventure adventure, MessageEvent<HexasBot> event) {
-		Player player = getPlayer(adventure, event);
+	public void handle(AdventureMo adventure, MessageEvent<HexasBot> event) {
+		PlayerMo player = getPlayer(adventure, event);
 		if (event.getMessage().equals(adventure.getCommands().getBattle())
 				&& battleNotTooEarly(adventure, player, event)) {
 			battle.run(player, adventure, event);
@@ -73,40 +73,40 @@ public class AdventureHandler {
 		}
 	}
 
-	private boolean battleNotTooEarly(Adventure adventure, Player player,
+	private boolean battleNotTooEarly(AdventureMo adventure, PlayerMo player,
 			MessageEvent<HexasBot> event) {
 		return isNotTooEarly(adventure.getCommands().getBattle(), adventure.getCommands()
 				.getBattleColdDown(), player.getLastBattle(), adventure, event);
 	}
 
-	private boolean statNotTooEarly(Adventure adventure, Player player, MessageEvent<HexasBot> event) {
+	private boolean statNotTooEarly(AdventureMo adventure, PlayerMo player, MessageEvent<HexasBot> event) {
 		return isNotTooEarly(adventure.getCommands().getStat(), adventure.getCommands()
 				.getStatColdDown(), player.getLastStat(), adventure, event);
 	}
 
-	private boolean bagNotTooEarly(Adventure adventure, Player player, MessageEvent<HexasBot> event) {
+	private boolean bagNotTooEarly(AdventureMo adventure, PlayerMo player, MessageEvent<HexasBot> event) {
 		return isNotTooEarly(adventure.getCommands().getBag(), adventure.getCommands()
 				.getBagColdDown(), player.getLastBag(), adventure, event);
 	}
 
-	private boolean itemUseNotTooEarly(Adventure adventure, Player player,
+	private boolean itemUseNotTooEarly(AdventureMo adventure, PlayerMo player,
 			MessageEvent<HexasBot> event) {
 		return isNotTooEarly(adventure.getCommands().getItemUse(), adventure.getCommands()
 				.getItemUseColdDown(), player.getLastItemUse(), adventure, event);
 	}
 
-	private boolean craftNotTooEarly(Adventure adventure, Player player,
+	private boolean craftNotTooEarly(AdventureMo adventure, PlayerMo player,
 			MessageEvent<HexasBot> event) {
 		return isNotTooEarly(adventure.getCommands().getCraft(), adventure.getCommands()
 				.getCraftColdDown(), player.getLastCraft(), adventure, event);
 	}
 
-	private boolean shopNotTooEarly(Adventure adventure, Player player, MessageEvent<HexasBot> event) {
+	private boolean shopNotTooEarly(AdventureMo adventure, PlayerMo player, MessageEvent<HexasBot> event) {
 		return isNotTooEarly(adventure.getCommands().getShop(), adventure.getCommands()
 				.getShopColdDown(), player.getLastShop(), adventure, event);
 	}
 
-	private boolean isNotTooEarly(String cmd, int coldDown, long last, Adventure adventure,
+	private boolean isNotTooEarly(String cmd, int coldDown, long last, AdventureMo adventure,
 			MessageEvent<HexasBot> event) {
 		boolean tooEarly = last + coldDown * MILLIS_IN_MIN > System.currentTimeMillis();
 		if (tooEarly) {
@@ -116,11 +116,11 @@ public class AdventureHandler {
 		return !tooEarly;
 	}
 
-	private Player getPlayer(Adventure adventure, MessageEvent<HexasBot> event) {
+	private PlayerMo getPlayer(AdventureMo adventure, MessageEvent<HexasBot> event) {
 		String key = event.getUser().getNick() + event.getChannel().getName();
-		Player player = players.findOneById(key);
+		PlayerMo player = players.findOneById(key);
 		if (player == null) {
-			player = new Player(key);
+			player = new PlayerMo(key);
 			player.setPv(adventure.getGamer().getPvBase());
 			player.setMaxPv(adventure.getGamer().getPvBase());
 			player.setMp(adventure.getGamer().getMpBase());

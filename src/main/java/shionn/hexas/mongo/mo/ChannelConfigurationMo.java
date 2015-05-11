@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.mongojack.Id;
 
-import shionn.hexas.mongo.mo.adventure.Adventure;
+import shionn.hexas.mongo.mo.adventure.AdventureMo;
 
 /**
  * Code sous licence GPLv3 (http://www.gnu.org/licenses/gpl.html)
@@ -13,21 +13,21 @@ import shionn.hexas.mongo.mo.adventure.Adventure;
  * @author <b>Shionn</b>, shionn@gmail.com <i>http://shionn.org</i><br>
  *         GCS d- s+:+ a+ C++ UL/M P L+ E--- W++ N K- w-- M+ t+ 5 X R+ !tv b+ D+ G- e+++ h+ r- y+
  */
-public class ChannelConfiguration {
+public class ChannelConfigurationMo {
 
 	@Id
 	private String name;
 
-	private List<SimpleCommand> simpleCommands = new ArrayList<>();
+	private List<SimpleCommandMo> simpleCommands = new ArrayList<>();
 
-	private List<Timer> timers = new ArrayList<>();
+	private List<TimerMo> timers = new ArrayList<>();
 
-	private Adventure adventure;
+	private AdventureMo adventure;
 
-	public ChannelConfiguration() {
+	public ChannelConfigurationMo() {
 	}
 
-	public ChannelConfiguration(String name) {
+	public ChannelConfigurationMo(String name) {
 		this.name = name;
 	}
 
@@ -39,27 +39,27 @@ public class ChannelConfiguration {
 		this.name = name;
 	}
 
-	public List<SimpleCommand> getSimpleCommands() {
+	public List<SimpleCommandMo> getSimpleCommands() {
 		return simpleCommands;
 	}
 
-	public void setSimpleCommands(List<SimpleCommand> simples) {
+	public void setSimpleCommands(List<SimpleCommandMo> simples) {
 		this.simpleCommands = simples;
 	}
 
-	public List<Timer> getTimers() {
+	public List<TimerMo> getTimers() {
 		return timers;
 	}
 
-	public void setTimers(List<Timer> timers) {
+	public void setTimers(List<TimerMo> timers) {
 		this.timers = timers;
 	}
 
-	public Adventure getAdventure() {
+	public AdventureMo getAdventure() {
 		return adventure;
 	}
 
-	public void setAdventure(Adventure adventure) {
+	public void setAdventure(AdventureMo adventure) {
 		this.adventure = adventure;
 	}
 

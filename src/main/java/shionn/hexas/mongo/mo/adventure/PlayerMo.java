@@ -14,7 +14,7 @@ import org.mongojack.Id;
  * @author <b>Shionn</b>, shionn@gmail.com <i>http://shionn.org</i><br>
  *         GCS d- s+:+ a+ C++ UL/M P L+ E--- W++ N K- w-- M+ t+ 5 X R+ !tv b+ D+ G- e+++ h+ r- y+
  */
-public class Player {
+public class PlayerMo {
 
 	@Id
 	private String key;
@@ -36,25 +36,25 @@ public class Player {
 	private long lastCraft;
 	private long lastShop;
 
-	public Player() {
+	public PlayerMo() {
 	}
 
-	public Player(String key) {
+	public PlayerMo(String key) {
 		this.key = key;
 	}
 
-	public Player pv(int pv) {
+	public PlayerMo pv(int pv) {
 		setPv(getPv() + pv);
 		return this;
 	}
 
-	public Player xp(int xp) {
+	public PlayerMo xp(int xp) {
 		setXp(getXp() + xp);
 		return this;
 	}
 
 
-	public Player item(String item, int qty) {
+	public PlayerMo item(String item, int qty) {
 		Integer current = getItems().get(item);
 		if (current == null) {
 			current = 0;
@@ -132,7 +132,7 @@ public class Player {
 		this.maxPv = maxPv;
 	}
 
-	public Player po(int po) {
+	public PlayerMo po(int po) {
 		setPo(getPo() + po);
 		return this;
 	}

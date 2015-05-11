@@ -7,7 +7,7 @@ import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
 import shionn.hexas.bot.messages.MessageBuilderFactoy;
-import shionn.hexas.mongo.mo.SimpleCommand;
+import shionn.hexas.mongo.mo.SimpleCommandMo;
 
 /**
  * Traite les message de type {@link SimpleCommandHandler}
@@ -23,13 +23,13 @@ public class SimpleCommandHandler {
 	@Inject
 	private MessageBuilderFactoy messages;
 
-	public void handle(SimpleCommand command, MessageEvent<HexasBot> event) {
+	public void handle(SimpleCommandMo command, MessageEvent<HexasBot> event) {
 		if (event.getMessage().startsWith(command.getCommand())) {
 			event.getChannel().send().message(buildMessage(command, event));
 		}
 	}
 
-	public String buildMessage(SimpleCommand command, MessageEvent<HexasBot> event) {
+	public String buildMessage(SimpleCommandMo command, MessageEvent<HexasBot> event) {
 		return messages.build(command.getMessage()).event(event).message();
 	}
 

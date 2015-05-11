@@ -12,7 +12,7 @@ import org.mongojack.DBQuery;
 import org.mongojack.JacksonDBCollection;
 import org.slf4j.Logger;
 
-import shionn.hexas.mongo.mo.Channel;
+import shionn.hexas.mongo.mo.ChannelMo;
 
 /**
  * Tache qui se charge de rejoindre automatiquement les channels
@@ -32,14 +32,14 @@ public class HexasBotJoinChannelTask implements Runnable {
 	private HexasBot bot;
 
 	@Inject
-	private JacksonDBCollection<Channel, String> channels;
+	private JacksonDBCollection<ChannelMo, String> channels;
 
 	@Override
 	public void run() {
-		DBCursor<Channel> notConnectes = channels.find(
+		DBCursor<ChannelMo> notConnectes = channels.find(
 				DBQuery.notIn("_id", extractNames(bot.getUserChannelDao().getAllChannels())))
 				.limit(10);
-		for (Channel notConnect : notConnectes) {
+		for (ChannelMo notConnect : notConnectes) {
 			logger.info("Auto join : " + notConnect.getName());
 			bot.join(notConnect.getName());
 		}

@@ -12,9 +12,9 @@ import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
 import shionn.hexas.bot.messages.MessageBuilder;
-import shionn.hexas.mongo.mo.adventure.Adventure;
-import shionn.hexas.mongo.mo.adventure.Player;
-import shionn.hexas.mongo.mo.adventure.Schema;
+import shionn.hexas.mongo.mo.adventure.AdventureMo;
+import shionn.hexas.mongo.mo.adventure.PlayerMo;
+import shionn.hexas.mongo.mo.adventure.SchemaMo;
 
 /**
  * handler des la commande de craft
@@ -29,11 +29,11 @@ public class Craft {
 	private static final Pattern SPLIT = Pattern.compile("\\&");
 
 	@Inject
-	private JacksonDBCollection<Player, String> players;
+	private JacksonDBCollection<PlayerMo, String> players;
 
-	public void run(Player player, Adventure adventure, MessageEvent<HexasBot> event) {
+	public void run(PlayerMo player, AdventureMo adventure, MessageEvent<HexasBot> event) {
 		String item = event.getMessage().replace(adventure.getCommands().getCraft(), "").trim();
-		Schema schema = getSchema(adventure, item);
+		SchemaMo schema = getSchema(adventure, item);
 		if (item.length() == 0) {
 			new MessageBuilder(adventure.getMessages().getHelpCraft()).crafts(
 					findSchemaNames(adventure).toString()).send(event);
@@ -53,7 +53,7 @@ public class Craft {
 		players.save(player);
 	}
 
-	public void craft(Player player, Schema schema, List<String> requireds, Adventure adventure,
+	public void craft(PlayerMo player, SchemaMo schema, List<String> requireds, AdventureMo adventure,
 			MessageEvent<HexasBot> event) {
 		for (String required : requireds) {
 			player.item(required, -1);
@@ -64,7 +64,7 @@ public class Craft {
 				.items(requireds.toString()).send(event);
 	}
 
-	private boolean haveAllItem(Player player, List<String> requireds, Schema schema) {
+	private boolean haveAllItem(PlayerMo player, List<String> requireds, SchemaMo schema) {
 		boolean haveAll = player.getPo() >= schema.getPo();
 		Iterator<String> ite = requireds.iterator();
 		while (haveAll && ite.hasNext()) {
@@ -73,12 +73,12 @@ public class Craft {
 		return haveAll;
 	}
 
-	private boolean haveItem(Player player, String item) {
+	private boolean haveItem(PlayerMo player, String item) {
 		Integer qty = player.getItems().get(item);
 		return qty != null && qty > 0;
 	}
 
-	private List<String> findRequiereds(Schema schema) {
+	private List<String> findRequiereds(SchemaMo schema) {
 		List<String> items = new ArrayList<String>();
 		for (String item : SPLIT.split(schema.getRequiereds())) {
 			items.add(item.trim());
@@ -86,11 +86,11 @@ public class Craft {
 		return items;
 	}
 
-	private Schema getSchema(Adventure adventure, String item) {
-		Schema schema = null;
-		Iterator<Schema> schemes = adventure.getSchemes().iterator();
+	private SchemaMo getSchema(AdventureMo adventure, String item) {
+		SchemaMo schema = null;
+		Iterator<SchemaMo> schemes = adventure.getSchemes().iterator();
 		while (schema == null && schemes.hasNext()) {
-			Schema current = schemes.next();
+			SchemaMo current = schemes.next();
 			if (item.equalsIgnoreCase(current.getItem())) {
 				schema = current;
 			}
@@ -98,9 +98,9 @@ public class Craft {
 		return schema;
 	}
 
-	private List<String> findSchemaNames(Adventure adventure) {
+	private List<String> findSchemaNames(AdventureMo adventure) {
 		List<String> names = new ArrayList<String>();
-		for (Schema schema : adventure.getSchemes()) {
+		for (SchemaMo schema : adventure.getSchemes()) {
 			names.add(schema.getItem());
 		}
 		return names;

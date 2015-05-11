@@ -11,10 +11,10 @@ import org.pircbotx.hooks.events.MessageEvent;
 import shionn.hexas.bot.HexasBot;
 import shionn.hexas.bot.handlers.timer.TimerState;
 import shionn.hexas.bot.messages.MessageBuilderFactoy;
-import shionn.hexas.mongo.mo.Timer;
+import shionn.hexas.mongo.mo.TimerMo;
 
 /**
- * Permet de traiter les {@link Timer}
+ * Permet de traiter les {@link TimerMo}
  * 
  * Code sous licence GPLv3 (http://www.gnu.org/licenses/gpl.html)
  *
@@ -31,7 +31,7 @@ public class TimerHandler {
 
 	private Map<String, TimerState> states = new HashMap<>();
 
-	public void handle(Timer timer, MessageEvent<HexasBot> event) {
+	public void handle(TimerMo timer, MessageEvent<HexasBot> event) {
 		TimerState state = getOrCreate(timer, event);
 		if (isTime(timer, state)) {
 			event.getChannel().send().message(buildMessage(timer, event));
@@ -42,15 +42,15 @@ public class TimerHandler {
 		}
 	}
 
-	public String buildMessage(Timer timer, MessageEvent<HexasBot> event) {
+	public String buildMessage(TimerMo timer, MessageEvent<HexasBot> event) {
 		return messages.build(timer.getMessage()).event(event).message();
 	}
 
-	private boolean isTime(Timer timer, TimerState state) {
+	private boolean isTime(TimerMo timer, TimerState state) {
 		return state.getCountMessage() <= 0 && futurExec(timer, state) < now();
 	}
 
-	public long futurExec(Timer timer, TimerState state) {
+	public long futurExec(TimerMo timer, TimerState state) {
 		return state.getLastTime() + timer.getDelayMessage() * MILLIS_IN_MIN;
 	}
 
@@ -58,7 +58,7 @@ public class TimerHandler {
 		return System.currentTimeMillis();
 	}
 
-	private TimerState getOrCreate(Timer timer, MessageEvent<HexasBot> event) {
+	private TimerState getOrCreate(TimerMo timer, MessageEvent<HexasBot> event) {
 		String key = timer.getMessage() + event.getChannel().getName();
 		TimerState state = states.get(key);
 		if (state == null) {

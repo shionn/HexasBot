@@ -19,7 +19,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.jboss.weld.exceptions.IllegalStateException;
 import org.mongojack.JacksonDBCollection;
 
-import shionn.hexas.mongo.mo.Channel;
+import shionn.hexas.mongo.mo.ChannelMo;
 
 /**
  * 
@@ -32,7 +32,7 @@ public class AuthFilter implements Filter {
 	private static final Pattern SPLIT = Pattern.compile(":");
 
 	@Inject
-	private JacksonDBCollection<Channel, String> channels;
+	private JacksonDBCollection<ChannelMo, String> channels;
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse response, FilterChain chain)
@@ -78,7 +78,7 @@ public class AuthFilter implements Filter {
 	}
 
 	private boolean isValidUser(String login, String pass) {
-		Channel channel = channels.findOneById(login);
+		ChannelMo channel = channels.findOneById(login);
 		return channel != null && channel.getPassword().equals(pass);
 	}
 

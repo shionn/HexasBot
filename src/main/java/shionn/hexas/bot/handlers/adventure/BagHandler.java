@@ -8,8 +8,8 @@ import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
 import shionn.hexas.bot.messages.MessageBuilder;
-import shionn.hexas.mongo.mo.adventure.Adventure;
-import shionn.hexas.mongo.mo.adventure.Player;
+import shionn.hexas.mongo.mo.adventure.AdventureMo;
+import shionn.hexas.mongo.mo.adventure.PlayerMo;
 
 /**
  * Traite la commande bag
@@ -22,9 +22,9 @@ import shionn.hexas.mongo.mo.adventure.Player;
 @Named
 public class BagHandler {
 	@Inject
-	private JacksonDBCollection<Player, String> players;
+	private JacksonDBCollection<PlayerMo, String> players;
 
-	public void run(Player player, Adventure adventure, MessageEvent<HexasBot> event) {
+	public void run(PlayerMo player, AdventureMo adventure, MessageEvent<HexasBot> event) {
 		player.setLastBag(System.currentTimeMillis());
 		if (player.getItems().isEmpty()) {
 			new MessageBuilder(adventure.getMessages().getBagEmpty()).send(event);

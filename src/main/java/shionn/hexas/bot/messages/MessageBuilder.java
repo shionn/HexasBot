@@ -9,12 +9,12 @@ import org.apache.commons.lang3.text.StrSubstitutor;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
-import shionn.hexas.mongo.mo.adventure.Drop;
-import shionn.hexas.mongo.mo.adventure.Gamer;
-import shionn.hexas.mongo.mo.adventure.ItemShop;
-import shionn.hexas.mongo.mo.adventure.Monster;
-import shionn.hexas.mongo.mo.adventure.Player;
-import shionn.hexas.mongo.mo.adventure.Schema;
+import shionn.hexas.mongo.mo.adventure.DropMo;
+import shionn.hexas.mongo.mo.adventure.GamerMo;
+import shionn.hexas.mongo.mo.adventure.ItemShopMo;
+import shionn.hexas.mongo.mo.adventure.MonsterMo;
+import shionn.hexas.mongo.mo.adventure.PlayerMo;
+import shionn.hexas.mongo.mo.adventure.SchemaMo;
 
 public class MessageBuilder {
 
@@ -45,7 +45,7 @@ public class MessageBuilder {
 		return this;
 	}
 
-	public MessageBuilder player(Player player) {
+	public MessageBuilder player(PlayerMo player) {
 		return pv(player.getPv()).maxPv(player.getMaxPv()).lvl(player.getLvl()).xp(player.getXp())
 				.po(player.getPo()).mp(player.getMp()).maxMp(player.getMaxMp());
 	}
@@ -70,7 +70,7 @@ public class MessageBuilder {
 		return substitution("maxPv", maxPv);
 	}
 
-	public MessageBuilder monster(Monster monster) {
+	public MessageBuilder monster(MonsterMo monster) {
 		return monster(monster.getName()).xp(monster.getXp());
 	}
 
@@ -82,7 +82,7 @@ public class MessageBuilder {
 		event.getChannel().send().message(event(event).message());
 	}
 
-	public MessageBuilder drop(Drop drop) {
+	public MessageBuilder drop(DropMo drop) {
 		substitution.put("item", drop.getItem());
 		return this;
 	}
@@ -121,7 +121,7 @@ public class MessageBuilder {
 		return this;
 	}
 
-	public MessageBuilder schema(Schema schema) {
+	public MessageBuilder schema(SchemaMo schema) {
 		return item(schema.getItem()).po(schema.getPo()).items(schema.getRequiereds());
 	}
 
@@ -143,11 +143,11 @@ public class MessageBuilder {
 		return items(StringUtils.join(items, ", "));
 	}
 
-	public MessageBuilder item(ItemShop itemShop) {
+	public MessageBuilder item(ItemShopMo itemShop) {
 		return item(itemShop.getItem()).po(itemShop.getSellPrice());
 	}
 
-	public MessageBuilder gamer(Gamer gamer) {
+	public MessageBuilder gamer(GamerMo gamer) {
 		return pvFactor(gamer.getPvFactor());
 	}
 

@@ -1,17 +1,28 @@
 package shionn.hexas.mongo.mo.adventure;
 
+
 /**
- * Représente le prix de vente d'un item dans un magasin
+ * Un objet de {@link AdventureMo}
  * 
  * Code sous licence GPLv3 (http://www.gnu.org/licenses/gpl.html)
  *
  * @author <b>Shionn</b>, shionn@gmail.com <i>http://shionn.org</i><br>
  *         GCS d- s+:+ a+ C++ UL/M P L+ E--- W++ N K- w-- M+ t+ 5 X R+ !tv b+ D+ G- e+++ h+ r- y+
  */
-public class ItemShop {
+public class DropMo {
 
 	private String item;
-	private int sellPrice;
+	private String monster;
+	private int rate;
+
+
+	public String getMonster() {
+		return monster;
+	}
+
+	public void setMonster(String monster) {
+		this.monster = monster;
+	}
 
 	public String getItem() {
 		return item;
@@ -21,12 +32,11 @@ public class ItemShop {
 		this.item = item;
 	}
 
-	public int getSellPrice() {
-		return sellPrice;
+	public int getRate() {
+		return rate;
 	}
 
-	public void setSellPrice(int sellPrice) {
-		this.sellPrice = sellPrice;
+	public void setRate(int rate) {
+		this.rate = rate;
 	}
-
 }

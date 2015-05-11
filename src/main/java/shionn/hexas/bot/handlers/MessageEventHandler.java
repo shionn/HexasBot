@@ -9,9 +9,9 @@ import org.pircbotx.hooks.events.MessageEvent;
 import shionn.hexas.bot.HexasBot;
 import shionn.hexas.configuration.Configuration;
 import shionn.hexas.configuration.ConfigurationKey;
-import shionn.hexas.mongo.mo.ChannelConfiguration;
-import shionn.hexas.mongo.mo.SimpleCommand;
-import shionn.hexas.mongo.mo.Timer;
+import shionn.hexas.mongo.mo.ChannelConfigurationMo;
+import shionn.hexas.mongo.mo.SimpleCommandMo;
+import shionn.hexas.mongo.mo.TimerMo;
 
 /**
  * 
@@ -24,7 +24,7 @@ import shionn.hexas.mongo.mo.Timer;
 @Named
 public class MessageEventHandler {
 	@Inject
-	private JacksonDBCollection<ChannelConfiguration, String> channels;
+	private JacksonDBCollection<ChannelConfigurationMo, String> channels;
 	@Inject
 	private SimpleCommandHandler simple;
 	@Inject
@@ -40,21 +40,21 @@ public class MessageEventHandler {
 
 	public void handle(MessageEvent<HexasBot> event) {
 		if (!debug || "shi0nn".equals(event.getUser().getNick())) {
-			ChannelConfiguration channel = channels.findOneById(event.getChannel().getName());
+			ChannelConfigurationMo channel = channels.findOneById(event.getChannel().getName());
 			handle(event, channel);
 		}
 	}
 
-	private void handle(MessageEvent<HexasBot> event, ChannelConfiguration channel) {
+	private void handle(MessageEvent<HexasBot> event, ChannelConfigurationMo channel) {
 		if (event.getMessage().indexOf('!') == 0) {
-			for (SimpleCommand command : channel.getSimpleCommands()) {
+			for (SimpleCommandMo command : channel.getSimpleCommands()) {
 				simple.handle(command, event);
 			}
 			if (channel.getAdventure().isActivated()) {
 				adventure.handle(channel.getAdventure(), event);
 			}
 		} else {
-			for (Timer timer : channel.getTimers()) {
+			for (TimerMo timer : channel.getTimers()) {
 				if (timer.isActivated()) {
 					timerHandler.handle(timer, event);
 				}

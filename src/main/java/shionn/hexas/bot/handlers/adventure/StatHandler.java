@@ -8,8 +8,8 @@ import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
 import shionn.hexas.bot.messages.MessageBuilder;
-import shionn.hexas.mongo.mo.adventure.Adventure;
-import shionn.hexas.mongo.mo.adventure.Player;
+import shionn.hexas.mongo.mo.adventure.AdventureMo;
+import shionn.hexas.mongo.mo.adventure.PlayerMo;
 
 /**
  * gere une commande de stat
@@ -22,11 +22,11 @@ import shionn.hexas.mongo.mo.adventure.Player;
 @Named
 public class StatHandler {
 	@Inject
-	private JacksonDBCollection<Player, String> players;
+	private JacksonDBCollection<PlayerMo, String> players;
 
 	private NextLvl nextLvl = new NextLvl();
 
-	public void run(Player player, Adventure adventure, MessageEvent<HexasBot> event) {
+	public void run(PlayerMo player, AdventureMo adventure, MessageEvent<HexasBot> event) {
 		player.setLastStat(System.currentTimeMillis());
 		new MessageBuilder(adventure.getMessages().getStat()).player(player)
 				.nextXp(nextLvl.xp(adventure, player)).send(event);
