@@ -31,47 +31,48 @@ public class ItemUseHandle {
 	@Inject
 	private JacksonDBCollection<PlayerMo, String> players;
 
-	public void run(Player player, AdventureMo adventure, MessageEvent<HexasBot> event) {
-		String item = event.getMessage().replace(adventure.getCommands().getItemUse(), "").trim();
+	public void run(Player player, MessageEvent<HexasBot> event) {
+		String item = event.getMessage().replace(player.adventure().getCommands().getItemUse(), "")
+				.trim();
 		if (player.item(item) > 0) {
-			UseMo use = findUse(adventure, item);
+			UseMo use = findUse(player.adventure(), item);
 			if (use == null) {
-				new Message(adventure).noUse().item(item).send(event);
+				new Message(player).noUse().item(item).send(event);
 			} else {
-				use(player, use, adventure).send(event);
+				use(player, use).send(event);
 			}
 			players.save(player.updateLastItemUse().mo());
 		} else if (item.length() == 0) {
-			new Message(adventure).helpUse().send(event);
+			new Message(player).helpUse().send(event);
 		} else {
-			new Message(adventure).noItem().item(item).send(event);
+			new Message(player).noItem().item(item).send(event);
 			players.save(player.updateLastItemUse().mo());
 		}
 	}
 
-	public Message use(Player player, UseMo use, AdventureMo adventure) {
+	public Message use(Player player, UseMo use) {
 		player.item(use.getItem(), -1);
 		switch (use.getUsage()) {
 		case pvGain:
-			return pvGain(player, use, adventure);
+			return pvGain(player, use);
 		case xpGain:
-			return xpGain(player, use, adventure);
+			return xpGain(player, use);
 		default:
 			throw new IllegalStateException("Shionn, n'as pas encore fait : " + use.getUsage());
 		}
 
 	}
 
-	private Message pvGain(Player player, UseMo use, AdventureMo adventure) {
+	private Message pvGain(Player player, UseMo use) {
 		player.pv(Integer.parseInt(use.getVar()));
-		return new Message(adventure).use(use);
+		return new Message(player).use(use);
 	}
 
-	public Message xpGain(Player player, UseMo use, AdventureMo adventure) {
+	public Message xpGain(Player player, UseMo use) {
 		player.xp(Integer.parseInt(use.getVar()));
-		Message message = new Message(adventure).use(use);
-		if (nextLvl.lvlUp(adventure, player.mo())) {
-			message.lvlUp().player(player.mo()).gamer();
+		Message message = new Message(player).use(use);
+		if (nextLvl.lvlUp(player)) {
+			message.lvlUp().player(player).gamer();
 		}
 		return message;
 	}

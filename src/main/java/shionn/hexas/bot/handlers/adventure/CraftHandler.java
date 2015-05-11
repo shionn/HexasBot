@@ -34,21 +34,22 @@ public class CraftHandler {
 	@Inject
 	private JacksonDBCollection<PlayerMo, String> players;
 
-	public void run(Player player, AdventureMo adventure, MessageEvent<HexasBot> event) {
-		String item = event.getMessage().replace(adventure.getCommands().getCraft(), "").trim();
-		SchemaMo schema = getSchema(adventure, item);
+	public void run(Player player, MessageEvent<HexasBot> event) {
+		String item = event.getMessage().replace(player.adventure().getCommands().getCraft(), "")
+				.trim();
+		SchemaMo schema = getSchema(player.adventure(), item);
 		if (item.length() == 0) {
-			new Message(adventure).helpCraft().crafts(schemesNames(adventure).toString())
+			new Message(player).helpCraft().crafts(schemesNames(player.adventure()).toString())
 					.send(event);
 		} else if (schema == null) {
 			player.updateLastCraft();
-			new Message(adventure).noSchema().item(item).send(event);
+			new Message(player.adventure()).noSchema().item(item).send(event);
 		} else {
 			List<String> requireds = findRequiereds(schema);
 			if (haveAllItem(player, requireds, schema)) {
-				craft(player, schema, requireds, adventure).send(event);
+				craft(player, schema, requireds).send(event);
 			} else {
-				new Message(adventure).needItem().schema(schema).items(requireds.toString())
+				new Message(player).needItem().schema(schema).items(requireds.toString())
 						.send(event);
 			}
 			player.updateLastCraft();
@@ -56,14 +57,13 @@ public class CraftHandler {
 		players.save(player.mo());
 	}
 
-	public Message craft(Player player, SchemaMo schema, List<String> requireds,
-			AdventureMo adventure) {
+	public Message craft(Player player, SchemaMo schema, List<String> requireds) {
 		for (String required : requireds) {
 			player.item(required, -1);
 		}
 		player.po(-schema.getPo());
 		player.item(schema.getItem(), 1);
-		return new Message(adventure).craft().schema(schema).items(requireds.toString());
+		return new Message(player).craft().schema(schema).items(requireds.toString());
 	}
 
 	private boolean haveAllItem(Player player, List<String> requireds, SchemaMo schema) {

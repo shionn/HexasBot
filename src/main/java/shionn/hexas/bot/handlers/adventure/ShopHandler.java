@@ -34,20 +34,21 @@ public class ShopHandler {
 	@Inject
 	private JacksonDBCollection<PlayerMo, String> players;
 
-	public void run(Player player, AdventureMo adventure, MessageEvent<HexasBot> event) {
-		String item = event.getMessage().replace(adventure.getCommands().getShop(), "").trim();
+	public void run(Player player, MessageEvent<HexasBot> event) {
+		String item = event.getMessage().replace(player.adventure().getCommands().getShop(), "")
+				.trim();
 		if (item.length() == 0) {
-			help(adventure, event);
+			help(player.adventure(), event);
 		} else {
-			ItemShopMo itemShop = findItemShop(adventure, item);
+			ItemShopMo itemShop = findItemShop(player.adventure(), item);
 			if (itemShop == null) {
-				new Message(adventure).shopNoItem().item(item).send(event);
+				new Message(player).shopNoItem().item(item).send(event);
 			} else if (haveEnouth(itemShop, player)) {
 				player.po(-itemShop.getSellPrice());
 				player.item(itemShop.getItem(), 1);
-				new Message(adventure).shopBuy().item(itemShop).send(event);
+				new Message(player).shopBuy().item(itemShop).send(event);
 			} else {
-				new Message(adventure).shopNotEnouthMoney().item(item).send(event);
+				new Message(player).shopNotEnouthMoney().item(item).send(event);
 			}
 			players.save(player.updateLastShop().mo());
 		}

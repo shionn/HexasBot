@@ -9,12 +9,12 @@ import org.apache.commons.lang3.text.StrSubstitutor;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
+import shionn.hexas.bot.handlers.adventure.manipulator.Player;
 import shionn.hexas.mongo.mo.adventure.AdventureMo;
 import shionn.hexas.mongo.mo.adventure.DropMo;
 import shionn.hexas.mongo.mo.adventure.GamerMo;
 import shionn.hexas.mongo.mo.adventure.ItemShopMo;
 import shionn.hexas.mongo.mo.adventure.MonsterMo;
-import shionn.hexas.mongo.mo.adventure.PlayerMo;
 import shionn.hexas.mongo.mo.adventure.SchemaMo;
 import shionn.hexas.mongo.mo.adventure.UseMo;
 
@@ -33,6 +33,11 @@ public class Message {
 	public Message(AdventureMo adventure) {
 		this("");
 		this.adventure = adventure;
+	}
+
+	public Message(Player player) {
+		this(player.adventure());
+		player(player);
 	}
 
 	public String message() {
@@ -176,9 +181,9 @@ public class Message {
 		return this;
 	}
 
-	public Message player(PlayerMo player) {
-		return pv(player.getPv()).maxPv(player.getMaxPv()).lvl(player.getLvl()).xp(player.getXp())
-				.po(player.getPo()).mp(player.getMp()).maxMp(player.getMaxMp());
+	public Message player(Player player) {
+		return pv(player.pv()).maxPv(player.maxPv()).lvl(player.lvl()).xp(player.xp())
+				.po(player.po()).mp(player.mp()).maxMp(player.maxMp());
 	}
 
 	public Message maxMp(int maxMp) {

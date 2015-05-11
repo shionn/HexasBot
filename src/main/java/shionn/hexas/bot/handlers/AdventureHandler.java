@@ -50,23 +50,23 @@ public class AdventureHandler {
 		PlayerMo player = getPlayer(adventure, event);
 		if (event.getMessage().equals(adventure.getCommands().getBattle())
 				&& battleNotTooEarly(adventure, player, event)) {
-			battle.run(new Player(player), adventure, event);
+			battle.run(new Player(player, adventure), event);
 		} else if (event.getMessage().equals(adventure.getCommands().getStat())
 				&& statNotTooEarly(adventure, player, event)) {
 			player.setLastStat(System.currentTimeMillis());
-			stat.run(new Player(player), adventure, event);
+			stat.run(new Player(player, adventure), event);
 		} else if (event.getMessage().equals(adventure.getCommands().getBag())
 				&& bagNotTooEarly(adventure, player, event)) {
-			bag.run(new Player(player), adventure, event);
+			bag.run(new Player(player, adventure), event);
 		} else if (event.getMessage().startsWith(adventure.getCommands().getItemUse())
 				&& itemUseNotTooEarly(adventure, player, event)) {
-			use.run(new Player(player), adventure, event);
+			use.run(new Player(player, adventure), event);
 		} else if (event.getMessage().startsWith(adventure.getCommands().getCraft())
 				&& craftNotTooEarly(adventure, player, event)) {
-			craft.run(new Player(player), adventure, event);
+			craft.run(new Player(player, adventure), event);
 		} else if (event.getMessage().startsWith(adventure.getCommands().getShop())
 				&& shopNotTooEarly(adventure, player, event)) {
-			shop.run(new Player(player), adventure, event);
+			shop.run(new Player(player, adventure), event);
 		}
 	}
 

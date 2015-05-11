@@ -15,7 +15,6 @@ import org.pircbotx.hooks.events.MessageEvent;
 import shionn.hexas.bot.HexasBot;
 import shionn.hexas.bot.handlers.adventure.action.Battle;
 import shionn.hexas.bot.handlers.adventure.manipulator.Player;
-import shionn.hexas.mongo.mo.adventure.AdventureMo;
 import shionn.hexas.mongo.mo.adventure.MonsterMo;
 import shionn.hexas.mongo.mo.adventure.PlayerMo;
 
@@ -36,21 +35,21 @@ public class BattleHandler {
 
 	private Random seed = new Random();
 
-	public void run(Player player, AdventureMo adventure, MessageEvent<HexasBot> event) {
-		MonsterMo monster = findMonster(adventure, player);
-		new Battle(seed, adventure).player(player).monster(monster).run().message().send(event);
+	public void run(Player player, MessageEvent<HexasBot> event) {
+		MonsterMo monster = findMonster(player);
+		new Battle(seed, player).monster(monster).run().message().send(event);
 		players.save(player.updateLastBattle().mo());
 	}
 
-	private MonsterMo findMonster(AdventureMo adventure, Player player) {
+	private MonsterMo findMonster(Player player) {
 		List<MonsterMo> monsters = new ArrayList<MonsterMo>();
-		for (MonsterMo monster : adventure.getMonsters()) {
+		for (MonsterMo monster : player.adventure().getMonsters()) {
 			if (isAssignable(monster, player)) {
 				monsters.add(monster);
 			}
 		}
 		if (monsters.isEmpty()) {
-			monsters = adventure.getMonsters();
+			monsters = player.adventure().getMonsters();
 		}
 		return monsters.get(seed.nextInt(monsters.size()));
 	}

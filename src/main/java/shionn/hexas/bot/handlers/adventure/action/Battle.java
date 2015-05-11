@@ -31,10 +31,10 @@ public class Battle {
 
 	private NextLvl nextLvl = new NextLvl();
 
-	public Battle(Random seed, AdventureMo adventure) {
+	public Battle(Random seed, Player player) {
 		this.seed = seed;
-		this.adventure = adventure;
-		this.message = new Message(adventure);
+		this.player = player;
+		this.message = new Message(player);
 	}
 
 	public Battle run() {
@@ -52,19 +52,19 @@ public class Battle {
 		player.xp(monster.getXp()).po(po);
 		DropMo drop = drop();
 		message.battleWin().pvLoose().xpGain().poGain();
-		if (nextLvl.lvlUp(adventure, player.mo())) {
+		if (nextLvl.lvlUp(player)) {
 			message.lvlUp().gamer();
 		}
 		if (drop != null) {
 			message.itemGain().drop(drop);
 		}
-		message.player(player.mo()).monster(monster).pv(damage).po(po);
+		message.player(player).monster(monster).pv(damage).po(po);
 	}
 
 	private void loose() {
 		int po = randomInterval(monster.getPo());
 		player.po(-po).xp(-monster.getXp()).pv(player.maxPv() / 2);
-		message.battleLoose().pvGain().xpLoose().poLoose().player(player.mo()).monster(monster)
+		message.battleLoose().pvGain().xpLoose().poLoose().player(player).monster(monster)
 				.po(po);
 	}
 

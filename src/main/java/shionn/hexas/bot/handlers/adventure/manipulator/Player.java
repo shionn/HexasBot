@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import shionn.hexas.mongo.mo.adventure.AdventureMo;
 import shionn.hexas.mongo.mo.adventure.PlayerMo;
 
 /**
@@ -17,13 +18,21 @@ import shionn.hexas.mongo.mo.adventure.PlayerMo;
 public class Player {
 
 	private PlayerMo mo;
+	private AdventureMo adventure;
 
-	public Player(PlayerMo player) {
+	public Player(PlayerMo player, AdventureMo adventure) {
 		this.mo = player;
+		this.adventure = adventure;
 	}
+
 
 	public int lvl() {
 		return mo.getLvl();
+	}
+
+	public Player lvl(int lvl) {
+		mo.setLvl(lvl() + lvl);
+		return this;
 	}
 
 	public int pv() {
@@ -37,6 +46,28 @@ public class Player {
 
 	public int maxPv() {
 		return mo.getMaxPv();
+	}
+
+	public Player maxPv(int maxPv) {
+		mo.setMaxPv(maxPv);
+		return this;
+	}
+
+	public int mp() {
+		return mo.getMp();
+	}
+
+	public int maxMp() {
+		return mo.getMaxMp();
+	}
+
+	public Player maxMp(int maxMp) {
+		mo.setMaxMp(maxMp);
+		return this;
+	}
+
+	public int xp() {
+		return mo.getXp();
 	}
 
 	public Player xp(int xp) {
@@ -90,6 +121,10 @@ public class Player {
 		return mo;
 	}
 
+	public AdventureMo adventure() {
+		return adventure;
+	}
+
 	/*
 	 * Mise a jour des last
 	 */
@@ -122,5 +157,7 @@ public class Player {
 		mo.setLastStat(System.currentTimeMillis());
 		return this;
 	}
+
+
 
 }
