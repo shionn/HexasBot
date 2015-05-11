@@ -24,6 +24,7 @@ public class NextLvl {
 			player.setXp(player.getXp() - xp(adventure, player));
 			player.setLvl(player.getLvl() + 1);
 			player.setMaxPv(maxPv(adventure, player));
+			player.setMaxMp(maxMp(adventure, player));
 			lvlUp = true;
 		}
 		return lvlUp;
@@ -31,6 +32,11 @@ public class NextLvl {
 
 	private int maxPv(Adventure adventure, Player player) {
 		return (int) (adventure.getGamer().getPvBase() + adventure.getGamer().getPvFactor()
+				* (player.getLvl() - 1));
+	}
+
+	private int maxMp(Adventure adventure, Player player) {
+		return (int) (adventure.getGamer().getMpBase() + adventure.getGamer().getMpFactor()
 				* (player.getLvl() - 1));
 	}
 

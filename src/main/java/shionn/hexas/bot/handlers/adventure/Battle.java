@@ -62,7 +62,7 @@ public class Battle {
 				.append(adventure.getMessages().getXpGain())
 				.append(adventure.getMessages().getPoGain());
 		if (nextLvl.lvlUp(adventure, player)) {
-			message.append(adventure.getMessages().getLvlUp());
+			message.append(adventure.getMessages().getLvlUp()).gamer(adventure.getGamer());
 		}
 		if (drop != null) {
 			message.append(adventure.getMessages().getItemGain()).drop(drop);

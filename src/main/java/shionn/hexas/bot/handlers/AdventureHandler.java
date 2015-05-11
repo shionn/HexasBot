@@ -123,6 +123,8 @@ public class AdventureHandler {
 			player = new Player(key);
 			player.setPv(adventure.getGamer().getPvBase());
 			player.setMaxPv(adventure.getGamer().getPvBase());
+			player.setMp(adventure.getGamer().getMpBase());
+			player.setMaxMp(adventure.getGamer().getMpBase());
 			players.insert(player);
 		}
 		return player;

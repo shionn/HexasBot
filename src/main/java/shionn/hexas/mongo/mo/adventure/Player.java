@@ -24,6 +24,8 @@ public class Player {
 	private int po = 0;
 	private int pv = 0;
 	private int maxPv = 0;
+	private int mp = 0;
+	private int maxMp = 0;
 
 	private Map<String, Integer> items = new HashMap<String, Integer>();
 
@@ -171,6 +173,22 @@ public class Player {
 			find = item.equalsIgnoreCase(ite.next());
 		}
 		return find;
+	}
+
+	public int getMp() {
+		return mp;
+	}
+
+	public void setMp(int mp) {
+		this.mp = mp;
+	}
+
+	public int getMaxMp() {
+		return maxMp;
+	}
+
+	public void setMaxMp(int maxMp) {
+		this.maxMp = maxMp;
 	}
 
 }

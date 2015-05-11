@@ -10,6 +10,7 @@ import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
 import shionn.hexas.mongo.mo.adventure.Drop;
+import shionn.hexas.mongo.mo.adventure.Gamer;
 import shionn.hexas.mongo.mo.adventure.ItemShop;
 import shionn.hexas.mongo.mo.adventure.Monster;
 import shionn.hexas.mongo.mo.adventure.Player;
@@ -42,18 +43,36 @@ public class MessageBuilder {
 	}
 
 	public MessageBuilder player(Player player) {
-		substitution.put("pv", Integer.toString(player.getPv()));
-		substitution.put("maxPv", Integer.toString(player.getMaxPv()));
-		substitution.put("lvl", Integer.toString(player.getLvl()));
-		substitution.put("xp", Integer.toString(player.getXp()));
-		substitution.put("po", Integer.toString(player.getPo()));
-		return this;
+		return pv(player.getPv()).maxPv(player.getMaxPv()).lvl(player.getLvl()).xp(player.getXp())
+				.po(player.getPo()).mp(player.getMp()).maxMp(player.getMaxMp());
+	}
+
+	public MessageBuilder maxMp(int maxMp) {
+		return substitution("maxMp", maxMp);
+	}
+
+	public MessageBuilder mp(int mp) {
+		return substitution("mp", mp);
+	}
+
+	public MessageBuilder xp(int xp) {
+		return substitution("xp", xp);
+	}
+
+	public MessageBuilder lvl(int lvl) {
+		return substitution("lvl", lvl);
+	}
+
+	public MessageBuilder maxPv(int maxPv) {
+		return substitution("maxPv", maxPv);
 	}
 
 	public MessageBuilder monster(Monster monster) {
-		substitution.put("monster", monster.getName());
-		substitution.put("xp", Integer.toString(monster.getXp()));
-		return this;
+		return monster(monster.getName()).xp(monster.getXp());
+	}
+
+	public MessageBuilder monster(String monster) {
+		return substitution("monster", monster);
 	}
 
 	public void send(MessageEvent<HexasBot> event) {
@@ -66,8 +85,7 @@ public class MessageBuilder {
 	}
 
 	public MessageBuilder po(int po) {
-		substitution.put("po", Integer.toString(po));
-		return this;
+		return substitution("po", po);
 	}
 
 	public MessageBuilder coldDown(int coldDown) {
@@ -115,8 +133,7 @@ public class MessageBuilder {
 	}
 
 	public MessageBuilder command(String cmd) {
-		substitution.put("cmd", cmd);
-		return this;
+		return substitution("cmd", cmd);
 	}
 
 	public MessageBuilder items(List<String> items) {
@@ -125,6 +142,23 @@ public class MessageBuilder {
 
 	public MessageBuilder item(ItemShop itemShop) {
 		return item(itemShop.getItem()).po(itemShop.getSellPrice());
+	}
+
+	public MessageBuilder gamer(Gamer gamer) {
+		return pvFactor(gamer.getPvFactor());
+	}
+
+	public MessageBuilder pvFactor(int pvFactor) {
+		return substitution("pvFactor",pvFactor);
+	}
+
+	private MessageBuilder substitution(String key, int value) {
+		return substitution(key, Integer.toString(value));
+	}
+
+	private MessageBuilder substitution(String key, String value) {
+		substitution.put(key, value);
+		return this;
 	}
 
 }

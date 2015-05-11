@@ -15,6 +15,8 @@ public class Gamer {
 
 	private int pvBase;
 	private int pvFactor;
+	private int mpBase;
+	private float mpFactor;
 
 	public int getXpBase() {
 		return xpBase;
@@ -46,6 +48,22 @@ public class Gamer {
 
 	public void setPvFactor(int pvFactor) {
 		this.pvFactor = pvFactor;
+	}
+
+	public float getMpFactor() {
+		return mpFactor;
+	}
+
+	public void setMpFactor(float mpFactor) {
+		this.mpFactor = mpFactor;
+	}
+
+	public int getMpBase() {
+		return mpBase;
+	}
+
+	public void setMpBase(int mpBase) {
+		this.mpBase = mpBase;
 	}
 
 }

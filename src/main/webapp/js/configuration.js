@@ -75,7 +75,11 @@ var Configuration = function() {
 	this.extractObject = function(name) {
 		var object = new Object();
 		$.each($(name).find("input"), function() {
-			object[$(this).attr("name")] = $(this).val();
+			var val = $(this).val();
+//			if (val == "" || val == undefined) {
+//				vale = $(this).attr("placeholder");
+//			}
+			object[$(this).attr("name")] = val;
 		});
 		return object;
 	};
@@ -129,6 +133,7 @@ var Configuration = function() {
 		this.tPage.html(data, "#main");
 		this.updatePvCurve();
 		this.updateXpCurve();
+		this.updateMpCurve();
 	};
 
 	this.error = function(data) {
@@ -164,11 +169,29 @@ var Configuration = function() {
 		$("span[role=pv10]").text(perLvl(10));
 		$("span[role=pv20]").text(perLvl(20));
 	};
+	
+	this.updateMpCurve = function() {
+		var base = +$("#main [name=mpBase]").val();
+		var fact = +$("#main [name=mpFactor]").val();
+		var perLvl = function(lvl) {
+			return Math.floor(base+fact*(lvl-1));
+		};
+		$("span[role=mp1]").text(perLvl(1));
+		$("span[role=mp2]").text(perLvl(2));
+		$("span[role=mp3]").text(perLvl(3));
+		$("span[role=mp4]").text(perLvl(4));
+		$("span[role=mp5]").text(perLvl(5));
+		$("span[role=mp10]").text(perLvl(10));
+		$("span[role=mp20]").text(perLvl(20));
+	};
+
 
 	$("#main").on("change", "[name=xpBase]", this.updateXpCurve);
 	$("#main").on("change", "[name=xpFactor]", this.updateXpCurve);
 	$("#main").on("change", "[name=pvBase]", this.updatePvCurve);
 	$("#main").on("change", "[name=pvFactor]", this.updatePvCurve);
+	$("#main").on("change", "[name=moBase]", this.updateMpCurve);
+	$("#main").on("change", "[name=mpFactor]", this.updateMpCurve);
 
 	$("#main").on("click", "button[role=save]", $.proxy(this.save, this));
 	$("#main").on("click", "button[role=add-simple-command]", $.proxy(this.addSimpleCommand, this));

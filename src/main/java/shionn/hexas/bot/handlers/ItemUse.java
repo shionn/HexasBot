@@ -75,7 +75,8 @@ public class ItemUse {
 		player.setXp(player.getXp() + Integer.parseInt(use.getVar()));
 		MessageBuilder message = new MessageBuilder(use.getMessage()).var(use.getVar());
 		if (nextLvl.lvlUp(adventure, player)) {
-			message.append(adventure.getMessages().getLvlUp()).player(player);
+			message.append(adventure.getMessages().getLvlUp()).player(player)
+					.gamer(adventure.getGamer());
 		}
 		message.send(event);
 	}

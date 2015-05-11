@@ -164,6 +164,15 @@
 
 <div class="container" role="adventure-messages">
 	<div class="col-sm-12 h3">Message</div>
+	<div class="container">
+		<div class="col-sm-2 hidden-xs">
+			<hr>
+		</div>
+		<div class="col-sm-3 h4">Combats</div>
+		<div class="col-sm-7 hidden-xs">
+			<hr>
+		</div>
+	</div>
 	<div class="col-sm-3">Victoire</div>
 	<div class="col-sm-9">
 		<input type="text" name="battleWin" value="{{data.adventure.messages.battleWin}}"
@@ -217,17 +226,33 @@
 	<div class="col-sm-3">Lvl Up !</div>
 	<div class="col-sm-9">
 		<input type="text" name="lvlUp" value="{{data.adventure.messages.lvlUp}}"
-			placeholder="${user} passe lvl ${lvl}." class="form-control" />
+			placeholder="${user} passe lvl ${lvl}, il gagne ${pvFactor} pv." class="form-control" />
 	</div>
+</div>
+<div class="container">
+	<div class="col-sm-2 hidden-xs">
+		<hr>
+	</div>
+	<div class="col-sm-3 h4">Messages</div>
+	<div class="col-sm-7 hidden-xs">
+		<hr>
+	</div>
+</div>
+<div class="container" role="adventure-messages">
 	<div class="col-sm-3">Message de Sac</div>
 	<div class="col-sm-9">
 		<input type="text" name="bag" value="{{data.adventure.messages.bag}}"
 			placeholder="${user}, contenu de votre ${bag}" class="form-control" />
 	</div>
+	<div class="col-sm-3">Sac vide</div>
+	<div class="col-sm-9">
+		<input type="text" name="bagEmpty" value="{{data.adventure.messages.bagEmpty}}"
+			placeholder="${user}, votre sac est vide." class="form-control" />
+	</div>
 	<div class="col-sm-3">Message de Stat</div>
 	<div class="col-sm-9">
 		<input type="text" name="stat" value="{{data.adventure.messages.stat}}"
-			placeholder="${user}, ${pv}/${maxPv} pv, lvl ${lvl}(${xp}/${nextXp} xp), ${po} POs."
+			placeholder="${user}, ${pv}/${maxPv} pv, ${mp}/${maxMp} mp, lvl ${lvl}(${xp}/${nextXp} xp), ${po} POs."
 			class="form-control" />
 	</div>
 	<div class="col-sm-3">Message de colddown</div>
@@ -458,6 +483,9 @@
 {{/data.adventure.uses}}
 
 <div class="container" role="craft-title">
+	<div class="col-sm-12">
+		<hr>
+	</div>
 	<div class="col-sm-12 h3">
 		Craft
 		<button type="button" class="btn btn-info pull-right" role="add-craft">
@@ -487,6 +515,9 @@
 {{/data.adventure.schemes}}
 
 <div class="container" role="shop-title">
+	<div class="col-sm-12">
+		<hr>
+	</div>
 	<div class="col-sm-12 h3">
 		Magasin
 		<button type="button" class="btn btn-info pull-right" role="add-shop">
@@ -517,7 +548,11 @@
 
 
 <div class="container" role="gamer">
+	<div class="col-sm-12">
+		<hr>
+	</div>
 	<div class="col-sm-12 h3">Courbe d'experience</div>
+	<div class="col-sm-1">Px</div>
 	<div class="col-sm-2">
 		<input type="number" name="xpBase" value="{{data.adventure.gamer.xpBase}}" placeholder="base d'xp"
 			class="form-control" />
@@ -526,13 +561,14 @@
 		<input type="number" name="xpFactor" value="{{data.adventure.gamer.xpFactor}}"
 			placeholder="facteur d'xp" class="form-control" />
 	</div>
-	<div class="col-sm-8">
+	<div class="col-sm-7">
 		<em>lvl 1 : <span role="xp1"></span>, lvl 2 : <span role="xp2"></span>, lvl 3 : <span
 			role="xp3"></span>, lvl 4 : <span role="xp4"></span>, lvl 5 : <span role="xp5"></span>, lvl 10 :
 			<span role="xp10"></span>, lvl 20 : <span role="xp20"></span>...
 		</em>
 	</div>
 	<div class="col-sm-12"></div>
+	<div class="col-sm-1">Pv</div>
 	<div class="col-sm-2">
 		<input type="number" name="pvBase" value="{{data.adventure.gamer.pvBase}}"
 			placeholder="base de pv" class="form-control" />
@@ -541,16 +577,35 @@
 		<input type="number" name="pvFactor" value="{{data.adventure.gamer.pvFactor}}"
 			placeholder="facteur de pv" class="form-control" />
 	</div>
-	<div class="col-sm-8">
+	<div class="col-sm-7">
 		<em>lvl 1 : <span role="pv1"></span>, lvl 2 : <span role="pv2"></span>, lvl 3 : <span
 			role="pv3"></span>, lvl 4 : <span role="pv4"></span>, lvl 5 : <span role="pv5"></span>, lvl 10 :
 			<span role="pv10"></span>, lvl 20 : <span role="pv20"></span>...
+		</em>
+	</div>
+	<div class="col-sm-12"></div>
+	<div class="col-sm-1">Mp</div>
+	<div class="col-sm-2">
+		<input type="number" name="mpBase" value="{{data.adventure.gamer.mpBase}}"
+			placeholder="base de mp" class="form-control" />
+	</div>
+	<div class="col-sm-2">
+		<input type="number" name="mpFactor" value="{{data.adventure.gamer.mpFactor}}"
+			placeholder="facteur de mp" class="form-control" />
+	</div>
+	<div class="col-sm-7">
+		<em>lvl 1 : <span role="mp1"></span>, lvl 2 : <span role="mp2"></span>, lvl 3 : <span
+			role="mp3"></span>, lvl 4 : <span role="mp4"></span>, lvl 5 : <span role="mp5"></span>, lvl 10 :
+			<span role="mp10"></span>, lvl 20 : <span role="mp20"></span>...
 		</em>
 	</div>
 </div>
 
 
 <div class="container" role="quete-title">
+	<div class="col-sm-12">
+		<hr>
+	</div>
 	<div class="col-sm-12 h3">Quetes ?</div>
 </div>
 

@@ -26,8 +26,12 @@ public class Bag {
 
 	public void run(Player player, Adventure adventure, MessageEvent<HexasBot> event) {
 		player.setLastBag(System.currentTimeMillis());
-		new MessageBuilder(adventure.getMessages().getBag()).bag(player.getItems().toString())
-				.send(event);
+		if (player.getItems().isEmpty()) {
+			new MessageBuilder(adventure.getMessages().getBagEmpty()).send(event);
+		} else {
+			new MessageBuilder(adventure.getMessages().getBag()).bag(player.getItems().toString())
+					.send(event);
+		}
 		players.save(player);
 	}
 

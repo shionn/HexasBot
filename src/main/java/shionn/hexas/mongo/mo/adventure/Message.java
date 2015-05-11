@@ -26,6 +26,7 @@ public class Message {
 	private String lvlUp;
 	private String stat;
 	private String bag;
+	private String bagEmpty;
 	private String craft;
 	private String noItem;
 	private String noUse;
@@ -243,5 +244,13 @@ public class Message {
 
 	public void setShopBuy(String shopBuy) {
 		this.shopBuy = shopBuy;
+	}
+
+	public String getBagEmpty() {
+		return bagEmpty;
+	}
+
+	public void setBagEmpty(String bagEmpty) {
+		this.bagEmpty = bagEmpty;
 	}
 }
