@@ -22,7 +22,9 @@ A faire  :
 
 Les item entre [] === > j'ai pas compris
 
+ColdDown progrssif en fonction de l'activitée du chat (nbchatteur / 10)* coldown
 
+colddown en flottant ou en seconde
 
 
 

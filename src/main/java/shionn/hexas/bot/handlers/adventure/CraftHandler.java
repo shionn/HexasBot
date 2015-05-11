@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.mongojack.JacksonDBCollection;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -24,6 +25,7 @@ import shionn.hexas.mongo.mo.adventure.SchemaMo;
  * @author <b>Shionn</b>, shionn@gmail.com <i>http://shionn.org</i><br>
  *         GCS d- s+:+ a+ C++ UL/M P L+ E--- W++ N K- w-- M+ t+ 5 X R+ !tv b+ D+ G- e+++ h+ r- y+
  */
+@Named
 public class CraftHandler {
 
 	private static final Pattern SPLIT = Pattern.compile("\\&");

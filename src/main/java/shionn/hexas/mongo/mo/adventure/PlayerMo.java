@@ -43,17 +43,20 @@ public class PlayerMo {
 		this.key = key;
 	}
 
+	@Deprecated
 	public PlayerMo pv(int pv) {
 		setPv(getPv() + pv);
 		return this;
 	}
 
+	@Deprecated
 	public PlayerMo xp(int xp) {
 		setXp(getXp() + xp);
 		return this;
 	}
 
 
+	@Deprecated
 	public PlayerMo item(String item, int qty) {
 		Integer current = getItems().get(item);
 		if (current == null) {
@@ -132,6 +135,7 @@ public class PlayerMo {
 		this.maxPv = maxPv;
 	}
 
+	@Deprecated
 	public PlayerMo po(int po) {
 		setPo(getPo() + po);
 		return this;

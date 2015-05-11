@@ -14,6 +14,7 @@ import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
 import shionn.hexas.bot.handlers.adventure.action.Battle;
+import shionn.hexas.bot.handlers.adventure.manipulator.Player;
 import shionn.hexas.mongo.mo.adventure.AdventureMo;
 import shionn.hexas.mongo.mo.adventure.MonsterMo;
 import shionn.hexas.mongo.mo.adventure.PlayerMo;
@@ -35,14 +36,14 @@ public class BattleHandler {
 
 	private Random seed = new Random();
 
-	public void run(PlayerMo player, AdventureMo adventure, MessageEvent<HexasBot> event) {
+	public void run(Player player, AdventureMo adventure, MessageEvent<HexasBot> event) {
 		MonsterMo monster = findMonster(adventure, player);
 		new Battle(seed, adventure).player(player).monster(monster).run().message().send(event);
-		player.setLastBattle(System.currentTimeMillis());
-		players.save(player);
+		player.updateLastBattle();
+		players.save(player.mo());
 	}
 
-	private MonsterMo findMonster(AdventureMo adventure, PlayerMo player) {
+	private MonsterMo findMonster(AdventureMo adventure, Player player) {
 		List<MonsterMo> monsters = new ArrayList<MonsterMo>();
 		for (MonsterMo monster : adventure.getMonsters()) {
 			if (isAssignable(monster, player)) {
@@ -55,7 +56,7 @@ public class BattleHandler {
 		return monsters.get(seed.nextInt(monsters.size()));
 	}
 
-	private boolean isAssignable(MonsterMo monster, PlayerMo player) {
+	private boolean isAssignable(MonsterMo monster, Player player) {
 		Matcher m = INTERVAL.matcher(monster.getLvl());
 		int min = 0;
 		int max = 0;
@@ -63,7 +64,7 @@ public class BattleHandler {
 			min = Integer.parseInt(m.group(1));
 			max = Integer.parseInt(m.group(2));
 		}
-		return min <= player.getLvl() && player.getLvl() <= max;
+		return min <= player.lvl() && player.lvl() <= max;
 	}
 
 }

@@ -9,6 +9,7 @@ import org.apache.commons.lang3.text.StrSubstitutor;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
+import shionn.hexas.mongo.mo.adventure.AdventureMo;
 import shionn.hexas.mongo.mo.adventure.DropMo;
 import shionn.hexas.mongo.mo.adventure.GamerMo;
 import shionn.hexas.mongo.mo.adventure.ItemShopMo;
@@ -22,8 +23,15 @@ public class MessageBuilder {
 
 	private Map<String, String> substitution = new HashMap<String, String>();
 
+	private AdventureMo adventure;
+
 	public MessageBuilder(String message) {
 		this.message = message;
+	}
+
+	public MessageBuilder(AdventureMo adventure) {
+		this.adventure = adventure;
+		this.message = "";
 	}
 
 	public String message() {
@@ -31,6 +39,10 @@ public class MessageBuilder {
 		return substitutor.replace(message);
 	}
 
+	/**
+	 * @deprecated le temps de le passer privé
+	 */
+	@Deprecated
 	public MessageBuilder append(String message) {
 		if (!message.isEmpty()) {
 			this.message = this.message.concat(" ");
@@ -38,6 +50,47 @@ public class MessageBuilder {
 		this.message = this.message.concat(message);
 		return this;
 	}
+
+	public MessageBuilder battleWin() {
+		return append(adventure.getMessages().getBattleWin());
+	}
+
+	public MessageBuilder battleLoose() {
+		return append(adventure.getMessages().getBattleWin());
+	}
+
+	public MessageBuilder pvGain() {
+		return append(adventure.getMessages().getPvGain());
+	}
+
+	public MessageBuilder pvLoose() {
+		return append(adventure.getMessages().getPvLoose());
+	}
+
+	public MessageBuilder xpGain() {
+		return append(adventure.getMessages().getXpGain());
+	}
+
+	public MessageBuilder xpLoose() {
+		return append(adventure.getMessages().getXpLoose());
+	}
+
+	public MessageBuilder poGain() {
+		return append(adventure.getMessages().getPoGain());
+	}
+
+	public MessageBuilder poLoose() {
+		return append(adventure.getMessages().getPoLoose());
+	}
+
+	public MessageBuilder lvlUp() {
+		return append(adventure.getMessages().getLvlUp());
+	}
+
+	public MessageBuilder itemGain() {
+		return append(adventure.getMessages().getItemGain());
+	}
+
 
 	public MessageBuilder event(MessageEvent<HexasBot> event) {
 		substitution.put("user", event.getUser().getNick());
@@ -163,5 +216,7 @@ public class MessageBuilder {
 		substitution.put(key, value);
 		return this;
 	}
+
+
 
 }

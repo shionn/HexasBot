@@ -10,8 +10,8 @@ import org.mongojack.JacksonDBCollection;
 
 import shionn.hexas.configuration.Configuration;
 import shionn.hexas.configuration.ConfigurationKey;
-import shionn.hexas.mongo.mo.ChannelMo;
 import shionn.hexas.mongo.mo.ChannelConfigurationMo;
+import shionn.hexas.mongo.mo.ChannelMo;
 import shionn.hexas.mongo.mo.adventure.PlayerMo;
 
 import com.mongodb.DB;
@@ -53,7 +53,7 @@ public class JacksonDBCollectionFactory {
 	}
 
 	private DBCollection collection(Class<?> type) {
-		return collection(type.getSimpleName());
+		return collection(type.getSimpleName().replace("Mo", ""));
 	}
 
 	private DBCollection collection(String name) {

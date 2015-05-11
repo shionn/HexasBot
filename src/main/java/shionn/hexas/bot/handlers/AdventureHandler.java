@@ -13,6 +13,7 @@ import shionn.hexas.bot.handlers.adventure.CraftHandler;
 import shionn.hexas.bot.handlers.adventure.ItemUseHandle;
 import shionn.hexas.bot.handlers.adventure.ShopHandler;
 import shionn.hexas.bot.handlers.adventure.StatHandler;
+import shionn.hexas.bot.handlers.adventure.manipulator.Player;
 import shionn.hexas.bot.messages.MessageBuilder;
 import shionn.hexas.mongo.mo.adventure.AdventureMo;
 import shionn.hexas.mongo.mo.adventure.PlayerMo;
@@ -32,22 +33,16 @@ public class AdventureHandler {
 
 	@Inject
 	private JacksonDBCollection<PlayerMo, String> players;
-
 	@Inject
 	private BattleHandler battle;
-
 	@Inject
 	private StatHandler stat;
-
 	@Inject
 	private BagHandler bag;
-
 	@Inject
 	private ItemUseHandle use;
-
 	@Inject
 	private CraftHandler craft;
-
 	@Inject
 	private ShopHandler shop;
 
@@ -55,7 +50,7 @@ public class AdventureHandler {
 		PlayerMo player = getPlayer(adventure, event);
 		if (event.getMessage().equals(adventure.getCommands().getBattle())
 				&& battleNotTooEarly(adventure, player, event)) {
-			battle.run(player, adventure, event);
+			battle.run(new Player(player), adventure, event);
 		} else if (event.getMessage().equals(adventure.getCommands().getStat())
 				&& statNotTooEarly(adventure, player, event)) {
 			player.setLastStat(System.currentTimeMillis());
