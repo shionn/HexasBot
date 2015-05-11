@@ -162,11 +162,7 @@ public class Message {
 		return append(adventure.getMessages().getStat());
 	}
 
-	/**
-	 * @deprecated le temps de le passer privé
-	 */
-	@Deprecated
-	public Message append(String message) {
+	private Message append(String message) {
 		if (!message.isEmpty()) {
 			this.message = this.message.concat(" ");
 		}
