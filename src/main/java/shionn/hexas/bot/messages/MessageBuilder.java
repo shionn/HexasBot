@@ -32,7 +32,10 @@ public class MessageBuilder {
 	}
 
 	public MessageBuilder append(String message) {
-		this.message = this.message.concat(" ").concat(message);
+		if (!message.isEmpty()) {
+			this.message = this.message.concat(" ");
+		}
+		this.message = this.message.concat(message);
 		return this;
 	}
 

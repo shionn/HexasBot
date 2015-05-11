@@ -43,6 +43,31 @@ public class Player {
 		this.key = key;
 	}
 
+	public Player pv(int pv) {
+		setPv(getPv() + pv);
+		return this;
+	}
+
+	public Player xp(int xp) {
+		setXp(getXp() + xp);
+		return this;
+	}
+
+
+	public Player item(String item, int qty) {
+		Integer current = getItems().get(item);
+		if (current == null) {
+			current = 0;
+		}
+		current += qty;
+		if (current == 0) {
+			getItems().remove(item);
+		} else {
+			getItems().put(item, current);
+		}
+		return this;
+	}
+
 	public String getKey() {
 		return key;
 	}
@@ -72,7 +97,7 @@ public class Player {
 	}
 
 	public void setPo(int po) {
-		this.po = po;
+		this.po = Math.max(po, 0);
 	}
 
 	public Map<String, Integer> getItems() {
@@ -96,7 +121,7 @@ public class Player {
 	}
 
 	public void setPv(int pv) {
-		this.pv = pv;
+		this.pv = Math.max(pv, 0);
 	}
 
 	public int getMaxPv() {
@@ -107,23 +132,9 @@ public class Player {
 		this.maxPv = maxPv;
 	}
 
-	public int item(String item, int qty) {
-		Integer current = getItems().get(item);
-		if (current == null) {
-			current = 0;
-		}
-		current += qty;
-		if (current == 0) {
-			getItems().remove(item);
-		} else {
-			getItems().put(item, current);
-		}
-		return current;
-	}
-
-	public int po(int po) {
-		this.po += po;
-		return this.po;
+	public Player po(int po) {
+		setPo(getPo() + po);
+		return this;
 	}
 
 	public long getLastCraft() {
@@ -190,5 +201,6 @@ public class Player {
 	public void setMaxMp(int maxMp) {
 		this.maxMp = maxMp;
 	}
+
 
 }

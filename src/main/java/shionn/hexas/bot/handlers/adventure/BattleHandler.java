@@ -13,9 +13,7 @@ import org.mongojack.JacksonDBCollection;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
-import shionn.hexas.bot.messages.MessageBuilder;
 import shionn.hexas.mongo.mo.adventure.Adventure;
-import shionn.hexas.mongo.mo.adventure.Drop;
 import shionn.hexas.mongo.mo.adventure.Monster;
 import shionn.hexas.mongo.mo.adventure.Player;
 
@@ -36,80 +34,11 @@ public class BattleHandler {
 
 	private Random seed = new Random();
 
-	@Inject
-	private NextLvl nextLvl;
-
 	public void run(Player player, Adventure adventure, MessageEvent<HexasBot> event) {
 		Monster monster = findMonster(adventure, player);
-
-		int damage = damage(player, monster);
-		if (player.getPv() > 0) {
-			win(player, monster, damage, adventure, event);
-		} else {
-			loose(player, monster, adventure, event);
-		}
+		new Battle(seed, adventure).player(player).monster(monster).run().message().send(event);
 		player.setLastBattle(System.currentTimeMillis());
 		players.save(player);
-	}
-
-	public void win(Player player, Monster monster, int damage, Adventure adventure,
-			MessageEvent<HexasBot> event) {
-		player.setXp(player.getXp() + monster.getXp());
-		int po = randomInterval(monster.getPo());
-		player.po(po);
-		Drop drop = drop(adventure, monster, player);
-		MessageBuilder message = new MessageBuilder(adventure.getMessages().getBattleWin())
-				.append(adventure.getMessages().getPvLoose())
-				.append(adventure.getMessages().getXpGain())
-				.append(adventure.getMessages().getPoGain());
-		if (nextLvl.lvlUp(adventure, player)) {
-			message.append(adventure.getMessages().getLvlUp()).gamer(adventure.getGamer());
-		}
-		if (drop != null) {
-			message.append(adventure.getMessages().getItemGain()).drop(drop);
-		}
-		message.player(player).monster(monster).pv(damage).po(po).send(event);
-	}
-
-	public void loose(Player player, Monster monster, Adventure adventure,
-			MessageEvent<HexasBot> event) {
-		int po = randomInterval(monster.getPo());
-		player.setPo(player.getPo() - po);
-		player.setXp(player.getXp() - monster.getXp());
-		player.setPv(player.getMaxPv() / 2);
-		new MessageBuilder(adventure.getMessages().getBattleLoose())
-				.append(adventure.getMessages().getPvGain())
-				.append(adventure.getMessages().getXpLoose())
-				.append(adventure.getMessages().getPoLoose()).player(player).monster(monster)
-				.po(po).send(event);
-	}
-
-	private int damage(Player player, Monster monster) {
-		int damage = randomInterval(monster.getDamage());
-		player.setPv(player.getPv() - damage);
-		return damage;
-	}
-
-	private Drop drop(Adventure adventure, Monster monster, Player player) {
-		Drop drop = findDrop(adventure, monster);
-		if (drop != null) {
-			player.item(drop.getItem(), 1);
-		}
-		return drop;
-	}
-
-	private Drop findDrop(Adventure adventure, Monster monster) {
-		List<Drop> drops = new ArrayList<>();
-		for (Drop drop : adventure.getDrops()) {
-			if (drop.getMonster().equals(monster.getName()) && drop.getRate() > seed.nextInt(100)) {
-				drops.add(drop);
-			}
-		}
-		Drop drop = null;
-		if (!drops.isEmpty()) {
-			drop = drops.get(seed.nextInt(drops.size()));
-		}
-		return drop;
 	}
 
 	private Monster findMonster(Adventure adventure, Player player) {
@@ -134,17 +63,6 @@ public class BattleHandler {
 			max = Integer.parseInt(m.group(2));
 		}
 		return min <= player.getLvl() && player.getLvl() <= max;
-	}
-
-	private int randomInterval(String inter) {
-		Matcher m = INTERVAL.matcher(inter);
-		int value = 0;
-		if (m.find()) {
-			int min = Integer.parseInt(m.group(1));
-			int max = Integer.parseInt(m.group(2));
-			value = seed.nextInt(max - min) + min;
-		}
-		return value;
 	}
 
 }
