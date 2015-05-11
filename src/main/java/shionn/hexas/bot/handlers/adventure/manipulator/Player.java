@@ -1,10 +1,13 @@
 package shionn.hexas.bot.handlers.adventure.manipulator;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import shionn.hexas.mongo.mo.adventure.AdventureMo;
+import shionn.hexas.mongo.mo.adventure.EquipementMo;
 import shionn.hexas.mongo.mo.adventure.PlayerMo;
 
 /**
@@ -84,6 +87,15 @@ public class Player {
 		return this;
 	}
 
+	public Player def(float def) {
+		mo.setDefRate(def() * def);
+		return this;
+	}
+
+	public float def() {
+		return mo.getDefRate();
+	}
+
 	public Map<String, Integer> items() {
 		return mo.getItems();
 	}
@@ -111,7 +123,25 @@ public class Player {
 		} else {
 			mo.getItems().put(item, current);
 		}
+		new UpdateState(this).update();
 		return this;
+	}
+
+	public Player resetStat() {
+		mo.setDefRate(1);
+		mo.setGoldRate(1);
+		mo.setXpRate(1);
+		return this;
+	}
+
+	public List<EquipementMo> equips() {
+		List<EquipementMo> equips = new ArrayList<EquipementMo>();
+		for (EquipementMo equip : adventure.getEquipements()) {
+			if (item(equip.getItem()) > 0) {
+				equips.add(equip);
+			}
+		}
+		return equips;
 	}
 
 	/**

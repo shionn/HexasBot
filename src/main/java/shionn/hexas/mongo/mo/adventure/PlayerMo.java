@@ -1,7 +1,6 @@
 package shionn.hexas.mongo.mo.adventure;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import org.mongojack.Id;
@@ -27,6 +26,10 @@ public class PlayerMo {
 	private int mp = 0;
 	private int maxMp = 0;
 
+	private float defRate = 1;
+	private float goldRate = 1;
+	private float xpRate = 1;
+
 	private Map<String, Integer> items = new HashMap<String, Integer>();
 
 	private long lastBattle;
@@ -41,33 +44,6 @@ public class PlayerMo {
 
 	public PlayerMo(String key) {
 		this.key = key;
-	}
-
-	@Deprecated
-	public PlayerMo pv(int pv) {
-		setPv(getPv() + pv);
-		return this;
-	}
-
-	@Deprecated
-	public PlayerMo xp(int xp) {
-		setXp(getXp() + xp);
-		return this;
-	}
-
-	@Deprecated
-	public PlayerMo item(String item, int qty) {
-		Integer current = getItems().get(item);
-		if (current == null) {
-			current = 0;
-		}
-		current += qty;
-		if (current == 0) {
-			getItems().remove(item);
-		} else {
-			getItems().put(item, current);
-		}
-		return this;
 	}
 
 	public String getKey() {
@@ -134,12 +110,6 @@ public class PlayerMo {
 		this.maxPv = maxPv;
 	}
 
-	@Deprecated
-	public PlayerMo po(int po) {
-		setPo(getPo() + po);
-		return this;
-	}
-
 	public long getLastCraft() {
 		return lastCraft;
 	}
@@ -180,16 +150,6 @@ public class PlayerMo {
 		this.lastShop = lastShop;
 	}
 
-	@Deprecated
-	public boolean haveItem(String item) {
-		boolean find = false;
-		Iterator<String> ite = getItems().keySet().iterator();
-		while (!find && ite.hasNext()) {
-			find = item.equalsIgnoreCase(ite.next());
-		}
-		return find;
-	}
-
 	public int getMp() {
 		return mp;
 	}
@@ -205,5 +165,31 @@ public class PlayerMo {
 	public void setMaxMp(int maxMp) {
 		this.maxMp = maxMp;
 	}
+
+	public float getDefRate() {
+		return defRate;
+	}
+
+	public void setDefRate(float defRate) {
+		this.defRate = defRate;
+	}
+
+	public float getGoldRate() {
+		return goldRate;
+	}
+
+	public void setGoldRate(float goldRate) {
+		this.goldRate = goldRate;
+	}
+
+	public float getXpRate() {
+		return xpRate;
+	}
+
+	public void setXpRate(float xpRate) {
+		this.xpRate = xpRate;
+	}
+
+
 
 }

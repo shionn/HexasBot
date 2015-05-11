@@ -17,7 +17,7 @@ public class EquipementMo {
 
 	private String item;
 	private String desciption;
-	private int var;
+	private String var;
 	private Effect effect;
 
 	public String getItem() {
@@ -36,11 +36,11 @@ public class EquipementMo {
 		this.desciption = desciption;
 	}
 
-	public int getVar() {
+	public String getVar() {
 		return var;
 	}
 
-	public void setVar(int var) {
+	public void setVar(String var) {
 		this.var = var;
 	}
 
