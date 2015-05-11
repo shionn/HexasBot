@@ -30,6 +30,4 @@ public class HexasBot extends PircBotX {
 		super.sendIRC().joinChannel(channel);
 	}
 
-
-
 }

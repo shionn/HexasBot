@@ -2,7 +2,6 @@
 
 A faire  :
 
-- commande !shop
 - parchemin pour avoir la commande !shop
 - parchemin qui detruit le shop
 
@@ -26,5 +25,9 @@ ColdDown progrssif en fonction de l'activitée du chat (nbchatteur / 10)* coldow
 
 colddown en flottant ou en seconde
 
+- commande d'arene (genre un pvp)
+- item de type coffre necessitant un clef pour l'ouvrir
 
 
+
+Commande de top

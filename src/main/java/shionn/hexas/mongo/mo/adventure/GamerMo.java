@@ -1,6 +1,5 @@
 package shionn.hexas.mongo.mo.adventure;
 
-
 /**
  * Profile d'evolution des joueur dans {@link AdventureMo}
  * 

@@ -1,6 +1,5 @@
 package shionn.hexas.mongo.mo;
 
-
 /**
  * Represente une commande survenant reguliere au bout d'un certain temps.
  * 

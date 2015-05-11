@@ -3,14 +3,13 @@ package shionn.hexas.bot.handlers;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
 import shionn.hexas.bot.handlers.timer.TimerState;
-import shionn.hexas.bot.messages.MessageBuilderFactoy;
+import shionn.hexas.bot.messages.Message;
 import shionn.hexas.mongo.mo.TimerMo;
 
 /**
@@ -26,9 +25,6 @@ public class TimerHandler {
 
 	private static final int MILLIS_IN_MIN = 60 * 1000;
 
-	@Inject
-	private MessageBuilderFactoy messages;
-
 	private Map<String, TimerState> states = new HashMap<>();
 
 	public void handle(TimerMo timer, MessageEvent<HexasBot> event) {
@@ -43,7 +39,7 @@ public class TimerHandler {
 	}
 
 	public String buildMessage(TimerMo timer, MessageEvent<HexasBot> event) {
-		return messages.build(timer.getMessage()).event(event).message();
+		return new Message(timer.getMessage()).event(event).message();
 	}
 
 	private boolean isTime(TimerMo timer, TimerState state) {
@@ -67,6 +63,5 @@ public class TimerHandler {
 		}
 		return state;
 	}
-
 
 }

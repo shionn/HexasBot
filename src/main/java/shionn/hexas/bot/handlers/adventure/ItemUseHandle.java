@@ -10,7 +10,8 @@ import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
 import shionn.hexas.bot.handlers.adventure.action.NextLvl;
-import shionn.hexas.bot.messages.MessageBuilder;
+import shionn.hexas.bot.handlers.adventure.manipulator.Player;
+import shionn.hexas.bot.messages.Message;
 import shionn.hexas.mongo.mo.adventure.AdventureMo;
 import shionn.hexas.mongo.mo.adventure.PlayerMo;
 import shionn.hexas.mongo.mo.adventure.UseMo;
@@ -30,55 +31,49 @@ public class ItemUseHandle {
 	@Inject
 	private JacksonDBCollection<PlayerMo, String> players;
 
-	public void run(PlayerMo player, AdventureMo adventure, MessageEvent<HexasBot> event) {
+	public void run(Player player, AdventureMo adventure, MessageEvent<HexasBot> event) {
 		String item = event.getMessage().replace(adventure.getCommands().getItemUse(), "").trim();
-		if (player.haveItem(item)) {
+		if (player.item(item) > 0) {
 			UseMo use = findUse(adventure, item);
 			if (use == null) {
-				new MessageBuilder(adventure.getMessages().getNoUse()).item(item).send(event);
+				new Message(adventure).noUse().item(item).send(event);
 			} else {
-				use(player, use, adventure, event);
+				use(player, use, adventure).send(event);
 			}
-			player.setLastItemUse(System.currentTimeMillis());
-			players.save(player);
+			players.save(player.updateLastItemUse().mo());
 		} else if (item.length() == 0) {
-			new MessageBuilder(adventure.getMessages().getHelpUse()).send(event);
+			new Message(adventure).helpUse().send(event);
 		} else {
-			new MessageBuilder(adventure.getMessages().getNoItem()).item(item).send(event);
-			player.setLastItemUse(System.currentTimeMillis());
-			players.save(player);
+			new Message(adventure).noItem().item(item).send(event);
+			players.save(player.updateLastItemUse().mo());
 		}
 	}
 
-	public void use(PlayerMo player, UseMo use, AdventureMo adventure, 
-			MessageEvent<HexasBot> event) {
+	public Message use(Player player, UseMo use, AdventureMo adventure) {
 		player.item(use.getItem(), -1);
 		switch (use.getUsage()) {
 		case pvGain:
-			pvGain(player, use, event);
-			break;
+			return pvGain(player, use, adventure);
 		case xpGain:
-			xpGain(player, use, adventure, event);
-			break;
+			return xpGain(player, use, adventure);
 		default:
-			new MessageBuilder("Shionn, n'as pas encore fait : " + use.getUsage()).send(event);
-			break;
+			throw new IllegalStateException("Shionn, n'as pas encore fait : " + use.getUsage());
 		}
+
 	}
 
-	public void pvGain(PlayerMo player, UseMo use, MessageEvent<HexasBot> event) {
-		player.setPv(Math.min(player.getPv() + Integer.parseInt(use.getVar()), player.getMaxPv()));
-		new MessageBuilder(use.getMessage()).var(use.getVar()).send(event);
+	private Message pvGain(Player player, UseMo use, AdventureMo adventure) {
+		player.pv(Integer.parseInt(use.getVar()));
+		return new Message(adventure).use(use);
 	}
 
-	public void xpGain(PlayerMo player, UseMo use, AdventureMo adventure, MessageEvent<HexasBot> event) {
-		player.setXp(player.getXp() + Integer.parseInt(use.getVar()));
-		MessageBuilder message = new MessageBuilder(use.getMessage()).var(use.getVar());
-		if (nextLvl.lvlUp(adventure, player)) {
-			message.append(adventure.getMessages().getLvlUp()).player(player)
-					.gamer(adventure.getGamer());
+	public Message xpGain(Player player, UseMo use, AdventureMo adventure) {
+		player.xp(Integer.parseInt(use.getVar()));
+		Message message = new Message(adventure).use(use);
+		if (nextLvl.lvlUp(adventure, player.mo())) {
+			message.lvlUp().player(player.mo()).gamer();
 		}
-		message.send(event);
+		return message;
 	}
 
 	private UseMo findUse(AdventureMo adventure, String item) {

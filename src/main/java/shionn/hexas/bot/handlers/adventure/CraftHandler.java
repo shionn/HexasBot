@@ -12,7 +12,8 @@ import org.mongojack.JacksonDBCollection;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
-import shionn.hexas.bot.messages.MessageBuilder;
+import shionn.hexas.bot.handlers.adventure.manipulator.Player;
+import shionn.hexas.bot.messages.Message;
 import shionn.hexas.mongo.mo.adventure.AdventureMo;
 import shionn.hexas.mongo.mo.adventure.PlayerMo;
 import shionn.hexas.mongo.mo.adventure.SchemaMo;
@@ -33,51 +34,45 @@ public class CraftHandler {
 	@Inject
 	private JacksonDBCollection<PlayerMo, String> players;
 
-	public void run(PlayerMo player, AdventureMo adventure, MessageEvent<HexasBot> event) {
+	public void run(Player player, AdventureMo adventure, MessageEvent<HexasBot> event) {
 		String item = event.getMessage().replace(adventure.getCommands().getCraft(), "").trim();
 		SchemaMo schema = getSchema(adventure, item);
 		if (item.length() == 0) {
-			new MessageBuilder(adventure.getMessages().getHelpCraft()).crafts(
-					findSchemaNames(adventure).toString()).send(event);
+			new Message(adventure).helpCraft().crafts(schemesNames(adventure).toString())
+					.send(event);
 		} else if (schema == null) {
-			player.setLastCraft(System.currentTimeMillis());
-			new MessageBuilder(adventure.getMessages().getNoSchema()).item(item).send(event);
+			player.updateLastCraft();
+			new Message(adventure).noSchema().item(item).send(event);
 		} else {
 			List<String> requireds = findRequiereds(schema);
 			if (haveAllItem(player, requireds, schema)) {
-				craft(player, schema, requireds, adventure, event);
+				craft(player, schema, requireds, adventure).send(event);
 			} else {
-				new MessageBuilder(adventure.getMessages().getNeedItem()).schema(schema)
-						.items(requireds.toString()).send(event);
+				new Message(adventure).needItem().schema(schema).items(requireds.toString())
+						.send(event);
 			}
-			player.setLastCraft(System.currentTimeMillis());
+			player.updateLastCraft();
 		}
-		players.save(player);
+		players.save(player.mo());
 	}
 
-	public void craft(PlayerMo player, SchemaMo schema, List<String> requireds, AdventureMo adventure,
-			MessageEvent<HexasBot> event) {
+	public Message craft(Player player, SchemaMo schema, List<String> requireds,
+			AdventureMo adventure) {
 		for (String required : requireds) {
 			player.item(required, -1);
 		}
 		player.po(-schema.getPo());
 		player.item(schema.getItem(), 1);
-		new MessageBuilder(adventure.getMessages().getCraft()).schema(schema)
-				.items(requireds.toString()).send(event);
+		return new Message(adventure).craft().schema(schema).items(requireds.toString());
 	}
 
-	private boolean haveAllItem(PlayerMo player, List<String> requireds, SchemaMo schema) {
-		boolean haveAll = player.getPo() >= schema.getPo();
+	private boolean haveAllItem(Player player, List<String> requireds, SchemaMo schema) {
+		boolean haveAll = player.po() >= schema.getPo();
 		Iterator<String> ite = requireds.iterator();
 		while (haveAll && ite.hasNext()) {
-			haveAll = haveItem(player, ite.next());
+			haveAll = player.item(ite.next()) > 0;
 		}
 		return haveAll;
-	}
-
-	private boolean haveItem(PlayerMo player, String item) {
-		Integer qty = player.getItems().get(item);
-		return qty != null && qty > 0;
 	}
 
 	private List<String> findRequiereds(SchemaMo schema) {
@@ -100,7 +95,7 @@ public class CraftHandler {
 		return schema;
 	}
 
-	private List<String> findSchemaNames(AdventureMo adventure) {
+	private List<String> schemesNames(AdventureMo adventure) {
 		List<String> names = new ArrayList<String>();
 		for (SchemaMo schema : adventure.getSchemes()) {
 			names.add(schema.getItem());

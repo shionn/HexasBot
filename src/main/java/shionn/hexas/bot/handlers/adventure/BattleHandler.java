@@ -39,8 +39,7 @@ public class BattleHandler {
 	public void run(Player player, AdventureMo adventure, MessageEvent<HexasBot> event) {
 		MonsterMo monster = findMonster(adventure, player);
 		new Battle(seed, adventure).player(player).monster(monster).run().message().send(event);
-		player.updateLastBattle();
-		players.save(player.mo());
+		players.save(player.updateLastBattle().mo());
 	}
 
 	private MonsterMo findMonster(AdventureMo adventure, Player player) {

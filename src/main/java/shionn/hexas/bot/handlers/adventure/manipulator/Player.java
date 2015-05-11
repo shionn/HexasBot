@@ -1,5 +1,9 @@
 package shionn.hexas.bot.handlers.adventure.manipulator;
 
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import shionn.hexas.mongo.mo.adventure.PlayerMo;
 
 /**
@@ -25,9 +29,9 @@ public class Player {
 	public int pv() {
 		return mo.getPv();
 	}
-	
+
 	public Player pv(int pv) {
-		mo.setPv(Math.max(mo.getPv() + pv, 0));
+		mo.setPv(Math.min(Math.max(pv() + pv, 0), maxPv()));
 		return this;
 	}
 
@@ -40,9 +44,29 @@ public class Player {
 		return this;
 	}
 
+	public int po() {
+		return mo.getPo();
+	}
+
 	public Player po(int po) {
 		mo.setPo(Math.max(mo.getPo() + po, 0));
 		return this;
+	}
+
+	public Map<String, Integer> items() {
+		return mo.getItems();
+	}
+
+	public int item(String name) {
+		int qty = 0;
+		Iterator<Entry<String, Integer>> ite = items().entrySet().iterator();
+		while (qty == 0 && ite.hasNext()) {
+			Entry<String, Integer> item = ite.next();
+			if (item.getKey().equalsIgnoreCase(name)) {
+				qty = item.getValue();
+			}
+		}
+		return qty;
 	}
 
 	public Player item(String item, int qty) {
@@ -59,12 +83,43 @@ public class Player {
 		return this;
 	}
 
+	/**
+	 * Renvoi l'objet mongo pour le sauvegarder
+	 */
 	public PlayerMo mo() {
 		return mo;
 	}
 
+	/*
+	 * Mise a jour des last
+	 */
 	public Player updateLastBattle() {
 		mo.setLastBattle(System.currentTimeMillis());
+		return this;
+	}
+
+	public Player updateLastBag() {
+		mo.setLastBag(System.currentTimeMillis());
+		return this;
+	}
+
+	public Player updateLastCraft() {
+		mo.setLastCraft(System.currentTimeMillis());
+		return this;
+	}
+
+	public Player updateLastItemUse() {
+		mo.setLastItemUse(System.currentTimeMillis());
+		return this;
+	}
+
+	public Player updateLastShop() {
+		mo.setLastShop(System.currentTimeMillis());
+		return this;
+	}
+
+	public Player updateLastStat() {
+		mo.setLastStat(System.currentTimeMillis());
 		return this;
 	}
 

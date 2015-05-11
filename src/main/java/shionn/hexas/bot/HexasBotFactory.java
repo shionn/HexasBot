@@ -29,7 +29,7 @@ public class HexasBotFactory {
 	@Inject
 	@shionn.hexas.configuration.Configuration(ConfigurationKey.IrcPass)
 	private String password;
-	
+
 	@Inject
 	private HexasBotListener listener;
 
@@ -37,11 +37,8 @@ public class HexasBotFactory {
 	@Singleton
 	public HexasBot build() {
 		Builder<HexasBot> builder = new Configuration.Builder<HexasBot>();
-		Configuration<HexasBot> configuration = builder
-				.setName(name)
-				.setServer(host, port, password)
-				.addListener(listener)
-				.setAutoReconnect(true)
+		Configuration<HexasBot> configuration = builder.setName(name)
+				.setServer(host, port, password).addListener(listener).setAutoReconnect(true)
 				.buildConfiguration();
 		return new HexasBot(configuration);
 	}

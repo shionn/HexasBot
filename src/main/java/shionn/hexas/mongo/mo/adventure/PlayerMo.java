@@ -55,7 +55,6 @@ public class PlayerMo {
 		return this;
 	}
 
-
 	@Deprecated
 	public PlayerMo item(String item, int qty) {
 		Integer current = getItems().get(item);
@@ -181,6 +180,7 @@ public class PlayerMo {
 		this.lastShop = lastShop;
 	}
 
+	@Deprecated
 	public boolean haveItem(String item) {
 		boolean find = false;
 		Iterator<String> ite = getItems().keySet().iterator();
@@ -205,6 +205,5 @@ public class PlayerMo {
 	public void setMaxMp(int maxMp) {
 		this.maxMp = maxMp;
 	}
-
 
 }

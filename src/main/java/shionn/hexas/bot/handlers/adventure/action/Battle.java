@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import shionn.hexas.bot.handlers.adventure.manipulator.Player;
-import shionn.hexas.bot.messages.MessageBuilder;
+import shionn.hexas.bot.messages.Message;
 import shionn.hexas.mongo.mo.adventure.AdventureMo;
 import shionn.hexas.mongo.mo.adventure.DropMo;
 import shionn.hexas.mongo.mo.adventure.MonsterMo;
@@ -27,14 +27,14 @@ public class Battle {
 	private MonsterMo monster;
 	private Random seed;
 	private AdventureMo adventure;
-	private MessageBuilder message;
+	private Message message;
 
 	private NextLvl nextLvl = new NextLvl();
 
 	public Battle(Random seed, AdventureMo adventure) {
 		this.seed = seed;
 		this.adventure = adventure;
-		this.message = new MessageBuilder(adventure);
+		this.message = new Message(adventure);
 	}
 
 	public Battle run() {
@@ -53,7 +53,7 @@ public class Battle {
 		DropMo drop = drop();
 		message.battleWin().pvLoose().xpGain().poGain();
 		if (nextLvl.lvlUp(adventure, player.mo())) {
-			message.lvlUp().gamer(adventure.getGamer());
+			message.lvlUp().gamer();
 		}
 		if (drop != null) {
 			message.itemGain().drop(drop);
@@ -117,7 +117,7 @@ public class Battle {
 		return this;
 	}
 
-	public MessageBuilder message() {
+	public Message message() {
 		return message;
 	}
 

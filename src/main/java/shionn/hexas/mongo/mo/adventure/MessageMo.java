@@ -111,9 +111,11 @@ public class MessageMo {
 	public void setPoLoose(String poLoose) {
 		this.poLoose = poLoose;
 	}
+
 	public String getLvlUp() {
 		return lvlUp;
 	}
+
 	public void setLvlUp(String lvlUp) {
 		this.lvlUp = lvlUp;
 	}

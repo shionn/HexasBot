@@ -14,17 +14,11 @@ public enum ConfigurationKey {
 
 	BotAutoJoinDelai("bot.autojoindelai", "5"),
 
-	BotName("irc.login"),
-	IrcHost("irc.host"),
-	IrcPort("irc.port"),
-	IrcPass("irc.pass"),
-	
-	MongoHost("mongo.host"),
-	MongoPort("mongo.port"),
-	MongoDB("mongo.database"),
+	BotName("irc.login"), IrcHost("irc.host"), IrcPort("irc.port"), IrcPass("irc.pass"),
 
-	Undifined(null),
-	NbThreads("nbthread");
+	MongoHost("mongo.host"), MongoPort("mongo.port"), MongoDB("mongo.database"),
+
+	Undifined(null), NbThreads("nbthread");
 
 	private String key;
 	private String defolt;

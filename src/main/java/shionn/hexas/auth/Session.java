@@ -13,26 +13,26 @@ public class Session {
 
 	private static final String CHANNEL = "channel";
 
-    private HttpSession session;
+	private HttpSession session;
 
-    public Session(HttpServletRequest request) {
-        session = request.getSession();
-    }
+	public Session(HttpServletRequest request) {
+		session = request.getSession();
+	}
 
-    public void clearChannel() {
+	public void clearChannel() {
 		session.removeAttribute(CHANNEL);
-    }
+	}
 
-    public void setChannel(String user) {
+	public void setChannel(String user) {
 		session.setAttribute(CHANNEL, user);
-    }
+	}
 
-    public boolean hasChannel() {
+	public boolean hasChannel() {
 		return session.getAttribute(CHANNEL) != null;
-    }
+	}
 
 	public String getChannel() {
 		return (String) session.getAttribute(CHANNEL);
-    }
+	}
 
 }

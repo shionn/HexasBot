@@ -1,6 +1,5 @@
 package shionn.hexas.mongo.mo.adventure;
 
-
 /**
  * UJn monstre de {@link AdventureMo}
  * 

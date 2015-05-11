@@ -8,7 +8,8 @@ import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
 import shionn.hexas.bot.handlers.adventure.action.NextLvl;
-import shionn.hexas.bot.messages.MessageBuilder;
+import shionn.hexas.bot.handlers.adventure.manipulator.Player;
+import shionn.hexas.bot.messages.Message;
 import shionn.hexas.mongo.mo.adventure.AdventureMo;
 import shionn.hexas.mongo.mo.adventure.PlayerMo;
 
@@ -27,11 +28,10 @@ public class StatHandler {
 
 	private NextLvl nextLvl = new NextLvl();
 
-	public void run(PlayerMo player, AdventureMo adventure, MessageEvent<HexasBot> event) {
-		player.setLastStat(System.currentTimeMillis());
-		new MessageBuilder(adventure.getMessages().getStat()).player(player)
-				.nextXp(nextLvl.xp(adventure, player)).send(event);
-		players.save(player);
+	public void run(Player player, AdventureMo adventure, MessageEvent<HexasBot> event) {
+		new Message(adventure).stat().player(player.mo())
+				.nextXp(nextLvl.xp(adventure, player.mo())).send(event);
+		players.save(player.updateLastStat().mo());
 	}
 
 }

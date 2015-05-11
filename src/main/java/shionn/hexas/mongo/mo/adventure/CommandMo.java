@@ -1,6 +1,5 @@
 package shionn.hexas.mongo.mo.adventure;
 
-
 /**
  * Les commande de {@link AdventureMo}
  * 
@@ -46,7 +45,6 @@ public class CommandMo {
 	public void setBag(String bag) {
 		this.bag = bag;
 	}
-
 
 	public String getStat() {
 		return stat;

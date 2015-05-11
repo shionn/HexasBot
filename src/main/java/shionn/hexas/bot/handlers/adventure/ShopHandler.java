@@ -14,7 +14,8 @@ import org.mongojack.JacksonDBCollection;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
-import shionn.hexas.bot.messages.MessageBuilder;
+import shionn.hexas.bot.handlers.adventure.manipulator.Player;
+import shionn.hexas.bot.messages.Message;
 import shionn.hexas.mongo.mo.adventure.AdventureMo;
 import shionn.hexas.mongo.mo.adventure.ItemShopMo;
 import shionn.hexas.mongo.mo.adventure.PlayerMo;
@@ -33,31 +34,27 @@ public class ShopHandler {
 	@Inject
 	private JacksonDBCollection<PlayerMo, String> players;
 
-
-	public void run(PlayerMo player, AdventureMo adventure, MessageEvent<HexasBot> event) {
+	public void run(Player player, AdventureMo adventure, MessageEvent<HexasBot> event) {
 		String item = event.getMessage().replace(adventure.getCommands().getShop(), "").trim();
 		if (item.length() == 0) {
 			help(adventure, event);
 		} else {
 			ItemShopMo itemShop = findItemShop(adventure, item);
 			if (itemShop == null) {
-				new MessageBuilder(adventure.getMessages().getShopNoItem()).item(item).send(event);
+				new Message(adventure).shopNoItem().item(item).send(event);
 			} else if (haveEnouth(itemShop, player)) {
 				player.po(-itemShop.getSellPrice());
 				player.item(itemShop.getItem(), 1);
-				new MessageBuilder(adventure.getMessages().getShopBuy()).item(itemShop).send(event);
+				new Message(adventure).shopBuy().item(itemShop).send(event);
 			} else {
-				new MessageBuilder(adventure.getMessages().getShopNotEnouthMoney()).item(item)
-						.send(event);
+				new Message(adventure).shopNotEnouthMoney().item(item).send(event);
 			}
-			player.setLastShop(System.currentTimeMillis());
-			players.save(player);
+			players.save(player.updateLastShop().mo());
 		}
 	}
 
-
-	private boolean haveEnouth(ItemShopMo itemShop, PlayerMo player) {
-		return player.getPo() >= itemShop.getSellPrice();
+	private boolean haveEnouth(ItemShopMo itemShop, Player player) {
+		return player.po() >= itemShop.getSellPrice();
 	}
 
 	private ItemShopMo findItemShop(AdventureMo adventure, String item) {
@@ -69,7 +66,7 @@ public class ShopHandler {
 				itemShop = current;
 			}
 		}
-		return itemShop ;
+		return itemShop;
 	}
 
 	public void help(AdventureMo adventure, MessageEvent<HexasBot> event) {
@@ -81,8 +78,7 @@ public class ShopHandler {
 			items.add(new StrSubstitutor(subtitution).replace(adventure.getMessages()
 					.getItemShopDesc()));
 		}
-		new MessageBuilder(adventure.getMessages().getHelpShop()).items(items)
-				.send(event);
+		new Message(adventure).shopHelp().items(items).send(event);
 	}
 
 }

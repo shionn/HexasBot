@@ -1,12 +1,11 @@
 package shionn.hexas.bot.handlers;
 
-import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
-import shionn.hexas.bot.messages.MessageBuilderFactoy;
+import shionn.hexas.bot.messages.Message;
 import shionn.hexas.mongo.mo.SimpleCommandMo;
 
 /**
@@ -20,9 +19,6 @@ import shionn.hexas.mongo.mo.SimpleCommandMo;
 @Named
 public class SimpleCommandHandler {
 
-	@Inject
-	private MessageBuilderFactoy messages;
-
 	public void handle(SimpleCommandMo command, MessageEvent<HexasBot> event) {
 		if (event.getMessage().startsWith(command.getCommand())) {
 			event.getChannel().send().message(buildMessage(command, event));
@@ -30,7 +26,7 @@ public class SimpleCommandHandler {
 	}
 
 	public String buildMessage(SimpleCommandMo command, MessageEvent<HexasBot> event) {
-		return messages.build(command.getMessage()).event(event).message();
+		return new Message(command.getMessage()).event(event).message();
 	}
 
 }

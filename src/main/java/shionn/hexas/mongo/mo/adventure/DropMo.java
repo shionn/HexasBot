@@ -1,6 +1,5 @@
 package shionn.hexas.mongo.mo.adventure;
 
-
 /**
  * Un objet de {@link AdventureMo}
  * 
@@ -14,7 +13,6 @@ public class DropMo {
 	private String item;
 	private String monster;
 	private int rate;
-
 
 	public String getMonster() {
 		return monster;

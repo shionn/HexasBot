@@ -21,7 +21,7 @@ import javax.inject.Qualifier;
 @Target({ ElementType.METHOD, ElementType.FIELD })
 public @interface Configuration {
 
-    @Nonbinding
+	@Nonbinding
 	ConfigurationKey value() default ConfigurationKey.Undifined;
 
 }

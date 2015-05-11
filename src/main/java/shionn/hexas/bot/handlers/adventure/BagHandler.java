@@ -7,7 +7,8 @@ import org.mongojack.JacksonDBCollection;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
-import shionn.hexas.bot.messages.MessageBuilder;
+import shionn.hexas.bot.handlers.adventure.manipulator.Player;
+import shionn.hexas.bot.messages.Message;
 import shionn.hexas.mongo.mo.adventure.AdventureMo;
 import shionn.hexas.mongo.mo.adventure.PlayerMo;
 
@@ -24,15 +25,13 @@ public class BagHandler {
 	@Inject
 	private JacksonDBCollection<PlayerMo, String> players;
 
-	public void run(PlayerMo player, AdventureMo adventure, MessageEvent<HexasBot> event) {
-		player.setLastBag(System.currentTimeMillis());
-		if (player.getItems().isEmpty()) {
-			new MessageBuilder(adventure.getMessages().getBagEmpty()).send(event);
+	public void run(Player player, AdventureMo adventure, MessageEvent<HexasBot> event) {
+		if (player.items().isEmpty()) {
+			new Message(adventure).bagEmpty().send(event);
 		} else {
-			new MessageBuilder(adventure.getMessages().getBag()).bag(player.getItems().toString())
-					.send(event);
+			new Message(adventure).bag().bag(player.items()).send(event);
 		}
-		players.save(player);
+		players.save(player.updateLastBag().mo());
 	}
 
 }
