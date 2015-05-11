@@ -13,6 +13,7 @@ import org.mongojack.JacksonDBCollection;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
+import shionn.hexas.bot.handlers.adventure.action.Battle;
 import shionn.hexas.mongo.mo.adventure.AdventureMo;
 import shionn.hexas.mongo.mo.adventure.MonsterMo;
 import shionn.hexas.mongo.mo.adventure.PlayerMo;

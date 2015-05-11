@@ -1,4 +1,4 @@
-package shionn.hexas.bot.handlers.adventure;
+package shionn.hexas.bot.handlers.adventure.action;
 
 import shionn.hexas.mongo.mo.adventure.AdventureMo;
 import shionn.hexas.mongo.mo.adventure.PlayerMo;

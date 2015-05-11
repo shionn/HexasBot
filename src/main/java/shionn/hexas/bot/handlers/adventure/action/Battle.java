@@ -1,4 +1,4 @@
-package shionn.hexas.bot.handlers.adventure;
+package shionn.hexas.bot.handlers.adventure.action;
 
 import java.util.ArrayList;
 import java.util.List;
