@@ -95,6 +95,19 @@
 		<hr>
 	</div>
 
+	<!-- 	<div class="col-sm-3">Magie</div> -->
+	<!-- 	<div class="col-sm-2"> -->
+	<!-- 		<input type="text" name="magic" value="{{data.adventure.commands.magic}}" placeholder="!magic" -->
+	<!-- 			class="form-control" /> -->
+	<!-- 	</div> -->
+	<!-- 	<div class="col-sm-2"> -->
+	<!-- 		<input type="number" name="magicColdDown" value="{{data.adventure.commands.magicColdDown}}" -->
+	<!-- 			placeholder="cold down" class="form-control" /> -->
+	<!-- 	</div> -->
+	<!-- 	<div class="col-sm-5"> -->
+	<!-- 		<hr> -->
+	<!-- 	</div> -->
+
 	<div class="col-sm-3">Sac</div>
 	<div class="col-sm-2">
 		<input type="text" name="bag" value="{{data.adventure.commands.bag}}" placeholder="!bag"
@@ -466,8 +479,8 @@
 				{{usage}} <span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" role="menu">
-				<li><a href="#" role="pvGain">Gain Pv</a></li>
-				<li><a href="#" role="xpGain">Gain Xp</a></li>
+				<li><a href="#" role="pvGain">pvGain</a></li>
+				<li><a href="#" role="xpGain">xpGain</a></li>
 			</ul>
 		</div>
 	</div>
@@ -481,6 +494,53 @@
 	</div>
 </div>
 {{/data.adventure.uses}}
+
+<div class="container" role="equip-title">
+	<div class="col-sm-12">
+		<hr>
+	</div>
+	<div class="col-sm-12 h3">
+		Equipement
+		<button type="button" class="btn btn-info pull-right" role="add-equip">
+			Ajouter <span class="glyphicon glyphicon-plus"></span>
+		</button>
+	</div>
+</div>
+
+{{#data.adventure.equip}}
+<div class="container" role="equip">
+	<div class="col-sm-3">
+		<input type="text" name="item" value="{{item}}" placeholder="equipement" class="form-control" />
+	</div>
+	<div class="col-sm-4">
+		<input type="text" name="description" value="{{description}}" placeholder="description ${var}"
+			class="form-control" />
+	</div>
+	<div class="col-sm-2">
+		<input type="hidden" name="effet" value="{{effet}}">
+		<div class="btn-group auto-drop-down">
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+				aria-expanded="false">
+				{{effet}} <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="#" role="armor">armor</a></li>
+				<li><a href="#" role="goldBoost">goldBoost</a></li>
+				<li><a href="#" role="xpBoost">xpBoost</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="col-sm-2">
+		<input type="text" name="var" value="{{var}}" placeholder="variable" class="form-control" />
+	</div>
+	<div class="col-sm-1">
+		<button type="button" class="btn btn-danger center" role="delete">
+			<span class="glyphicon glyphicon-trash"></span>
+		</button>
+	</div>
+</div>
+{{/data.adventure.equip}}
+
 
 <div class="container" role="craft-title">
 	<div class="col-sm-12">

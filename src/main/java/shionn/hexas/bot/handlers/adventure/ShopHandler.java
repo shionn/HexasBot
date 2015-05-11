@@ -28,7 +28,7 @@ import shionn.hexas.mongo.mo.adventure.Player;
  *         GCS d- s+:+ a+ C++ UL/M P L+ E--- W++ N K- w-- M+ t+ 5 X R+ !tv b+ D+ G- e+++ h+ r- y+
  */
 @Named
-public class Shop {
+public class ShopHandler {
 
 	@Inject
 	private JacksonDBCollection<Player, String> players;

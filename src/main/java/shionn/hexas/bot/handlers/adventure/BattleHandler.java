@@ -28,7 +28,7 @@ import shionn.hexas.mongo.mo.adventure.Player;
  *         GCS d- s+:+ a+ C++ UL/M P L+ E--- W++ N K- w-- M+ t+ 5 X R+ !tv b+ D+ G- e+++ h+ r- y+
  */
 @Named
-public class Battle {
+public class BattleHandler {
 
 	private static final Pattern INTERVAL = Pattern.compile("(\\d+)-(\\d+)");
 	@Inject
@@ -41,6 +41,7 @@ public class Battle {
 
 	public void run(Player player, Adventure adventure, MessageEvent<HexasBot> event) {
 		Monster monster = findMonster(adventure, player);
+
 		int damage = damage(player, monster);
 		if (player.getPv() > 0) {
 			win(player, monster, damage, adventure, event);

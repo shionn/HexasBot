@@ -20,6 +20,7 @@ public class Adventure {
 	private List<Use> uses;
 	private List<Schema> schemes;
 	private List<ItemShop> shops;
+	private List<Equipement> equipements;
 
 	private Gamer gamer;
 
@@ -93,6 +94,14 @@ public class Adventure {
 
 	public void setShops(List<ItemShop> shops) {
 		this.shops = shops;
+	}
+
+	public List<Equipement> getEquipements() {
+		return equipements;
+	}
+
+	public void setEquipements(List<Equipement> equipements) {
+		this.equipements = equipements;
 	}
 
 }

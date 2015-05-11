@@ -7,10 +7,10 @@ import org.mongojack.JacksonDBCollection;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
-import shionn.hexas.bot.handlers.adventure.Bag;
-import shionn.hexas.bot.handlers.adventure.Battle;
-import shionn.hexas.bot.handlers.adventure.Shop;
-import shionn.hexas.bot.handlers.adventure.Stat;
+import shionn.hexas.bot.handlers.adventure.BagHandler;
+import shionn.hexas.bot.handlers.adventure.BattleHandler;
+import shionn.hexas.bot.handlers.adventure.ShopHandler;
+import shionn.hexas.bot.handlers.adventure.StatHandler;
 import shionn.hexas.bot.messages.MessageBuilder;
 import shionn.hexas.mongo.mo.adventure.Adventure;
 import shionn.hexas.mongo.mo.adventure.Player;
@@ -32,13 +32,13 @@ public class AdventureHandler {
 	private JacksonDBCollection<Player, String> players;
 
 	@Inject
-	private Battle battle;
+	private BattleHandler battle;
 
 	@Inject
-	private Stat stat;
+	private StatHandler stat;
 
 	@Inject
-	private Bag bag;
+	private BagHandler bag;
 
 	@Inject
 	private ItemUse use;
@@ -47,7 +47,7 @@ public class AdventureHandler {
 	private Craft craft;
 
 	@Inject
-	private Shop shop;
+	private ShopHandler shop;
 
 	public void handle(Adventure adventure, MessageEvent<HexasBot> event) {
 		Player player = getPlayer(adventure, event);
