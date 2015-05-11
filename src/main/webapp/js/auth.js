@@ -47,5 +47,5 @@ var Auth = function() {
 };
 
 $(function() {
-	new Auth();
+//	new Auth();
 });

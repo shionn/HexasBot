@@ -9,16 +9,20 @@ A faire  :
 
 - trigger sur evenement 
     - genre loot objet > destruction de magasin
-    
 - commande de vol de po avec change de reussite et echec
 
 
 - commande d'attaqu epersonnalié !pied
+!battle magic / !battle arme
 
 - equipement modifiant les combat (genre armure épée ....)
 
 
-!battle magic / !battle arme
+- avec les po : acheter des truc au joueur : par exemple un renaming
+
+Les item entre [] === > j'ai pas compris
 
 
-avec les po : acheter des truc au joueur : par exemple un renaming
+
+
+
