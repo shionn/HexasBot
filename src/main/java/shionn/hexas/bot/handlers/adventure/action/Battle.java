@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
 
 import shionn.hexas.bot.handlers.adventure.manipulator.Player;
 import shionn.hexas.bot.messages.Message;
-import shionn.hexas.mongo.mo.adventure.AdventureMo;
 import shionn.hexas.mongo.mo.adventure.DropMo;
 import shionn.hexas.mongo.mo.adventure.MonsterMo;
 
@@ -26,7 +25,6 @@ public class Battle {
 	private Player player;
 	private MonsterMo monster;
 	private Random seed;
-	private AdventureMo adventure;
 	private Message message;
 
 	private NextLvl nextLvl = new NextLvl();
@@ -51,7 +49,7 @@ public class Battle {
 		int po = randomInterval(monster.getPo());
 		player.xp(monster.getXp()).po(po);
 		DropMo drop = drop();
-		message.battleWin().pvLoose().xpGain().poGain();
+		message.battleLoose().pvLoose().xpGain().poGain();
 		if (nextLvl.lvlUp(player)) {
 			message.lvlUp().gamer();
 		}
@@ -95,7 +93,7 @@ public class Battle {
 
 	private DropMo findDrop() {
 		List<DropMo> drops = new ArrayList<>();
-		for (DropMo drop : adventure.getDrops()) {
+		for (DropMo drop : player.adventure().getDrops()) {
 			if (drop.getMonster().equals(monster.getName()) && drop.getRate() > seed.nextInt(100)) {
 				drops.add(drop);
 			}

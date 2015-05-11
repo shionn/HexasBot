@@ -57,7 +57,7 @@ public class Message {
 	}
 
 	public Message battleLoose() {
-		return append(adventure.getMessages().getBattleWin());
+		return append(adventure.getMessages().getBattleLoose());
 	}
 
 	public Message pvGain() {
