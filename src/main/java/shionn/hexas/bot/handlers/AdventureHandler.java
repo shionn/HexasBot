@@ -1,5 +1,8 @@
 package shionn.hexas.bot.handlers;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -13,6 +16,7 @@ import shionn.hexas.bot.handlers.adventure.CraftHandler;
 import shionn.hexas.bot.handlers.adventure.ItemUseHandle;
 import shionn.hexas.bot.handlers.adventure.ShopHandler;
 import shionn.hexas.bot.handlers.adventure.StatHandler;
+import shionn.hexas.bot.handlers.adventure.TopHandler;
 import shionn.hexas.bot.handlers.adventure.manipulator.Player;
 import shionn.hexas.bot.messages.Message;
 import shionn.hexas.mongo.mo.adventure.AdventureMo;
@@ -46,6 +50,10 @@ public class AdventureHandler {
 	private CraftHandler craft;
 	@Inject
 	private ShopHandler shop;
+	@Inject
+	private TopHandler top;
+
+	private Map<String, Long> globalColdDown = new HashMap<>();
 
 	public void handle(AdventureMo adventure, MessageEvent<HexasBot> event) {
 		PlayerMo player = getPlayer(adventure, event);
@@ -59,6 +67,10 @@ public class AdventureHandler {
 		} else if (event.getMessage().equals(adventure.getCommands().getBag())
 				&& bagNotTooEarly(adventure, player, event)) {
 			bag.run(new Player(player, adventure), event);
+		} else if (event.getMessage().equals(adventure.getCommands().getTopLvl())
+				&& topLvlNotTooEarly(adventure, player, event)) {
+			top.runTopLvl(new Player(player, adventure), event);
+			updateGlobalTooEarly(adventure.getCommands().getTopLvl(), event);
 		} else if (event.getMessage().startsWith(adventure.getCommands().getItemUse())
 				&& itemUseNotTooEarly(adventure, player, event)) {
 			use.run(new Player(player, adventure), event);
@@ -111,8 +123,9 @@ public class AdventureHandler {
 
 	private boolean shopNotTooEarly(AdventureMo adventure, PlayerMo player,
 			MessageEvent<HexasBot> event) {
-		return isNotTooEarly(adventure.getCommands().getShop(), adventure.getCommands()
-				.getShopColdDown(), player.getLastShop(), adventure, event);
+		String cmd = adventure.getCommands().getShop();
+		float coldDown = adventure.getCommands().getShopColdDown();
+		return isNotTooEarly(cmd, coldDown, player.getLastShop(), adventure, event);
 	}
 
 	private boolean isNotTooEarly(String cmd, float coldDown, long last, AdventureMo adventure,
@@ -136,6 +149,28 @@ public class AdventureHandler {
 			players.insert(player);
 		}
 		return player;
+	}
+
+	private boolean topLvlNotTooEarly(AdventureMo adventure, PlayerMo player,
+			MessageEvent<HexasBot> event) {
+		String cmd = adventure.getCommands().getTopLvl();
+		float coldDown = adventure.getCommands().getTopLvlColdDown();
+		return isNotGlobalTooEarly(adventure, event, cmd, coldDown);
+	}
+
+	private boolean isNotGlobalTooEarly(AdventureMo adventure, MessageEvent<HexasBot> event,
+			String cmd, float coldDown) {
+		Long last = globalColdDown.get(cmd + event.getChannel().getName());
+		boolean tooEarly = last != null
+				&& last + coldDown * MILLIS_IN_MIN > System.currentTimeMillis();
+		if (tooEarly) {
+			new Message(adventure).coldDown().coldDown(coldDown).command(cmd).send(event);
+		}
+		return !tooEarly;
+	}
+
+	private void updateGlobalTooEarly(String cmd, MessageEvent<HexasBot> event) {
+		globalColdDown.put(cmd + event.getChannel().getName(), System.currentTimeMillis());
 	}
 
 }

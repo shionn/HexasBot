@@ -92,7 +92,7 @@
 			placeholder="cold down" class="form-control" />
 	</div>
 	<div class="col-sm-2 checkbox">
-		<label> <input type="checkbox" name="autoBattleColdDown" {{#toCheckBox}}{{data.adventure.commands.autoBattleColdDown}}{{/toCheckBox}}>
+		<label> <input type="checkbox" name="autoBattleColdDown"{{#toCheckBox}}{{data.adventure.commands.autoBattleColdDown}}{{/toCheckBox}}>
 			Auto
 		</label>
 	</div>
@@ -172,6 +172,19 @@
 	</div>
 	<div class="col-sm-2">
 		<input type="number" name="shopColdDown" value="{{data.adventure.commands.shopColdDown}}"
+			placeholder="cold down" class="form-control" />
+	</div>
+	<div class="col-sm-5">
+		<hr>
+	</div>
+
+	<div class="col-sm-3">Top level</div>
+	<div class="col-sm-2">
+		<input type="text" name="topLvl" value="{{data.adventure.commands.topLvl}}" placeholder="!toplvl"
+			class="form-control" />
+	</div>
+	<div class="col-sm-2">
+		<input type="number" name="topLvlColdDown" value="{{data.adventure.commands.topLvlColdDown}}"
 			placeholder="cold down" class="form-control" />
 	</div>
 	<div class="col-sm-5">
@@ -376,6 +389,24 @@
 		<input type="text" name="shopNotEnouthMoney"
 			value="{{data.adventure.messages.shopNotEnouthMoney}}"
 			placeholder="Navré ${user}, tu n'as pas assez d'argent." class="form-control" />
+	</div>
+
+	<div class="container">
+		<div class="col-sm-2 hidden-xs">
+			<hr>
+		</div>
+		<div class="col-sm-3 h4">Top</div>
+		<div class="col-sm-7 hidden-xs">
+			<hr>
+		</div>
+	</div>
+	<div class="container" role="adventure-messages">
+		<div class="col-sm-3">Top Level</div>
+		<div class="col-sm-9">
+			<input type="text" name="topLvl" value="{{data.adventure.messages.topLvl}}"
+				placeholder="Top lvl : ${lvls}" class="form-control" />
+		</div>
+
 	</div>
 </div>
 

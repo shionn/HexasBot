@@ -39,6 +39,8 @@ public class MessageMo {
 	private String shopNoItem;
 	private String shopNotEnouthMoney;
 	private String shopBuy;
+	private String topLvl;
+	private String topPo;
 
 	public String getBattleWin() {
 		return battleWin;
@@ -255,4 +257,21 @@ public class MessageMo {
 	public void setBagEmpty(String bagEmpty) {
 		this.bagEmpty = bagEmpty;
 	}
+
+	public String getTopLvl() {
+		return topLvl;
+	}
+
+	public void setTopLvl(String topLvl) {
+		this.topLvl = topLvl;
+	}
+
+	public String getTopPo() {
+		return topPo;
+	}
+
+	public void setTopPo(String topPo) {
+		this.topPo = topPo;
+	}
+
 }

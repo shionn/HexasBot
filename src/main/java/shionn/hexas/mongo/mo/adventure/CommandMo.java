@@ -15,6 +15,7 @@ public class CommandMo {
 	private String stat;
 	private String craft;
 	private String shop;
+	private String topLvl;
 	private boolean autoBattleColdDown;
 	private float battleColdDown;
 	private float bagColdDown;
@@ -22,6 +23,7 @@ public class CommandMo {
 	private float statColdDown;
 	private float craftColdDown;
 	private float shopColdDown;
+	private float topLvlColdDown;
 
 
 	public String getBattle() {
@@ -126,6 +128,22 @@ public class CommandMo {
 
 	public void setAutoBattleColdDown(boolean autoBattleColdDown) {
 		this.autoBattleColdDown = autoBattleColdDown;
+	}
+
+	public float getTopLvlColdDown() {
+		return topLvlColdDown;
+	}
+
+	public void setTopLvlColdDown(float topLvlColdDown) {
+		this.topLvlColdDown = topLvlColdDown;
+	}
+
+	public String getTopLvl() {
+		return topLvl;
+	}
+
+	public void setTopLvl(String topLvl) {
+		this.topLvl = topLvl;
 	}
 
 }

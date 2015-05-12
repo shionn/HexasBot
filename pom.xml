@@ -87,7 +87,7 @@
 		<profile>
 			<id>dev</id>
 			<properties>
-				<debug>true</debug>
+				<debug>false</debug>
 			</properties>
 		</profile>
 	</profiles>

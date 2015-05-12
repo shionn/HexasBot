@@ -18,9 +18,6 @@
 ##Permettre l'achat de "truc" au streamer a l'aide des po
 - par exemple acheter un rennomage de perso
 
-##ColdDown progressif en fonction de l'activitée du chat (nbchatteur / 10)xcoldown
-- colddown en flottant ou en seconde
-
 ##pvp
 - a definir
 

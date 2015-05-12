@@ -12,7 +12,6 @@ import shionn.hexas.bot.HexasBot;
 import shionn.hexas.bot.handlers.adventure.manipulator.Player;
 import shionn.hexas.mongo.mo.adventure.AdventureMo;
 import shionn.hexas.mongo.mo.adventure.DropMo;
-import shionn.hexas.mongo.mo.adventure.GamerMo;
 import shionn.hexas.mongo.mo.adventure.ItemShopMo;
 import shionn.hexas.mongo.mo.adventure.MonsterMo;
 import shionn.hexas.mongo.mo.adventure.SchemaMo;
@@ -167,6 +166,13 @@ public class Message {
 		return append(adventure.getMessages().getStat());
 	}
 
+	/*
+	 * Tops
+	 */
+	public Message topLvl() {
+		return append(adventure.getMessages().getTopLvl());
+	}
+
 	private Message append(String message) {
 		if (!message.isEmpty()) {
 			this.message = this.message.concat(" ");
@@ -286,9 +292,8 @@ public class Message {
 		return item(itemShop.getItem()).po(itemShop.getSellPrice());
 	}
 
-	@Deprecated
-	public Message gamer(GamerMo gamer) {
-		return pvFactor(gamer.getPvFactor());
+	public Message top(List<String> values) {
+		return substitution("top", values);
 	}
 
 	public Message gamer() {
@@ -307,5 +312,10 @@ public class Message {
 		substitution.put(key, value);
 		return this;
 	}
+
+	private Message substitution(String key, List<String> values) {
+		return substitution(key, StringUtils.join(values, ", "));
+	}
+
 
 }
