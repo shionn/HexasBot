@@ -1,17 +1,25 @@
 package shionn.hexas.services;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
+import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 import org.mongojack.DBQuery;
 import org.mongojack.JacksonDBCollection;
 import org.slf4j.Logger;
@@ -55,6 +63,23 @@ public class AdventureService {
 	public Object img(@PathParam("id") String id, @Context HttpServletRequest request) {
 		String channel = SHARP.matcher(new Session(request).getChannel()).replaceAll("");
 		return new File(".hexas/" + channel + "/" + id.toLowerCase());
+	}
 
+	@Path("img")
+	@POST
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	public Object upload(@MultipartForm FormData data, @Context HttpServletRequest request)
+			throws IOException, URISyntaxException {
+		String channel = SHARP.matcher(new Session(request).getChannel()).replaceAll("");
+		File file = new File(".hexas/" + channel + "/" + data.getName().toLowerCase() + ".png");
+		file.getParentFile().mkdirs();
+		file.delete();
+		FileOutputStream os = new FileOutputStream(file);
+		try {
+			os.write(data.getData());
+		} finally {
+			os.close();
+		}
+		return Response.seeOther(new URI("/")).build();
 	}
 }
