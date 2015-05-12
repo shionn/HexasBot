@@ -14,8 +14,8 @@
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
 					data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Hex4s</span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span>
+					<span class="sr-only">Hex4s</span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+					<span class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href="#">Hex4s</a>
 			</div>
@@ -25,6 +25,10 @@
 					<li><a href="#configuration">Configuration</a></li>
 					<li><a href="#control">Controle</a></li>
 				</ul>
+
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#" role="adventure-popup">Aventure</a></li>
+				</ul>
 			</div>
 		</div>
 	</nav>
@@ -33,10 +37,18 @@
 
 
 	<script src="js/jquery-1.11.3.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
 	<script src="js/mustache.min.js"></script>
 	<script src="js/template.js"></script>
 	<script src="js/configuration.js"></script>
-	<script src="js/auth.js"></script>
+	<script type="text/javascript">
+	$(function() {
+		$("a[role=adventure-popup]").on("click",function(event) {
+			event.preventDefault();
+			window.open("adventure.html", "Adventrue", "width=320, height=200")
+// 			new MTemplate("adventure").popup({});
+		});
+	})
+	</script>
 </body>
 </html>

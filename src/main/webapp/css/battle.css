@@ -1,0 +1,31 @@
+body {
+	margin: 0;
+}
+
+div.background {
+	background-size: cover;
+	image-rendering: pixelated;
+	height: 200px;
+}
+
+.title {
+  text-align: center;
+  background-color: #fff;
+  padding: 3px;
+  opacity: 0.8;
+}
+
+.monster {
+	left: 4px;
+}
+
+.player {
+	right: 4px;
+}
+
+.player, .monster {
+	width: 150px;
+	image-rendering: pixelated;
+	position: fixed;
+	bottom: 4px;
+}

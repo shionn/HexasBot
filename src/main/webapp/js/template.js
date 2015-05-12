@@ -66,4 +66,17 @@ var MTemplate = function(template) {
 			}
 		}
 	};
+	
+	
+	this.popup = function(data) {
+		var myWindow = window.open("", "Adventrue", "width=320, height=200");
+		if (html == null) {
+			$.get("template/" + template + ".html", function(template) {
+				html = template;
+				myWindow.document.write(Mustache.render(html, data));
+			}, "html");
+		} else {
+			myWindow.document.write(Mustache.render(html, data));
+		}
+	};
 };

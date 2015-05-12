@@ -22,6 +22,8 @@
 - a definir
 
 ##Commande de top
+- top lvl (done)
+- top po (todo)
 
 ##Classes 
 - (guerrier, mage, artilleur, etc.)
@@ -33,4 +35,4 @@
 - Le fonctionnement du boss est a définir. 
 
 ##Client, qui visualise les action du jeu. 
-- pour une integration graphique au stream du 
+- pour une integration graphique au stream des evenements 

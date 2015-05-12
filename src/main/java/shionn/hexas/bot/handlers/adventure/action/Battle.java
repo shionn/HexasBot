@@ -7,6 +7,10 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.pircbotx.hooks.events.MessageEvent;
+
+import shionn.hexas.bot.HexasBot;
+import shionn.hexas.bot.handlers.adventure.manipulator.Event;
 import shionn.hexas.bot.handlers.adventure.manipulator.Player;
 import shionn.hexas.bot.messages.Message;
 import shionn.hexas.mongo.mo.adventure.DropMo;
@@ -28,7 +32,9 @@ public class Battle {
 	private Random seed;
 	private Message message;
 
+	private Event event = new Event().battle();
 	private NextLvl nextLvl = new NextLvl();
+
 
 	public Battle(Random seed, Player player) {
 		this.seed = seed;
@@ -59,6 +65,7 @@ public class Battle {
 			message.itemGain().drop(drop);
 		}
 		message.player(player).monster(monster).pv(damage).po(po).xp(xp);
+
 	}
 
 	private void loose() {
@@ -126,11 +133,16 @@ public class Battle {
 
 	public Battle monster(MonsterMo monster) {
 		this.monster = monster;
+		this.event.monster(monster);
 		return this;
 	}
 
 	public Message message() {
 		return message;
+	}
+
+	public Event event(MessageEvent<HexasBot> event) {
+		return this.event.event(event).message(message.message());
 	}
 
 }

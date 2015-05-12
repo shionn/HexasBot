@@ -15,6 +15,7 @@ import org.pircbotx.hooks.events.MessageEvent;
 import shionn.hexas.bot.HexasBot;
 import shionn.hexas.bot.handlers.adventure.action.Battle;
 import shionn.hexas.bot.handlers.adventure.manipulator.Player;
+import shionn.hexas.mongo.mo.adventure.EventMo;
 import shionn.hexas.mongo.mo.adventure.MonsterMo;
 import shionn.hexas.mongo.mo.adventure.PlayerMo;
 
@@ -32,13 +33,17 @@ public class BattleHandler {
 	private static final Pattern INTERVAL = Pattern.compile("(\\d+)-(\\d+)");
 	@Inject
 	private JacksonDBCollection<PlayerMo, String> players;
+	@Inject
+	private JacksonDBCollection<EventMo, String> events;
 
 	private Random seed = new Random();
 
 	public void run(Player player, MessageEvent<HexasBot> event) {
 		MonsterMo monster = findMonster(player);
-		new Battle(seed, player).monster(monster).run().message().send(event);
+		Battle battle = new Battle(seed, player).monster(monster).run();
+		battle.message().send(event);
 		players.save(player.updateLastBattle().mo());
+		events.insert(battle.event(event).mo());
 	}
 
 	private MonsterMo findMonster(Player player) {

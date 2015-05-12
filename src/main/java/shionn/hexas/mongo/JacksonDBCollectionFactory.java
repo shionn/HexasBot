@@ -12,6 +12,7 @@ import shionn.hexas.configuration.Configuration;
 import shionn.hexas.configuration.ConfigurationKey;
 import shionn.hexas.mongo.mo.ChannelConfigurationMo;
 import shionn.hexas.mongo.mo.ChannelMo;
+import shionn.hexas.mongo.mo.adventure.EventMo;
 import shionn.hexas.mongo.mo.adventure.PlayerMo;
 
 import com.mongodb.DB;
@@ -46,6 +47,11 @@ public class JacksonDBCollectionFactory {
 	@Produces
 	public JacksonDBCollection<PlayerMo, String> datas() {
 		return collection(PlayerMo.class, String.class);
+	}
+
+	@Produces
+	public JacksonDBCollection<EventMo, String> events() {
+		return collection(EventMo.class, String.class);
 	}
 
 	private <Type, Key> JacksonDBCollection<Type, Key> collection(Class<Type> type, Class<Key> key) {

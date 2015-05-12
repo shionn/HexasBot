@@ -20,6 +20,7 @@ public class Services extends Application {
 		Set<Class<?>> classes = new HashSet<Class<?>>();
 		classes.add(AuthService.class);
 		classes.add(ChannelService.class);
+		classes.add(AdventureService.class);
 		return classes;
 	}
 }

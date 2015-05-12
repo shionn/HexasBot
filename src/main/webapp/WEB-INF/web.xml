@@ -24,6 +24,7 @@
 	<filter-mapping>
 		<filter-name>AuthFilter</filter-name>
 		<url-pattern>/channel/*</url-pattern>
+		<url-pattern>/adventure/*</url-pattern>
 	</filter-mapping>
 
 	<servlet>
@@ -39,6 +40,7 @@
 	<servlet-mapping>
 		<servlet-name>Resteasy</servlet-name>
 		<url-pattern>/channel/*</url-pattern>
+		<url-pattern>/adventure/*</url-pattern>
 		<url-pattern>/auth/*</url-pattern>
 	</servlet-mapping>
 
