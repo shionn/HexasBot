@@ -1,33 +1,36 @@
 # HexasBot
 
-A faire  :
+*Object
+>-faire des object qui donne acces à des commandes : 
+>> par exemple un parchemin qui invoquerai un magasin ou un boss ou ?
+>-Les item entre [] === > j'ai pas compris
+>-Objet nécéssitant d'autre pour s'ouvrir (coffre)
 
-- parchemin pour avoir la commande !shop
-- parchemin qui detruit le shop
+*trigger sur evenement, declancher des chose sur d'autre
+>- sur un loot, activer un parchemin
+>- sur une magie 
+>- sur un combat
+>- sur une mort ?
 
+*VOl d'item / po ?
+> Fonctionnement à définir
 
-- trigger sur evenement 
-    - genre loot objet > destruction de magasin
-- commande de vol de po avec change de reussite et echec
+*Permettre l'achat de "truc" au streamer a l'aide des po
+> par exemple acheter un rennomage de perso
 
+*ColdDown progrssif en fonction de l'activitée du chat (nbchatteur / 10)xcoldown
+> colddown en flottant ou en seconde
 
-- commande d'attaqu epersonnalié !pied
-!battle magic / !battle arme
+*pvp
+> a definir
 
-- equipement modifiant les combat (genre armure épée ....)
+*Commande de top
 
+*Classes (guerrier, mage, artilleur, etc.)
+> fonctionnement à définir
 
-- avec les po : acheter des truc au joueur : par exemple un renaming
+*Boss
+>- Quelque chose déclenche l'apparition d'un boss, (le streamer vie une commade, un trigger ....).
+>- Ceux qui veulent participipe au combat à l'aide d'une commande *à definir*
+>- Le fonctionnement du boss est a définir. 
 
-Les item entre [] === > j'ai pas compris
-
-ColdDown progrssif en fonction de l'activitée du chat (nbchatteur / 10)* coldown
-
-colddown en flottant ou en seconde
-
-- commande d'arene (genre un pvp)
-- item de type coffre necessitant un clef pour l'ouvrir
-
-
-
-Commande de top

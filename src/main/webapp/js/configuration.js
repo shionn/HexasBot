@@ -8,6 +8,7 @@ var Configuration = function() {
 	this.tMonster = new MTemplate("monster");
 	this.tItemDrop = new MTemplate("item-drop");
 	this.tItemUse = new MTemplate("item-use");
+	this.tEquip = new MTemplate("equipement");
 	this.tCraft = new MTemplate("craft");
 	this.tShop = new MTemplate("shop");
 	this.tError = new MTemplate("error");
@@ -36,18 +37,11 @@ var Configuration = function() {
 	};
 
 	this.buildData = function() {
-		var data = {
-			simpleCommands : new Array(),
+		return {
+			simpleCommands : this.extractArrayObject("[role=simple-command]"),
 			timers : this.extractArrayObject("[role=timer]"),
 			adventure : this.buildAdventure()
 		};
-		$.each($("[role=simple-command]"), function() {
-			data.simpleCommands.push({
-				command : $(this).find("[name=command]").val(),
-				message : $(this).find("[name=message]").val()
-			});
-		});
-		return data;
 	};
 
 	this.buildAdventure = function() {
@@ -58,6 +52,7 @@ var Configuration = function() {
 			monsters : this.extractArrayObject("[role=monster]"),
 			drops : this.extractArrayObject("[role=item-drop]"),
 			uses : this.extractArrayObject("[role=item-use]"),
+			equipements : this.extractArrayObject("[role=equipement]"),
 			schemes : this.extractArrayObject("[role=craft]"),
 			shops : this.extractArrayObject("[role=shop]"),
 			gamer : this.extractObject("[role=gamer]")
@@ -76,9 +71,9 @@ var Configuration = function() {
 		var object = new Object();
 		$.each($(name).find("input"), function() {
 			var val = $(this).val();
-//			if (val == "" || val == undefined) {
-//				vale = $(this).attr("placeholder");
-//			}
+			// if (val == "" || val == undefined) {
+			// vale = $(this).attr("placeholder");
+			// }
 			object[$(this).attr("name")] = val;
 		});
 		return object;
@@ -111,18 +106,23 @@ var Configuration = function() {
 		var target = $("#main").find("[role=craft-title]");
 		this.tCraft.insertAfter({}, target);
 	};
-	
+
 	this.addShop = function(event) {
 		event.preventDefault();
 		var target = $("#main").find("[role=shop-title]");
 		this.tShop.insertAfter({}, target);
 	};
 
-
 	this.addItemUse = function(event) {
 		event.preventDefault();
 		var target = $("#main").find("[role=item-use-title]");
 		this.tItemUse.insertAfter({}, target);
+	};
+
+	this.addEquip = function(event) {
+		event.preventDefault();
+		var target = $("#main").find("[role=equip-title]");
+		this.tEquip.insertAfter({}, target);
 	};
 
 	this.remove = function(event) {
@@ -139,7 +139,7 @@ var Configuration = function() {
 	this.error = function(data) {
 		alert(data.status + " " + data.statusText);
 	};
-	
+
 	this.updateXpCurve = function() {
 		var base = +$("#main [name=xpBase]").val();
 		var fact = +$("#main [name=xpFactor]").val();
@@ -159,7 +159,7 @@ var Configuration = function() {
 		var base = +$("#main [name=pvBase]").val();
 		var fact = +$("#main [name=pvFactor]").val();
 		var perLvl = function(lvl) {
-			return Math.floor(base+fact*(lvl-1));
+			return Math.floor(base + fact * (lvl - 1));
 		};
 		$("span[role=pv1]").text(perLvl(1));
 		$("span[role=pv2]").text(perLvl(2));
@@ -169,12 +169,12 @@ var Configuration = function() {
 		$("span[role=pv10]").text(perLvl(10));
 		$("span[role=pv20]").text(perLvl(20));
 	};
-	
+
 	this.updateMpCurve = function() {
 		var base = +$("#main [name=mpBase]").val();
 		var fact = +$("#main [name=mpFactor]").val();
 		var perLvl = function(lvl) {
-			return Math.floor(base+fact*(lvl-1));
+			return Math.floor(base + fact * (lvl - 1));
 		};
 		$("span[role=mp1]").text(perLvl(1));
 		$("span[role=mp2]").text(perLvl(2));
@@ -184,7 +184,6 @@ var Configuration = function() {
 		$("span[role=mp10]").text(perLvl(10));
 		$("span[role=mp20]").text(perLvl(20));
 	};
-
 
 	$("#main").on("change", "[name=xpBase]", this.updateXpCurve);
 	$("#main").on("change", "[name=xpFactor]", this.updateXpCurve);
@@ -199,6 +198,7 @@ var Configuration = function() {
 	$("#main").on("click", "button[role=add-monster]", $.proxy(this.addMonster, this));
 	$("#main").on("click", "button[role=add-item-drop]", $.proxy(this.addItem, this));
 	$("#main").on("click", "button[role=add-item-use]", $.proxy(this.addItemUse, this));
+	$("#main").on("click", "button[role=add-equip]", $.proxy(this.addEquip, this));
 	$("#main").on("click", "button[role=add-craft]", $.proxy(this.addCraft, this));
 	$("#main").on("click", "button[role=add-shop]", $.proxy(this.addShop, this));
 	$("#main").on("click", "button[role=delete]", $.proxy(this.remove, this));
@@ -215,8 +215,8 @@ $(function() {
 		var input = $(this).parent().find("input[type=hidden]");
 		input.val(!(input.val() == "true"));
 	});
-	
-	$("#main").on("click", ".auto-drop-down a", function(event){
+
+	$("#main").on("click", ".auto-drop-down a", function(event) {
 		event.preventDefault();
 		var value = $(this).attr("role");
 		$(this).parents(".auto-drop-down").parent().find("input[type=hidden]").val(value);

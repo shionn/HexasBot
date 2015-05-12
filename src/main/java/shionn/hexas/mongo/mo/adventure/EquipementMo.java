@@ -1,8 +1,7 @@
 package shionn.hexas.mongo.mo.adventure;
 
 /**
- * Equipement type d'equipement
- * 
+ * Equipement
  * 
  * Code sous licence GPLv3 (http://www.gnu.org/licenses/gpl.html)
  *
@@ -16,7 +15,7 @@ public class EquipementMo {
 	}
 
 	private String item;
-	private String desciption;
+	private String description;
 	private String var;
 	private Effect effect;
 
@@ -26,14 +25,6 @@ public class EquipementMo {
 
 	public void setItem(String item) {
 		this.item = item;
-	}
-
-	public String getDesciption() {
-		return desciption;
-	}
-
-	public void setDesciption(String desciption) {
-		this.desciption = desciption;
 	}
 
 	public String getVar() {
@@ -50,6 +41,14 @@ public class EquipementMo {
 
 	public void setEffect(Effect effect) {
 		this.effect = effect;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

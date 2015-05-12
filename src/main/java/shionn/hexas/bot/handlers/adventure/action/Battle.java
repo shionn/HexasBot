@@ -1,5 +1,6 @@
 package shionn.hexas.bot.handlers.adventure.action;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -49,7 +50,7 @@ public class Battle {
 		int po = randomInterval(monster.getPo());
 		player.xp(monster.getXp()).po(po);
 		DropMo drop = drop();
-		message.battleLoose().pvLoose().xpGain().poGain();
+		message.battleWin().pvLoose().xpGain().poGain();
 		if (nextLvl.lvlUp(player)) {
 			message.lvlUp().gamer();
 		}
@@ -68,6 +69,7 @@ public class Battle {
 
 	private int damage() {
 		int damage = randomInterval(monster.getDamage());
+		damage = Math.max(player.def().multiply(BigDecimal.valueOf(damage)).intValue(), 1);
 		player.pv(-damage);
 		return damage;
 	}

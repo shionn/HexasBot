@@ -161,7 +161,7 @@ public class Message {
 	}
 
 	/*
-	 * 
+	 * Stat du joueur
 	 */
 	public Message stat() {
 		return append(adventure.getMessages().getStat());
@@ -183,7 +183,7 @@ public class Message {
 
 	public Message player(Player player) {
 		return pv(player.pv()).maxPv(player.maxPv()).lvl(player.lvl()).xp(player.xp())
-				.po(player.po()).mp(player.mp()).maxMp(player.maxMp());
+				.po(player.po()).mp(player.mp()).maxMp(player.maxMp()).def(player.defPc());
 	}
 
 	public Message maxMp(int maxMp) {
@@ -204,6 +204,10 @@ public class Message {
 
 	public Message maxPv(int maxPv) {
 		return substitution("maxPv", maxPv);
+	}
+
+	private Message def(int def) {
+		return substitution("def", def);
 	}
 
 	public Message monster(MonsterMo monster) {

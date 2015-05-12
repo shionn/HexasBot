@@ -1,0 +1,31 @@
+<div class="container" role="equipement">
+	<div class="col-sm-3">
+		<input type="text" name="item" value="{{item}}" placeholder="equipement" class="form-control" />
+	</div>
+	<div class="col-sm-4">
+		<input type="text" name="description" value="{{description}}" placeholder="description ${var}"
+			class="form-control" />
+	</div>
+	<div class="col-sm-2">
+		<input type="hidden" name="effect" value="{{effetc}}">
+		<div class="btn-group auto-drop-down">
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+				aria-expanded="false">
+				{{effetc}} <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href="#" role="armor">armor</a></li>
+				<li><a href="#" role="goldBoost">goldBoost</a></li>
+				<li><a href="#" role="xpBoost">xpBoost</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="col-sm-2">
+		<input type="text" name="var" value="{{var}}" placeholder="variable" class="form-control" />
+	</div>
+	<div class="col-sm-1">
+		<button type="button" class="btn btn-danger center" role="delete">
+			<span class="glyphicon glyphicon-trash"></span>
+		</button>
+	</div>
+</div>

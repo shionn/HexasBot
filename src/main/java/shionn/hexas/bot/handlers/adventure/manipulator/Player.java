@@ -1,5 +1,6 @@
 package shionn.hexas.bot.handlers.adventure.manipulator;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -20,6 +21,7 @@ import shionn.hexas.mongo.mo.adventure.PlayerMo;
  */
 public class Player {
 
+	private static final BigDecimal _100 = BigDecimal.valueOf(100);
 	private PlayerMo mo;
 	private AdventureMo adventure;
 
@@ -27,7 +29,6 @@ public class Player {
 		this.mo = player;
 		this.adventure = adventure;
 	}
-
 
 	public int lvl() {
 		return mo.getLvl();
@@ -87,13 +88,17 @@ public class Player {
 		return this;
 	}
 
-	public Player def(float def) {
-		mo.setDefRate(def() * def);
+	public Player def(BigDecimal def) {
+		mo.setDefRate(def().multiply(def));
 		return this;
 	}
 
-	public float def() {
+	public BigDecimal def() {
 		return mo.getDefRate();
+	}
+
+	public int defPc() {
+		return BigDecimal.ONE.subtract(def()).multiply(_100).intValue();
 	}
 
 	public Map<String, Integer> items() {
@@ -128,9 +133,9 @@ public class Player {
 	}
 
 	public Player resetStat() {
-		mo.setDefRate(1);
-		mo.setGoldRate(1);
-		mo.setXpRate(1);
+		mo.setDefRate(BigDecimal.ONE);
+		mo.setGoldRate(BigDecimal.ONE);
+		mo.setXpRate(BigDecimal.ONE);
 		return this;
 	}
 
@@ -187,7 +192,5 @@ public class Player {
 		mo.setLastStat(System.currentTimeMillis());
 		return this;
 	}
-
-
 
 }

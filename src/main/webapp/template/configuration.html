@@ -201,17 +201,17 @@
 		<input type="text" name="xpGain" value="{{data.adventure.messages.xpGain}}"
 			placeholder="${user} gagne ${xp} xp." class="form-control" />
 	</div>
-	<div class="col-sm-3">Perte d'xp</div>
+	<div class="col-sm-3">perde d'xp</div>
 	<div class="col-sm-9">
 		<input type="text" name="xpLoose" value="{{data.adventure.messages.xpLoose}}"
-			placeholder="${user} pert ${xp} xp." class="form-control" />
+			placeholder="${user} perd ${xp} xp." class="form-control" />
 	</div>
 	<div class="col-sm-3">Gain de pv</div>
 	<div class="col-sm-9">
 		<input type="text" name="pvGain" value="{{data.adventure.messages.pvGain}}"
 			placeholder="${user} gagne ${pv} pv." class="form-control" />
 	</div>
-	<div class="col-sm-3">Perte de pv</div>
+	<div class="col-sm-3">perde de pv</div>
 	<div class="col-sm-9">
 		<input type="text" name="pvLoose" value="{{data.adventure.messages.pvLoose}}"
 			placeholder="${user} perd ${pv} pv." class="form-control" />
@@ -221,20 +221,20 @@
 		<input type="text" name="itemGain" value="{{data.adventure.messages.itemGain}}"
 			placeholder="${user} ramasse un ${item}." class="form-control" />
 	</div>
-	<div class="col-sm-3">Perte d'objet</div>
+	<div class="col-sm-3">perde d'objet</div>
 	<div class="col-sm-9">
 		<input type="text" name="itemLoose" value="{{data.adventure.messages.itemLoose}}"
-			placeholder="${user} pert ${item}." class="form-control" />
+			placeholder="${user} perd ${item}." class="form-control" />
 	</div>
 	<div class="col-sm-3">Gain de Po</div>
 	<div class="col-sm-9">
 		<input type="text" name="poGain" value="{{data.adventure.messages.poGain}}"
 			placeholder="${user} gagne ${po} po." class="form-control" />
 	</div>
-	<div class="col-sm-3">Perte de Po</div>
+	<div class="col-sm-3">perde de Po</div>
 	<div class="col-sm-9">
 		<input type="text" name="poLoose" value="{{data.adventure.messages.poLoose}}"
-			placeholder="${user} pert ${po} po." class="form-control" />
+			placeholder="${user} perd ${po} po." class="form-control" />
 	</div>
 	<div class="col-sm-3">Lvl Up !</div>
 	<div class="col-sm-9">
@@ -265,13 +265,13 @@
 	<div class="col-sm-3">Message de Stat</div>
 	<div class="col-sm-9">
 		<input type="text" name="stat" value="{{data.adventure.messages.stat}}"
-			placeholder="${user}, ${pv}/${maxPv} pv, ${mp}/${maxMp} mp, lvl ${lvl}(${xp}/${nextXp} xp), ${po} POs."
+			placeholder="${user}, ${pv}/${maxPv} pv, ${mp}/${maxMp} mp, lvl ${lvl}(${xp}/${nextXp} xp), def ${def}, ${po} POs."
 			class="form-control" />
 	</div>
 	<div class="col-sm-3">Message de colddown</div>
 	<div class="col-sm-9">
 		<input type="text" name="coldDown" value="{{data.adventure.messages.coldDown}}"
-			placeholder="${user}, tu as dois attendre ${coldDown} minute entre deux ${command}."
+			placeholder="${user}, tu dois attendre ${coldDown} minute entre deux ${command}."
 			class="form-control" />
 	</div>
 </div>
@@ -507,8 +507,8 @@
 	</div>
 </div>
 
-{{#data.adventure.equip}}
-<div class="container" role="equip">
+{{#data.adventure.equipements}}
+<div class="container" role="equipement">
 	<div class="col-sm-3">
 		<input type="text" name="item" value="{{item}}" placeholder="equipement" class="form-control" />
 	</div>
@@ -517,11 +517,11 @@
 			class="form-control" />
 	</div>
 	<div class="col-sm-2">
-		<input type="hidden" name="effet" value="{{effet}}">
+		<input type="hidden" name="effect" value="{{effect}}">
 		<div class="btn-group auto-drop-down">
 			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
 				aria-expanded="false">
-				{{effet}} <span class="caret"></span>
+				{{effect}} <span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" role="menu">
 				<li><a href="#" role="armor">armor</a></li>
@@ -539,7 +539,7 @@
 		</button>
 	</div>
 </div>
-{{/data.adventure.equip}}
+{{/data.adventure.equipements}}
 
 
 <div class="container" role="craft-title">

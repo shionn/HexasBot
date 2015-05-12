@@ -1,5 +1,6 @@
 package shionn.hexas.bot.handlers.adventure.manipulator;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import shionn.hexas.mongo.mo.adventure.EquipementMo;
@@ -14,6 +15,7 @@ import shionn.hexas.mongo.mo.adventure.EquipementMo;
  */
 public class UpdateState {
 
+	private static final BigDecimal _100 = BigDecimal.valueOf(100);
 	private Player player;
 
 	public UpdateState(Player player) {
@@ -35,8 +37,9 @@ public class UpdateState {
 		}
 	}
 
-	private float rate(EquipementMo equip) {
-		return (100 - Integer.parseInt(equip.getVar())) / 100f;
+	private BigDecimal rate(EquipementMo equip) {
+		return _100.subtract(new BigDecimal(equip.getVar()))
+				.divide(_100);
 	}
 
 }

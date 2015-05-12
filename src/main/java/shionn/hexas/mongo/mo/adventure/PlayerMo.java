@@ -1,9 +1,13 @@
 package shionn.hexas.mongo.mo.adventure;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.mongojack.Id;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 /**
  * un joueur de l'aventure
@@ -26,9 +30,12 @@ public class PlayerMo {
 	private int mp = 0;
 	private int maxMp = 0;
 
-	private float defRate = 1;
-	private float goldRate = 1;
-	private float xpRate = 1;
+	@JsonSerialize(using = ToStringSerializer.class)
+	private BigDecimal defRate = BigDecimal.ONE;
+	@JsonSerialize(using = ToStringSerializer.class)
+	private BigDecimal goldRate = BigDecimal.ONE;
+	@JsonSerialize(using = ToStringSerializer.class)
+	private BigDecimal xpRate = BigDecimal.ONE;
 
 	private Map<String, Integer> items = new HashMap<String, Integer>();
 
@@ -166,30 +173,29 @@ public class PlayerMo {
 		this.maxMp = maxMp;
 	}
 
-	public float getDefRate() {
+	public BigDecimal getDefRate() {
 		return defRate;
 	}
 
-	public void setDefRate(float defRate) {
+	public void setDefRate(BigDecimal defRate) {
 		this.defRate = defRate;
 	}
 
-	public float getGoldRate() {
+	public BigDecimal getGoldRate() {
 		return goldRate;
 	}
 
-	public void setGoldRate(float goldRate) {
+	public void setGoldRate(BigDecimal goldRate) {
 		this.goldRate = goldRate;
 	}
 
-	public float getXpRate() {
+	public BigDecimal getXpRate() {
 		return xpRate;
 	}
 
-	public void setXpRate(float xpRate) {
+	public void setXpRate(BigDecimal xpRate) {
 		this.xpRate = xpRate;
 	}
-
 
 
 }
