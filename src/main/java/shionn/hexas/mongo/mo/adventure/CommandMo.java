@@ -10,17 +10,19 @@ package shionn.hexas.mongo.mo.adventure;
  */
 public class CommandMo {
 	private String battle;
-	private int battleColdDown;
 	private String bag;
-	private int bagColdDown;
 	private String itemUse;
-	private int itemUseColdDown;
 	private String stat;
-	private int statColdDown;
 	private String craft;
-	private int craftColdDown;
 	private String shop;
-	private int shopColdDown;
+	private boolean autoBattleColdDown;
+	private float battleColdDown;
+	private float bagColdDown;
+	private float itemUseColdDown;
+	private float statColdDown;
+	private float craftColdDown;
+	private float shopColdDown;
+
 
 	public String getBattle() {
 		return battle;
@@ -28,14 +30,6 @@ public class CommandMo {
 
 	public void setBattle(String battle) {
 		this.battle = battle;
-	}
-
-	public int getBattleColdDown() {
-		return battleColdDown;
-	}
-
-	public void setBattleColdDown(int battleColdDown) {
-		this.battleColdDown = battleColdDown;
 	}
 
 	public String getBag() {
@@ -70,38 +64,6 @@ public class CommandMo {
 		this.craft = craft;
 	}
 
-	public int getBagColdDown() {
-		return bagColdDown;
-	}
-
-	public void setBagColdDown(int bagColdDown) {
-		this.bagColdDown = bagColdDown;
-	}
-
-	public int getItemUseColdDown() {
-		return itemUseColdDown;
-	}
-
-	public void setItemUseColdDown(int itemUseColdDown) {
-		this.itemUseColdDown = itemUseColdDown;
-	}
-
-	public int getStatColdDown() {
-		return statColdDown;
-	}
-
-	public void setStatColdDown(int statColdDown) {
-		this.statColdDown = statColdDown;
-	}
-
-	public int getCraftColdDown() {
-		return craftColdDown;
-	}
-
-	public void setCraftColdDown(int craftColdDown) {
-		this.craftColdDown = craftColdDown;
-	}
-
 	public String getShop() {
 		return shop;
 	}
@@ -110,12 +72,60 @@ public class CommandMo {
 		this.shop = shop;
 	}
 
-	public int getShopColdDown() {
+	public float getBattleColdDown() {
+		return battleColdDown;
+	}
+
+	public void setBattleColdDown(float battleColdDown) {
+		this.battleColdDown = battleColdDown;
+	}
+
+	public float getBagColdDown() {
+		return bagColdDown;
+	}
+
+	public void setBagColdDown(float bagColdDown) {
+		this.bagColdDown = bagColdDown;
+	}
+
+	public float getItemUseColdDown() {
+		return itemUseColdDown;
+	}
+
+	public void setItemUseColdDown(float itemUseColdDown) {
+		this.itemUseColdDown = itemUseColdDown;
+	}
+
+	public float getStatColdDown() {
+		return statColdDown;
+	}
+
+	public void setStatColdDown(float statColdDown) {
+		this.statColdDown = statColdDown;
+	}
+
+	public float getCraftColdDown() {
+		return craftColdDown;
+	}
+
+	public void setCraftColdDown(float craftColdDown) {
+		this.craftColdDown = craftColdDown;
+	}
+
+	public float getShopColdDown() {
 		return shopColdDown;
 	}
 
-	public void setShopColdDown(int shopColdDown) {
+	public void setShopColdDown(float shopColdDown) {
 		this.shopColdDown = shopColdDown;
+	}
+
+	public boolean isAutoBattleColdDown() {
+		return autoBattleColdDown;
+	}
+
+	public void setAutoBattleColdDown(boolean autoBattleColdDown) {
+		this.autoBattleColdDown = autoBattleColdDown;
 	}
 
 }

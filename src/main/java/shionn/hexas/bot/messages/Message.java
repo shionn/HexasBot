@@ -231,8 +231,8 @@ public class Message {
 		return substitution("po", po);
 	}
 
-	public Message coldDown(int coldDown) {
-		substitution.put("coldDown", Integer.toString(coldDown));
+	public Message coldDown(float coldDown) {
+		substitution.put("coldDown", Float.toString(coldDown));
 		return this;
 	}
 

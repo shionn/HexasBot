@@ -29,6 +29,7 @@ import shionn.hexas.mongo.mo.adventure.PlayerMo;
 @Named
 public class AdventureHandler {
 
+	private static final int CHAT_SIZE_FACTOR = 10;
 	private static final int MILLIS_IN_MIN = 60 * 1000;
 
 	@Inject
@@ -72,8 +73,16 @@ public class AdventureHandler {
 
 	private boolean battleNotTooEarly(AdventureMo adventure, PlayerMo player,
 			MessageEvent<HexasBot> event) {
-		return isNotTooEarly(adventure.getCommands().getBattle(), adventure.getCommands()
-				.getBattleColdDown(), player.getLastBattle(), adventure, event);
+		return isNotTooEarly(adventure.getCommands().getBattle(), battleColdDown(adventure, event),
+				player.getLastBattle(), adventure, event);
+	}
+
+	private float battleColdDown(AdventureMo adventure, MessageEvent<HexasBot> event) {
+		float value = adventure.getCommands().getBattleColdDown();
+		if (adventure.getCommands().isAutoBattleColdDown()) {
+			value = Math.max(event.getChannel().getUsers().size() / CHAT_SIZE_FACTOR, 1) * value;
+		}
+		return value;
 	}
 
 	private boolean statNotTooEarly(AdventureMo adventure, PlayerMo player,
@@ -106,7 +115,7 @@ public class AdventureHandler {
 				.getShopColdDown(), player.getLastShop(), adventure, event);
 	}
 
-	private boolean isNotTooEarly(String cmd, int coldDown, long last, AdventureMo adventure,
+	private boolean isNotTooEarly(String cmd, float coldDown, long last, AdventureMo adventure,
 			MessageEvent<HexasBot> event) {
 		boolean tooEarly = last + coldDown * MILLIS_IN_MIN > System.currentTimeMillis();
 		if (tooEarly) {

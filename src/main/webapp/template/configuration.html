@@ -91,7 +91,12 @@
 		<input type="number" name="battleColdDown" value="{{data.adventure.commands.battleColdDown}}"
 			placeholder="cold down" class="form-control" />
 	</div>
-	<div class="col-sm-5">
+	<div class="col-sm-2 checkbox">
+		<label> <input type="checkbox" name="autoBattleColdDown" {{#toCheckBox}}{{data.adventure.commands.autoBattleColdDown}}{{/toCheckBox}}>
+			Auto
+		</label>
+	</div>
+	<div class="col-sm-3">
 		<hr>
 	</div>
 

@@ -6,7 +6,7 @@ var MTemplate = function(template) {
 	this.appendTo = function(values, target) {
 		var data = this.decorate(values);
 		if (html == null) {
-			$.get("template/"+template+".html", function(template) {
+			$.get("template/" + template + ".html", function(template) {
 				html = template;
 				$(Mustache.render(html, data)).appendTo(target);
 			}, "html");
@@ -18,7 +18,7 @@ var MTemplate = function(template) {
 	this.insertAfter = function(values, target) {
 		var data = this.decorate(values);
 		if (html == null) {
-			$.get("template/"+template+".html", function(template) {
+			$.get("template/" + template + ".html", function(template) {
 				html = template;
 				$(Mustache.render(html, data)).insertAfter(target);
 			}, "html");
@@ -30,7 +30,7 @@ var MTemplate = function(template) {
 	this.prependTo = function(values, target) {
 		var data = this.decorate(values);
 		if (html == null) {
-			$.get("template/"+template+".html", function(template) {
+			$.get("template/" + template + ".html", function(template) {
 				html = template;
 				$(Mustache.render(html, data)).prependTo(target);
 			}, "html");
@@ -42,7 +42,7 @@ var MTemplate = function(template) {
 	this.html = function(values, target) {
 		var data = this.decorate(values);
 		if (html == null) {
-			$.get("template/"+template+".html", function(template) {
+			$.get("template/" + template + ".html", function(template) {
 				html = template;
 				$(target).html(Mustache.render(html, data));
 			}, "html");
@@ -56,10 +56,14 @@ var MTemplate = function(template) {
 			data : values,
 			onOffButtonClass : function() {
 				return function(text, render) {
-					return 'true'==render(text) ? "btn-success": "btn-danger";
+					return 'true' == render(text) ? "btn-success" : "btn-danger";
+				}
+			},
+			toCheckBox : function() {
+				return function(text, render) {
+					return 'true' == render(text) ? "checked" : "";
 				}
 			}
 		}
 	};
 };
-

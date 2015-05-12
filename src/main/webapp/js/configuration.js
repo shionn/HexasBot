@@ -71,9 +71,9 @@ var Configuration = function() {
 		var object = new Object();
 		$.each($(name).find("input"), function() {
 			var val = $(this).val();
-			// if (val == "" || val == undefined) {
-			// vale = $(this).attr("placeholder");
-			// }
+			if ($(this).attr("type") == "checkbox") {
+				val = $(this).prop("checked");
+			}
 			object[$(this).attr("name")] = val;
 		});
 		return object;
