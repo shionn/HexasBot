@@ -88,17 +88,35 @@ public class Player {
 		return this;
 	}
 
+	public BigDecimal def() {
+		return mo.getDefRate();
+	}
+
 	public Player def(BigDecimal def) {
 		mo.setDefRate(def().multiply(def));
 		return this;
 	}
 
-	public BigDecimal def() {
-		return mo.getDefRate();
-	}
-
 	public int defPc() {
 		return BigDecimal.ONE.subtract(def()).multiply(_100).intValue();
+	}
+
+	public BigDecimal goldRate() {
+		return mo.getGoldRate();
+	}
+
+	public Player goldRate(BigDecimal rate) {
+		mo.setGoldRate(goldRate().multiply(rate));
+		return this;
+	}
+
+	public BigDecimal xpRate() {
+		return mo.getXpRate();
+	}
+
+	public Player xpRate(BigDecimal rate) {
+		mo.setXpRate(xpRate().multiply(rate));
+		return this;
 	}
 
 	public Map<String, Integer> items() {

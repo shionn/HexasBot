@@ -28,7 +28,13 @@ public class UpdateState {
 		for (EquipementMo equip : equips) {
 			switch (equip.getEffect()) {
 			case armor:
-				player.def(rate(equip));
+				player.def(neg(equip));
+				break;
+			case goldBoost:
+				player.goldRate(pos(equip));
+				break;
+			case xpBoost:
+				player.xpRate(pos(equip));
 				break;
 
 			default:
@@ -37,9 +43,13 @@ public class UpdateState {
 		}
 	}
 
-	private BigDecimal rate(EquipementMo equip) {
+	private BigDecimal neg(EquipementMo equip) {
 		return _100.subtract(new BigDecimal(equip.getVar()))
 				.divide(_100);
+	}
+
+	private BigDecimal pos(EquipementMo equip) {
+		return _100.add(new BigDecimal(equip.getVar())).divide(_100);
 	}
 
 }

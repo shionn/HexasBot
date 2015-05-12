@@ -47,8 +47,9 @@ public class Battle {
 	}
 
 	private void win(int damage) {
-		int po = randomInterval(monster.getPo());
-		player.xp(monster.getXp()).po(po);
+		int po = po();
+		int xp = xp();
+		player.xp(xp).po(po);
 		DropMo drop = drop();
 		message.battleWin().pvLoose().xpGain().poGain();
 		if (nextLvl.lvlUp(player)) {
@@ -57,14 +58,15 @@ public class Battle {
 		if (drop != null) {
 			message.itemGain().drop(drop);
 		}
-		message.player(player).monster(monster).pv(damage).po(po);
+		message.player(player).monster(monster).pv(damage).po(po).xp(xp);
 	}
 
 	private void loose() {
-		int po = randomInterval(monster.getPo());
-		player.po(-po).xp(-monster.getXp()).pv(player.maxPv() / 2);
-		message.battleLoose().pvGain().xpLoose().poLoose().player(player).monster(monster)
-				.po(po);
+		int po = po();
+		int xp = xp();
+		player.po(-po).xp(-xp).pv(player.maxPv() / 2);
+		message.battleLoose().pvGain().xpLoose().poLoose().player(player).monster(monster).po(po)
+				.xp(xp);
 	}
 
 	private int damage() {
@@ -72,6 +74,16 @@ public class Battle {
 		damage = Math.max(player.def().multiply(BigDecimal.valueOf(damage)).intValue(), 1);
 		player.pv(-damage);
 		return damage;
+	}
+
+	private int xp() {
+		return new BigDecimal(monster.getXp()).multiply(player.xpRate()).intValue();
+	}
+
+	private int po() {
+		int po = randomInterval(monster.getPo());
+		po = new BigDecimal(po).multiply(player.goldRate()).intValue();
+		return po;
 	}
 
 	private int randomInterval(String inter) {
