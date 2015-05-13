@@ -14,9 +14,11 @@ import org.mongojack.JacksonDBCollection;
 import org.pircbotx.hooks.events.MessageEvent;
 
 import shionn.hexas.bot.HexasBot;
+import shionn.hexas.bot.handlers.adventure.manipulator.Event;
 import shionn.hexas.bot.handlers.adventure.manipulator.Player;
 import shionn.hexas.bot.messages.Message;
 import shionn.hexas.mongo.mo.adventure.AdventureMo;
+import shionn.hexas.mongo.mo.adventure.EventMo;
 import shionn.hexas.mongo.mo.adventure.ItemShopMo;
 import shionn.hexas.mongo.mo.adventure.PlayerMo;
 
@@ -33,6 +35,8 @@ public class ShopHandler {
 
 	@Inject
 	private JacksonDBCollection<PlayerMo, String> players;
+	@Inject
+	private JacksonDBCollection<EventMo, String> events;
 
 	public void run(Player player, MessageEvent<HexasBot> event) {
 		String item = event.getMessage().replace(player.adventure().getCommands().getShop(), "")
@@ -46,7 +50,9 @@ public class ShopHandler {
 			} else if (haveEnouth(itemShop, player)) {
 				player.po(-itemShop.getSellPrice());
 				player.item(itemShop.getItem(), 1);
-				new Message(player).shopBuy().item(itemShop).send(event);
+				Message message = new Message(player).shopBuy().item(itemShop);
+				message.send(event);
+				events.insert(new Event().shop().item(itemShop).message(message).event(event).mo());
 			} else {
 				new Message(player).shopNotEnouthMoney().item(item).send(event);
 			}

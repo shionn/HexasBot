@@ -43,7 +43,7 @@ public class BattleHandler {
 		Battle battle = new Battle(seed, player).monster(monster).run();
 		battle.message().send(event);
 		players.save(player.updateLastBattle().mo());
-		events.insert(battle.event(event).mo());
+		events.insert(battle.events().mo(event));
 	}
 
 	private MonsterMo findMonster(Player player) {

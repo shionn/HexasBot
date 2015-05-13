@@ -30,6 +30,9 @@ public class HexasBotConnectTask implements Runnable {
 			bot.start();
 		} catch (IOException | IrcException e) {
 			logger.error("Erreur lors du lancement du bot", e);
+		} finally {
+			logger.info("Bot arreté");
 		}
+
 	}
 }

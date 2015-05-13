@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class EventMo {
 
 	public enum Type {
-		battle;
+		battle, shop, lvlup;
 	}
 
 	@ObjectId
@@ -31,6 +31,12 @@ public class EventMo {
 	private String player;
 
 	private String message;
+
+	private boolean win;
+
+	private String item;
+
+	private int po;
 
 	public String getId() {
 		return id;
@@ -80,4 +86,27 @@ public class EventMo {
 		this.message = message;
 	}
 
+	public void setWin(boolean win) {
+		this.win = win;
+	}
+
+	public boolean isWin() {
+		return win;
+	}
+
+	public void setItem(String item) {
+		this.item = item;
+	}
+
+	public String getItem() {
+		return item;
+	}
+
+	public void setPo(int po) {
+		this.po = po;
+	}
+
+	public int getPo() {
+		return po;
+	}
 }

@@ -2,7 +2,9 @@
 
 var Adventure = function() {
 
-	this.battle = new MTemplate("battle");
+	this.battle = new MTemplate("adventure/battle");
+	this.lvlup = new MTemplate("adventure/lvlup");
+	this.shop = new MTemplate("adventure/shop");
 
 	this.pull = function() {
 		$.ajax({
@@ -17,6 +19,10 @@ var Adventure = function() {
 		if (data != undefined) {
 			if (data.type == "battle") {
 				this.battle.html(data, "#main");
+			} else if (data.type == "shop") {
+				this.shop.html(data, "#main");
+			} else if (data.type == "lvlup") {
+				this.lvlup.html(data, "#main");
 			}
 		}
 	};
@@ -28,5 +34,5 @@ var Adventure = function() {
 };
 
 $(function() {
-	new Adventure().startTask(60000);
+	new Adventure().startTask(10000);
 })

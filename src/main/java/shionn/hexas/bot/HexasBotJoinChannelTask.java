@@ -36,12 +36,12 @@ public class HexasBotJoinChannelTask implements Runnable {
 
 	@Override
 	public void run() {
-		DBCursor<ChannelMo> notConnectes = channels.find(
-				DBQuery.notIn("_id", extractNames(bot.getUserChannelDao().getAllChannels())))
-				.limit(10);
-		if (bot.isConnected()) {
+		if (!bot.isConnected()) {
 			new Thread(new HexasBotConnectTask(bot, logger)).start();
 		} else {
+			DBCursor<ChannelMo> notConnectes = channels.find(
+					DBQuery.notIn("_id", extractNames(bot.getUserChannelDao().getAllChannels())))
+					.limit(10);
 			for (ChannelMo notConnect : notConnectes) {
 				logger.info("Auto join : " + notConnect.getName());
 				bot.join(notConnect.getName());

@@ -7,10 +7,8 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.pircbotx.hooks.events.MessageEvent;
-
-import shionn.hexas.bot.HexasBot;
 import shionn.hexas.bot.handlers.adventure.manipulator.Event;
+import shionn.hexas.bot.handlers.adventure.manipulator.Events;
 import shionn.hexas.bot.handlers.adventure.manipulator.Player;
 import shionn.hexas.bot.messages.Message;
 import shionn.hexas.mongo.mo.adventure.DropMo;
@@ -32,7 +30,7 @@ public class Battle {
 	private Random seed;
 	private Message message;
 
-	private Event event = new Event().battle();
+	private Events events = new Events();
 	private NextLvl nextLvl = new NextLvl();
 
 
@@ -53,6 +51,7 @@ public class Battle {
 	}
 
 	private void win(int damage) {
+		Event battle = events.battle();
 		int po = po();
 		int xp = xp();
 		player.xp(xp).po(po);
@@ -60,12 +59,13 @@ public class Battle {
 		message.battleWin().pvLoose().xpGain().poGain();
 		if (nextLvl.lvlUp(player)) {
 			message.lvlUp().gamer();
+			events.lvlUp().message(new Message(player).lvlUp().gamer());
 		}
 		if (drop != null) {
 			message.itemGain().drop(drop);
 		}
 		message.player(player).monster(monster).pv(damage).po(po).xp(xp);
-
+		battle.monster(monster).win().message(message);
 	}
 
 	private void loose() {
@@ -74,6 +74,7 @@ public class Battle {
 		player.po(-po).xp(-xp).pv(player.maxPv() / 2);
 		message.battleLoose().pvGain().xpLoose().poLoose().player(player).monster(monster).po(po)
 				.xp(xp);
+		events.battle().monster(monster).loose().message(message);
 	}
 
 	private int damage() {
@@ -133,7 +134,6 @@ public class Battle {
 
 	public Battle monster(MonsterMo monster) {
 		this.monster = monster;
-		this.event.monster(monster);
 		return this;
 	}
 
@@ -141,8 +141,7 @@ public class Battle {
 		return message;
 	}
 
-	public Event event(MessageEvent<HexasBot> event) {
-		return this.event.event(event).message(message.message());
+	public Events events() {
+		return events;
 	}
-
 }

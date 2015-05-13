@@ -22,7 +22,6 @@ import javax.ws.rs.core.Response;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 import org.mongojack.DBQuery;
 import org.mongojack.JacksonDBCollection;
-import org.slf4j.Logger;
 
 import shionn.hexas.auth.Session;
 import shionn.hexas.mongo.mo.adventure.EventMo;
@@ -40,8 +39,8 @@ public class AdventureService {
 
 	private static final Pattern SHARP = Pattern.compile("#");
 
-	@Inject
-	private Logger logger;
+	// @Inject
+	// private Logger logger;
 
 	@Inject
 	private JacksonDBCollection<EventMo, String> events;
@@ -50,7 +49,7 @@ public class AdventureService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public EventMo get(@Context HttpServletRequest request) {
 		EventMo event = events.findOne(DBQuery.is("channel", new Session(request).getChannel()));
-		logger.info("Request event " + new Session(request).getChannel());
+		// logger.info("Request event " + new Session(request).getChannel());
 		if (event != null) {
 			events.removeById(event.getId());
 		}
