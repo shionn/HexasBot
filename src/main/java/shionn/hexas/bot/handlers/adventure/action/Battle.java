@@ -23,6 +23,8 @@ import shionn.hexas.mongo.mo.adventure.MonsterMo;
  *         GCS d- s+:+ a+ C++ UL/M P L+ E--- W++ N K- w-- M+ t+ 5 X R+ !tv b+ D+ G- e+++ h+ r- y+
  */
 public class Battle {
+	private static final int LOOSE_FACTOR = 3;
+
 	private static final Pattern INTERVAL = Pattern.compile("(\\d+)-(\\d+)");
 
 	private Player player;
@@ -69,9 +71,9 @@ public class Battle {
 	}
 
 	private void loose() {
-		int po = po();
-		int xp = xp();
-		player.po(-po).xp(-xp).pv(player.maxPv() / 2);
+		int po = poLoose();
+		int xp = xpLoose();
+		player.po(-po).xp(-xp).pv(player.maxPv() / 3);
 		message.battleLoose().pvGain().xpLoose().poLoose().player(player).monster(monster).po(po)
 				.xp(xp);
 		events.battle().monster(monster).loose().message(message);
@@ -88,8 +90,18 @@ public class Battle {
 		return new BigDecimal(monster.getXp()).multiply(player.xpRate()).intValue();
 	}
 
+	private int xpLoose() {
+		return new BigDecimal(monster.getXp() * LOOSE_FACTOR).multiply(player.xpRate()).intValue();
+	}
+
 	private int po() {
 		int po = randomInterval(monster.getPo());
+		po = new BigDecimal(po).multiply(player.goldRate()).intValue();
+		return po;
+	}
+
+	private int poLoose() {
+		int po = randomInterval(monster.getPo()) * LOOSE_FACTOR;
 		po = new BigDecimal(po).multiply(player.goldRate()).intValue();
 		return po;
 	}
