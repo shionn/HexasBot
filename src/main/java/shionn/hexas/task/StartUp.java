@@ -1,6 +1,5 @@
 package shionn.hexas.task;
 
-import java.io.IOException;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
@@ -8,10 +7,10 @@ import javax.inject.Inject;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import org.pircbotx.exception.IrcException;
 import org.slf4j.Logger;
 
 import shionn.hexas.bot.HexasBot;
+import shionn.hexas.bot.HexasBotConnectTask;
 import shionn.hexas.bot.HexasBotJoinChannelTask;
 import shionn.hexas.configuration.ConfigurationKey;
 
@@ -41,17 +40,7 @@ public class StartUp implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					logger.info("Hexas bot lancé");
-					bot.start();
-				} catch (IOException | IrcException e) {
-					logger.error("Erreur lors du lancement du bot", e);
-				}
-			}
-		}).start();
+		new Thread(new HexasBotConnectTask(bot, logger)).start();
 		executor.scheduleAtFixedRate(joinChannelTask, 10, delai * 60, TimeUnit.SECONDS);
 	}
 
