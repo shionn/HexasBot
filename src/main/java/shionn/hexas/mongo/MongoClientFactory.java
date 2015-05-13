@@ -2,10 +2,10 @@ package shionn.hexas.mongo;
 
 import java.net.UnknownHostException;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import shionn.hexas.configuration.Configuration;
 import shionn.hexas.configuration.ConfigurationKey;
@@ -32,7 +32,7 @@ public class MongoClientFactory {
 	private org.slf4j.Logger logger;
 
 	@Produces
-	@Singleton
+	@ApplicationScoped
 	public MongoClient build() throws UnknownHostException {
 		logger.info("Open Mongo Client");
 		return new MongoClient(host, port);
