@@ -19,11 +19,12 @@ public class JsoupDropSeeker {
                 .map(Element::text)
                 .forEach(System.out::println);
 
-        doc.select("#merchantInfoFeature_feature_div offer-display-feature-text-message")
+        doc.select("#merchantInfoFeature_feature_div .offer-display-feature-text-message")
                 .stream()
                 .map(e -> e.text())
                 .distinct()
                 .forEach(System.out::println);
 
+        // pc componentes : https://www.pccomponentes.fr/cartes-graphiques/amd-radeon-rx-9070-xt?seller=pccomponentes
     }
 }
