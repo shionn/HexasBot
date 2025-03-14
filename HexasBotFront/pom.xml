@@ -4,9 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>shionn</groupId>
-	<artifactId>HexasBot</artifactId>
+	<artifactId>HexasBotFront</artifactId>
 	<version>1.0-SNAPSHOT</version>
-	<name>HexasBot</name>
+	<name>HexasBotFront</name>
 	<packaging>war</packaging>
 
 	<properties>
@@ -122,5 +122,19 @@
 		</dependency>
 	</dependencies>
 
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<mybatis.driver>com.mysql.cj.jdbc.Driver</mybatis.driver>
+				<mybatis.url>jdbc:mysql://${hexas.mysql.host}:3306/hexas?serverTimezone=GMT</mybatis.url>
+				<mybatis.username>${hexas.mysql.user}</mybatis.username>
+				<mybatis.password>${hexas.mysql.pass}</mybatis.password>
+			</properties>
+		</profile>
+	</profiles>
 
 </project>
