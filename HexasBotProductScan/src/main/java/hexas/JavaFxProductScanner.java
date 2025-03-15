@@ -40,10 +40,6 @@ public class JavaFxProductScanner extends Application implements ChangeListener<
 		}
 
 		product = products.next();
-		product = products.next();
-		product = products.next();
-		product = products.next();
-		product = products.next();
 		webView = new WebView();
 		webView.getEngine().setUserAgent(USER_AGENT);
 		webView.getEngine().getLoadWorker().stateProperty().addListener(this);
