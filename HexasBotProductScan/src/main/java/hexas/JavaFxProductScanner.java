@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 public class JavaFxProductScanner extends Application implements ChangeListener<Worker.State> {
 
 	private static final String USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64; rv:136.0) Gecko/20100101 Firefox/136.0";
-	private static final int TIME_SLEEP = 60;
+	private static final int TIME_SLEEP = 5;
 
 	public static void main(String[] args) {
 		launch(args);

@@ -1,3 +1,4 @@
 #!/bin/bash
 git pull
-xvfb-run mvn clean javafx:run
+mvn clean compile exec:java
+xvfb-run mvn javafx:run
