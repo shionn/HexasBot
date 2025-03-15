@@ -39,7 +39,7 @@
 				<artifactId>javafx-maven-plugin</artifactId>
 				<version>0.0.8</version>
 				<configuration>
-					<mainClass>hexas.ProductScanner</mainClass>
+					<mainClass>hexas.JavaFxProductScanner</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -117,21 +117,8 @@
 						<groupId>org.openjfx</groupId>
 						<artifactId>javafx-maven-plugin</artifactId>
 						<configuration>
-							<mainClass>hexas.ProductScanner</mainClass>
+							<mainClass>hexas.JavaFxProductScanner</mainClass>
 						</configuration>
-						<executions>
-							<execution>
-								<!-- Configuration for debugging -->
-								<id>debug</id>
-								<configuration>
-									<options>
-										<option>
-											-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:8001</option>
-									</options>
-									<mainClass>hexas.ProductScanner</mainClass>
-								</configuration>
-							</execution>
-						</executions>
 					</plugin>
 				</plugins>
 			</build>
