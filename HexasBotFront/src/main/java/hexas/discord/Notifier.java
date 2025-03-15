@@ -33,7 +33,7 @@ public class Notifier implements EventListener {
 				try (SqlSession session = new SessionFactory().open()) {
 					ProductDao dao = session.getMapper(ProductDao.class);
 					List<Product> products = dao.toNotify();
-					System.out.println(products);
+//					System.out.println(products);
 					if (!products.isEmpty()) {
 						JDA bot = buildBot();
 						TextChannel channel = bot.getTextChannelById(CANAL);
