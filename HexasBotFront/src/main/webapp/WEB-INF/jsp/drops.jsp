@@ -22,7 +22,12 @@
 			<td>${d.metalModel}</td>
 			<td>${d.marque}</td>
 			<td><a href="${d.url}">${d.model}</a></td>
-			<td>${d.price}</td>
+			<c:if test ="${not empty d.price}">
+				<td>${d.price}</td>
+			</c:if>
+			<c:if test ="${empty d.price}">
+				<td>--</td>
+			</c:if>
 			<td>${d.vendor}</td>
 		</tr>
 	</c:forEach>

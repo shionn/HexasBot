@@ -100,6 +100,19 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- Persistence / MyBatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.5.13</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.33</version>
+			<scope>runtime</scope>
+		</dependency>
+
 		<!-- discord-->
 		<dependency>
 			<groupId>net.dv8tion</groupId>
@@ -107,12 +120,6 @@
 			<version>5.2.2</version>
 		</dependency>
 
-		<!-- webview javafx -->
-<!--		<dependency>-->
-<!--			<groupId>org.openjfx</groupId>-->
-<!--			<artifactId>javafx-web</artifactId>-->
-<!--			<version>21.0.5</version>-->
-<!--		</dependency>-->
 
 		<!-- spoof jsoup -->
 		<dependency>

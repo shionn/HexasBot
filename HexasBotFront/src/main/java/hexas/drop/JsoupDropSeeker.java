@@ -3,10 +3,8 @@ package hexas.drop;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -21,7 +19,7 @@ public class JsoupDropSeeker {
 	@Autowired
 	private DropDatabase db;
 
-	@Scheduled(fixedDelay = 5, timeUnit = TimeUnit.MINUTES)
+//	@Scheduled(fixedDelay = 5, timeUnit = TimeUnit.MINUTES)
 	public void scan() throws IOException {
 		db.getDrops().clear();
 		for (DropSearch drop : SOURCES) {

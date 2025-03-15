@@ -1,23 +1,15 @@
 package hexas;
 
-import java.io.StringWriter;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-
 import org.apache.ibatis.session.SqlSession;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 
 import hexas.db.SessionFactory;
 import hexas.db.dao.ProductScanDao;
 import hexas.db.dbo.Product;
+import hexas.parser.AmazonPageParser;
+import hexas.parser.PageParser;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -69,22 +61,7 @@ public class ProductScanner extends Application implements ChangeListener<Worker
 	}
 
 	private void scanPage() {
-		if (product.getUrl().startsWith("https://www.amazon.fr/")) {
-			Document doc = toJsoup();
-			String price = doc
-					.select("#corePrice_feature_div span.a-price .a-offscreen")
-					.stream()
-					.map(Element::text)
-					.findAny()
-					.orElse(null);
-			String vendor = doc
-					.select("#merchantInfoFeature_feature_div .offer-display-feature-text-message")
-					.stream()
-					.map(Element::text)
-					.findAny()
-					.orElse(null);
-			System.out.println(vendor + " " + price);
-		}
+		getPageParser().parse(webView, product);
 		if (products.hasNext()) {
 			product = products.next();
 			webView.getEngine().load(product.getUrl());
@@ -93,15 +70,11 @@ public class ProductScanner extends Application implements ChangeListener<Worker
 		}
 	}
 
-	private Document toJsoup() {
-		try {
-			Transformer t = TransformerFactory.newInstance().newTransformer();
-			StringWriter w = new StringWriter();
-			t.transform(new DOMSource(webView.getEngine().getDocument()), new StreamResult(w));
-			return Jsoup.parse(w.toString());
-		} catch (TransformerException e) {
-			throw new IllegalStateException(e);
+	private PageParser getPageParser() {
+		if (product.getUrl().startsWith("https://www.amazon.fr/")) {
+			return new AmazonPageParser();
 		}
+		throw new IllegalStateException("no parser : " + product.getUrl());
 	}
 
 	private void sleepAndExecute(Runnable runnable) {
