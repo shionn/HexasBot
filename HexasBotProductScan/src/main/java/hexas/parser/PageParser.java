@@ -1,10 +1,11 @@
 package hexas.parser;
 
+import org.jsoup.nodes.Document;
+
 import hexas.db.dbo.Product;
-import javafx.scene.web.WebView;
 
 public interface PageParser {
 
-	void parse(WebView webView, Product product);
+	void parse(Document document, Product product);
 
 }

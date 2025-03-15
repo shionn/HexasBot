@@ -19,13 +19,13 @@
 <tbody>
 	<c:forEach items="${drops}" var="d">
 		<tr>
-			<td>${d.metalModel}</td>
+			<td>${d.metaModel}</td>
 			<td>${d.marque}</td>
-			<td><a href="${d.url}">${d.model}</a></td>
-			<c:if test ="${not empty d.price}">
-				<td>${d.price}</td>
+			<td><a href="${d.url}" target="_blank">${d.model}</a></td>
+			<c:if test ="${not empty d.lastPrice}">
+				<td>${d.lastPrice}</td>
 			</c:if>
-			<c:if test ="${empty d.price}">
+			<c:if test ="${empty d.lastPrice}">
 				<td>--</td>
 			</c:if>
 			<td>${d.vendor}</td>

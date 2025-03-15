@@ -3,8 +3,10 @@ package hexas.db.dbo;
 import java.util.Date;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@ToString
 public class Product {
 
 	private int id;

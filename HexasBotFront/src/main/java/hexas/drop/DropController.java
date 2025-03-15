@@ -20,7 +20,6 @@ public class DropController {
 	@GetMapping({"/", "/drops"})
 	public ModelAndView getDrops() {
 		List<Product> listAllDrops = session.getMapper(ProductDao.class).listAllDrops();
-		listAllDrops.stream().forEach(d -> System.out.println(d.getMetaModel()));
 		return new ModelAndView("drops").addObject("drops", listAllDrops);
 	}
 }
