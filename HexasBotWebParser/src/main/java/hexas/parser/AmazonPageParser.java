@@ -1,5 +1,7 @@
 package hexas.parser;
 
+import java.util.Objects;
+
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
@@ -13,12 +15,14 @@ public class AmazonPageParser implements PageParser {
 				.select("#corePrice_feature_div span.a-price .a-offscreen")
 				.stream()
 				.map(Element::text)
+				.filter(Objects::nonNull)
 				.findAny()
 				.orElse(null);
 		String vendor = doc
 				.select("#merchantInfoFeature_feature_div .offer-display-feature-text-message")
 				.stream()
 				.map(Element::text)
+				.filter(Objects::nonNull)
 				.findAny()
 				.orElse(null);
 		new PriceUpdater().update(product, price, vendor);
