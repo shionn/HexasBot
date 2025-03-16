@@ -32,7 +32,7 @@ public class DropScanner implements Serializable {
 		if (products == null || !products.hasNext()) {
 			System.out.println("list all product to scan ");
 			try (SqlSession session = new SpringSessionFactory().open()) {
-				products = session.getMapper(ProductScanDao.class).list("test").iterator();
+				products = session.getMapper(ProductScanDao.class).list("jsoop").iterator();
 			}
 		} else {
 			try {
