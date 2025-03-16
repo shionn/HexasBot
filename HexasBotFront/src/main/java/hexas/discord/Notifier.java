@@ -25,8 +25,9 @@ public class Notifier implements EventListener {
 
 	private static final long CANAL = 1123512494468644984L;
 
-	@Scheduled(fixedDelay = 30, timeUnit = TimeUnit.SECONDS)
+	@Scheduled(fixedRate = 30, timeUnit = TimeUnit.SECONDS)
 	public void notiyDiscord() throws IOException, InterruptedException {
+//		System.out.println("notify");
 		new Thread(new Runnable() {
 			@Override
 			public void run() {

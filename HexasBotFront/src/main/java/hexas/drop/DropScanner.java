@@ -1,7 +1,8 @@
 package hexas.drop;
 
 import java.io.IOException;
-import java.util.List;
+import java.io.Serializable;
+import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.ibatis.session.SqlSession;
@@ -16,26 +17,30 @@ import hexas.db.dbo.Product;
 import hexas.parser.PageParserRetreiver;
 
 @Component
-public class DropScanner {
+public class DropScanner implements Serializable {
+	private static final long serialVersionUID = -1905973814573778921L;
 	private static final String USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64; rv:136.0) Gecko/20100101 Firefox/136.0";
 
-	@Scheduled(fixedDelay = 2, timeUnit = TimeUnit.MINUTES)
-	public void scanWithJsoop() {
-		try (SqlSession session = new SpringSessionFactory().open()) {
-			List<Product> products = session.getMapper(ProductScanDao.class).list("jsoop");
-			for (Product product : products) {
-				try {
-//					System.out.println("Scan " + product);
-					this.scan(product);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
+	private Iterator<Product> products;
 
+	@Scheduled(fixedDelay = 10, timeUnit = TimeUnit.SECONDS)
+	public void scanWithJsoop() {
+		if (products == null || !products.hasNext()) {
+			System.out.println("list all product to scan ");
+			try (SqlSession session = new SpringSessionFactory().open()) {
+				products = session.getMapper(ProductScanDao.class).list("jsoop").iterator();
+			}
+		} else {
+			try {
+				scan(products.next());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
 	private void scan(Product product) throws IOException {
+		System.out.println("scan de " + product);
 		Document document = Jsoup
 				.connect(product.getUrl())
 				.header("User-Agent", USER_AGENT)
