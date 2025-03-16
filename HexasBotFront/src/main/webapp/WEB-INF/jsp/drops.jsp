@@ -12,7 +12,7 @@
 <thead>
 	<tr>
 		<th colspan="3">Model</th>
-		<th>prix</th>
+		<th>Prix (msrp)</th>
 		<th>Vendeur</th>
 	</tr>
 </thead>
@@ -23,7 +23,12 @@
 			<td>${d.marque}</td>
 			<td><a href="${d.url}" target="_blank">${d.model}</a></td>
 			<c:if test ="${not empty d.lastPrice}">
-				<td>${d.lastPrice}</td>
+				<td>
+					${d.lastPrice}
+					<c:if test ="${not empty d.msrp}">
+						<small><strike>(${d.msrp})</strike></small>
+					</c:if>
+				</td>
 			</c:if>
 			<c:if test ="${empty d.lastPrice}">
 				<td>--</td>

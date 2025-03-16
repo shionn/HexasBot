@@ -14,6 +14,7 @@ public class Product {
 	private String metaModel;
 	private String model;
 	private String url;
+	private String msrp;
 	private String lastPrice;
 	private Date lastPriceDate;
 	private String vendor;
