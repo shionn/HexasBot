@@ -54,21 +54,13 @@ public class JavaFxProductScanner extends Application implements ChangeListener<
 	public void changed(ObservableValue<? extends State> observable, State oldValue, State newState) {
 		if (newState == Worker.State.SUCCEEDED) {
 			System.out.println("page loaded");
-//			if (webView.getEngine().getDocument().getTextContent().contains("Cloudflare")) {
-//				sleepAndExecute(TIME_SLEEP * 3, new Runnable() {
-//					@Override
-//					public void run() {
-//					}
-//				});
-//			} else {
-				sleepAndExecute(TIME_SLEEP, new Runnable() {
-					@Override
-					public void run() {
+			sleepAndExecute(TIME_SLEEP, new Runnable() {
+				@Override
+				public void run() {
 
-						scanPage();
-					}
-				});
-//			}
+					scanPage();
+				}
+			});
 		}
 	}
 
