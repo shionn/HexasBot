@@ -10,7 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import hexas.db.SessionFactory;
+import hexas.db.SpringSessionFactory;
 import hexas.db.dao.ProductDao;
 import hexas.db.dbo.Product;
 import net.dv8tion.jda.api.JDA;
@@ -25,12 +25,12 @@ public class Notifier implements EventListener {
 
 	private static final long CANAL = 1123512494468644984L;
 
-	@Scheduled(fixedDelay = 1, timeUnit = TimeUnit.MINUTES)
+	@Scheduled(fixedDelay = 30, timeUnit = TimeUnit.SECONDS)
 	public void notiyDiscord() throws IOException, InterruptedException {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				try (SqlSession session = new SessionFactory().open()) {
+				try (SqlSession session = new SpringSessionFactory().open()) {
 					ProductDao dao = session.getMapper(ProductDao.class);
 					List<Product> products = dao.toNotify();
 //					System.out.println(products);

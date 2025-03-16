@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.context.annotation.RequestScope;
 
 @Controller
-public class SessionFactory {
+public class SpringSessionFactory {
 
 	private static class Holder {
 		private static final Holder instance = new Holder();
