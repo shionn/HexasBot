@@ -28,7 +28,7 @@ public class DropScanner implements Serializable {
 	private Iterator<Product> products;
 	private Map<String, Map<String, String>> cookiePerSites = new HashMap<>();
 
-	@Scheduled(fixedDelay = 8, timeUnit = TimeUnit.SECONDS)
+	@Scheduled(fixedDelay = 5, timeUnit = TimeUnit.SECONDS)
 	public void scanWithJsoop() {
 		if (products == null || !products.hasNext()) {
 			System.out.println("list all product to scan ");
