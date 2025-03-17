@@ -14,6 +14,9 @@ public class PageParserRetreiver {
 		if (product.getUrl().startsWith("https://www.pccomponentes.fr")) {
 			return new PcComponentesPageParser();
 		}
+		if (product.getUrl().startsWith("https://www.caseking.de")) {
+			return new CaseKingPageParser();
+		}
 		throw new IllegalStateException("no parser : " + product.getUrl());
 	}
 

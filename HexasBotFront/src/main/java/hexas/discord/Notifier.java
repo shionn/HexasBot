@@ -29,7 +29,7 @@ public class Notifier implements EventListener {
 
 	private ExecutorService execute = Executors.newSingleThreadExecutor();
 
-	@Scheduled(fixedRate = 30, timeUnit = TimeUnit.SECONDS)
+	@Scheduled(fixedDelay = 1, timeUnit = TimeUnit.SECONDS)
 	public void notiyDiscord() throws IOException, InterruptedException {
 //		System.out.println("notify");
 		execute.submit(new Runnable() {
