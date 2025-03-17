@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.ibatis.session.SqlSession;
+import org.jsoup.Connection;
 import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -47,7 +48,7 @@ public class DropScanner implements Serializable {
 		System.out.println("scan de " + product);
 		PageParser parser = new PageParserRetreiver().resolve(product);
 		Map<String, String> cookies = getCookies(parser.getClass().getSimpleName());
-		Response response = Jsoup
+		Connection connection = Jsoup
 				.connect(product.getUrl())
 				.header("User-Agent", USER_AGENT)
 				.header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
@@ -59,8 +60,10 @@ public class DropScanner implements Serializable {
 				.header("Sec-Fetch-User", "?1")
 				.header("TE", "trailers")
 				.header("Upgrade-Insecure-Requests", "1")
-				.cookies(cookies)
-				.execute();
+				.ignoreHttpErrors(true)
+				.followRedirects(true)
+				.cookies(cookies);
+		Response response = connection.execute();
 		cookies.putAll(response.cookies());
 		parser.parse(response.parse(), product);
 	}

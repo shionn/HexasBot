@@ -18,5 +18,6 @@ public class Product {
 	private String lastPrice;
 	private Date lastPriceDate;
 	private String vendor;
+	private String notifyChannel;
 
 }

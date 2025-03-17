@@ -11,8 +11,8 @@ import hexas.db.dbo.Product;
 public class PriceUpdater {
 
 	public void update(Product product, String price, String vendor) {
+		System.out.println("Found price " + price + ":" + vendor);
 		if (shouldUpdate(product, price)) {
-			System.out.println("Update price " + price + ":" + vendor);
 			product.setLastPrice(price);
 			product.setLastPriceDate(new Date());
 			product.setVendor(vendor);

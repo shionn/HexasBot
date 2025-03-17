@@ -4,13 +4,15 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import hexas.db.SpringSessionFactory;
+import hexas.db.SessionFactory;
 import hexas.db.dao.ProductDao;
 import hexas.db.dbo.Product;
 import net.dv8tion.jda.api.JDA;
@@ -23,28 +25,27 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 @Component
 public class Notifier implements EventListener {
 
-	private static final long CANAL = 1123512494468644984L;
+	private static final long CANAL_NOTFICATION = 1123512494468644984L;
+
+	private ExecutorService execute = Executors.newSingleThreadExecutor();
 
 	@Scheduled(fixedRate = 30, timeUnit = TimeUnit.SECONDS)
 	public void notiyDiscord() throws IOException, InterruptedException {
 //		System.out.println("notify");
-		new Thread(new Runnable() {
+		execute.submit(new Runnable() {
 			@Override
 			public void run() {
-				try (SqlSession session = new SpringSessionFactory().open()) {
+				try (SqlSession session = new SessionFactory().open()) {
 					ProductDao dao = session.getMapper(ProductDao.class);
 					List<Product> products = dao.toNotify();
 //					System.out.println(products);
 					if (!products.isEmpty()) {
 						JDA bot = buildBot();
-						TextChannel channel = bot.getTextChannelById(CANAL);
 //						bot.getTextChannels().stream().forEach(System.out::println);
 						for (Product product : products) {
-							channel
-									.sendMessage(product.getMarque() + " " + product.getMetaModel() + " "
-											+ product.getModel() + " **" + product.getLastPrice() + "**\n"
-											+ product.getUrl())
-									.queue();
+							List<TextChannel> channels = getChannel(product, bot);
+							String message = buildMessage(product);
+							channels.forEach(c -> c.sendMessage(message).queue());
 							dao.markNotifyied(product);
 							session.commit();
 						}
@@ -55,8 +56,21 @@ public class Notifier implements EventListener {
 					e.printStackTrace();
 				}
 			}
-		}).start();
-		
+
+			private String buildMessage(Product product) {
+				return product.getMarque() + " " + product.getMetaModel() + " "
+						+ product.getModel() + " **" + product.getLastPrice() + "** par "
+						+ product.getVendor() + "\n" + product.getUrl();
+			}
+		});
+	}
+
+	private List<TextChannel> getChannel(Product product, JDA bot) {
+		List<TextChannel> channels = bot.getTextChannelsByName(product.getNotifyChannel(), true);
+		if (channels.isEmpty()) {
+			channels = Arrays.asList(bot.getTextChannelById(CANAL_NOTFICATION));
+		}
+		return channels;
 	}
 
 	private JDA buildBot() throws IOException, InterruptedException {
