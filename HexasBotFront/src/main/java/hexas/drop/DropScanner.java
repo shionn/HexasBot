@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.ibatis.session.SqlSession;
@@ -76,15 +75,15 @@ public class DropScanner implements Serializable {
 		Map<String, String> cookies = cookiePerSites.get(site);
 		if (cookies == null) {
 			cookies = new HashMap<String, String>();
-			Properties props = new Properties();
-			props.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("cookies.properties"));
-			String value = props.getProperty(site);
-			if (value != null) {
-				for (String prop : value.split(";")) {
-					String[] split = prop.split("=", 2);
-					cookies.put(split[0].trim(), split[1].trim());
-				}
-			}
+//			Properties props = new Properties();
+//			props.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("cookies.properties"));
+//			String value = props.getProperty(site);
+//			if (value != null) {
+//				for (String prop : value.split(";")) {
+//					String[] split = prop.split("=", 2);
+//					cookies.put(split[0].trim(), split[1].trim());
+//				}
+//			}
 			cookiePerSites.put(site, cookies);
 		}
 		return cookies;
