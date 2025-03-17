@@ -39,5 +39,9 @@
 </tbody>
 </table>
 
+<p>
+<a href="<spring:url value="/drops/add"/>">Ajouter un produit</a>
+</p>
+
 </jsp:attribute>
 </t:template>

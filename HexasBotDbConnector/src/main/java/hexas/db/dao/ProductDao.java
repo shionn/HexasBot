@@ -2,6 +2,7 @@ package hexas.db.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -17,5 +18,9 @@ public interface ProductDao {
 
 	@Update("UPDATE product SET notify = false WHERE id = #{id}")
 	int markNotifyied(Product product);
+
+	@Insert("INSERT INTO product(marque, meta_model, model, url, msrp, notify_channel, scanner) "
+			+ "VALUES (#{marque}, #{metaModel}, #{model}, #{url}, #{msrp}, #{notifyChannel}, #{scanner})")
+	int create(Product product);
 
 }
