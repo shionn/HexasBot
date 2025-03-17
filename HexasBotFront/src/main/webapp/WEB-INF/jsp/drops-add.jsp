@@ -34,6 +34,7 @@
 		<li>Amazon.fr</li>
 		<li>Pccomponentes.fr (marche pas fou)</li>
 		<li>Cyberteck.fr</li>
+		<li>CaseKing.de</li>
 	</ul> 
 </p>
 

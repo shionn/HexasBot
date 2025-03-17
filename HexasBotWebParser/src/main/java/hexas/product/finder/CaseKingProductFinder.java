@@ -1,6 +1,8 @@
 package hexas.product.finder;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -11,12 +13,8 @@ public class CaseKingProductFinder {
 
 	public static void main(String[] args) throws IOException {
 		Document doc = Jsoup
-//				.connect(
-//						"https://www.caseking.de/en/asrock-radeon-rx-9070-xt-steel-legend-grafikkarte-16384-mb-gddr6/GCAR-031.html")
-//				.connect(
-//						"https://www.caseking.de/en/asus-prime-radeon-rx-9070-xt-oc-edition-grafikkarte-16384-mb-gddr6/GCAS-659.html")
 				.connect(
-						"https://www.caseking.de/en/gigabyte-radeon-rx-9070-xt-gaming-oc-16g-grafikkarte-16384-mb-gddr6/GCGB-559.html")
+						"https://www.caseking.de/en/asrock-radeon-rx-9070-xt-steel-legend-grafikkarte-16384-mb-gddr6/GCAR-031.html")
 				.header("User-Agent", USER_AGENT)
 				.header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
 				.header("DNT", "1")
@@ -27,9 +25,10 @@ public class CaseKingProductFinder {
 				.header("Sec-Fetch-User", "?1")
 				.header("TE", "trailers")
 				.header("Upgrade-Insecure-Requests", "1")
+				.cookies(new HashMap<String, String>())
 				.get();
-		String stock = doc.select(".add-to-cart").stream().map(Element::text).distinct().findAny().orElse(null);
-		String price = doc.select(".prices .value").stream().map(Element::text).distinct().findAny().orElse(null);
+		List<String> stock = doc.select(".add-to-cart").stream().map(Element::text).distinct().toList();
+		List<String> price = doc.select(".prices .value").stream().map(Element::text).distinct().toList();
 		System.out.println(stock + " " + price);
 	}
 

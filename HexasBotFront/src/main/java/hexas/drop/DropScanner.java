@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.ibatis.session.SqlSession;
@@ -44,7 +45,7 @@ public class DropScanner implements Serializable {
 		}
 	}
 
-	private void scan(Product product) throws IOException {
+	void scan(Product product) throws IOException {
 		System.out.println("scan de " + product);
 		PageParser parser = new PageParserRetreiver().resolve(product);
 		Map<String, String> cookies = getCookies(parser.getClass().getSimpleName());
@@ -52,6 +53,9 @@ public class DropScanner implements Serializable {
 				.connect(product.getUrl())
 				.header("User-Agent", USER_AGENT)
 				.header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+//				.header("Accept-Encoding", "gzip, deflate, br, zstd")
+				.header("Accept-Language", "fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3")
+				.header("Connection", "keep-alive")
 				.header("DNT", "1")
 				.header("Priority", "u=0, i")
 				.header("Sec-Fetch-Dest", "document")
@@ -68,10 +72,19 @@ public class DropScanner implements Serializable {
 		parser.parse(response.parse(), product);
 	}
 
-	private Map<String, String> getCookies(String site) {
+	private Map<String, String> getCookies(String site) throws IOException {
 		Map<String, String> cookies = cookiePerSites.get(site);
 		if (cookies == null) {
 			cookies = new HashMap<String, String>();
+			Properties props = new Properties();
+			props.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("cookies.properties"));
+			String value = props.getProperty(site);
+			if (value != null) {
+				for (String prop : value.split(";")) {
+					String[] split = prop.split("=", 2);
+					cookies.put(split[0].trim(), split[1].trim());
+				}
+			}
 			cookiePerSites.put(site, cookies);
 		}
 		return cookies;

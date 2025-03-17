@@ -11,8 +11,11 @@ public class CaseKingPageParser implements PageParser {
 	public void parse(Document document, Product product) {
 		String stock = document.select(".add-to-cart").stream().map(Element::text).distinct().findAny().orElse(null);
 		String price = document.select(".prices .value").stream().map(Element::text).distinct().findAny().orElse(null);
+		System.out.println("Found stock " + stock + " price " + price);
 		if (stock != null) {
 			new PriceUpdater().update(product, price, "CaseKing.de");
+//		} else {
+//			System.out.println(document);
 		}
 	}
 
