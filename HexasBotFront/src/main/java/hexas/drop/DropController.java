@@ -73,7 +73,7 @@ public class DropController {
 		product.setScanner(scanner);
 		dao.update(product);
 		session.commit();
-		return "redirect:/drops";
+		return "redirect:/drops#" + id;
 	}
 
 }

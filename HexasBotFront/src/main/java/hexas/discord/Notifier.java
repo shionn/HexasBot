@@ -58,7 +58,7 @@ public class Notifier implements EventListener {
 			}
 
 			private String buildMessage(Product product) {
-				return product.getMarque() + " " + product.getMetaModel() + " "
+				return "@here " + product.getMarque() + " " + product.getMetaModel() + " "
 						+ product.getModel() + " **" + product.getLastPrice() + "** par "
 						+ product.getVendor() + "\n" + product.getUrl();
 			}

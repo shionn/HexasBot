@@ -20,7 +20,7 @@
 </thead>
 <tbody>
 	<c:forEach items="${drops}" var="d">
-		<tr>
+		<tr id="${d.id}">
 			<td>${d.metaModel}</td>
 			<td>${d.marque}</td>
 			<td><a href="${d.url}" target="_blank">${d.model}</a></td>
@@ -37,7 +37,7 @@
 			</c:if>
 			<td>${d.formatedVendor}</td>
 			<td>${d.scanner}</td>
-			<td><a href="<spring:url value='/drops/edit/${d.id}'/>" target="_blank">edit</a></td>
+			<td><a href="<spring:url value='/drops/edit/${d.id}'/>" >edit</a></td>
 		</tr>
 	</c:forEach>
 </tbody>
