@@ -52,9 +52,28 @@ public class DropController {
 	}
 
 	@GetMapping({ "/drops/edit/{id}" })
-	public ModelAndView editDrop(@PathVariable("id")int id) {
+	public ModelAndView editDrop(@PathVariable("id") int id) {
 		Product product = session.getMapper(ProductDao.class).read(id);
 		return new ModelAndView("drops-add").addObject("product", product);
+	}
+
+	@PostMapping({ "/drops/edit/{id}" })
+	public String editDrop(@PathVariable("id") int id, @RequestParam("marque") String marque,
+			@RequestParam("metaModel") String metaModel, @RequestParam("model") String model,
+			@RequestParam("url") String url, @RequestParam("msrp") String msrp,
+			@RequestParam("notifyChannel") String notifyChannel, @RequestParam("scanner") String scanner) {
+		ProductDao dao = session.getMapper(ProductDao.class);
+		Product product = dao.read(id);
+		product.setMarque(marque);
+		product.setMetaModel(metaModel);
+		product.setModel(model);
+		product.setUrl(url);
+		product.setMsrp(msrp);
+		product.setNotifyChannel(notifyChannel);
+		product.setScanner(scanner);
+		dao.update(product);
+		session.commit();
+		return "redirect:/drops";
 	}
 
 }

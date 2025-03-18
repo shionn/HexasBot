@@ -11,9 +11,10 @@
 <table>
 <thead>
 	<tr>
-		<th colspan="3">Model</th>
+		<th colspan="3">Produit</th>
 		<th>Prix (msrp)</th>
 		<th>Vendeur</th>
+		<th>Scanner</th>
 		<th>#</th>
 	</tr>
 </thead>
@@ -34,7 +35,8 @@
 			<c:if test ="${empty d.lastPrice}">
 				<td>--</td>
 			</c:if>
-			<td>${d.vendor}</td>
+			<td>${d.formatedVendor}</td>
+			<td>${d.scanner}</td>
 			<td><a href="<spring:url value='/drops/edit/${d.id}'/>" target="_blank">edit</a></td>
 		</tr>
 	</c:forEach>

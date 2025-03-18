@@ -1,6 +1,7 @@
 package hexas.db.dbo;
 
 import java.util.Date;
+import java.util.regex.Pattern;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,6 +16,7 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Product {
 
+	private static final Pattern VENDOR = Pattern.compile("(Braunecker Commerce )");
 	private int id;
 	private String marque;
 	private String metaModel;
@@ -27,4 +29,9 @@ public class Product {
 	private String notifyChannel;
 	private String scanner;
 
+	public String getFormatedVendor() {
+		if (vendor == null)
+			return "--";
+		return VENDOR.matcher(vendor).replaceAll("");
+	}
 }

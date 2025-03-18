@@ -16,18 +16,18 @@
 	<label for="marque">Marque</label>
 	<input name="marque" type="text" placeholder="Asrock / Lego" value="${product.marque}"/>
 	<label for="metaModel">Metal Model</label>
-	<input name="metaModel" type="text" placeholder="RX 5070"/>
+	<input name="metaModel" type="text" placeholder="RX 5070" value="${product.metaModel}"/>
 	<label for="model">Model</label>
-	<input name="model" type="text" placeholder="Steel Legend"/>
+	<input name="model" type="text" placeholder="Steel Legend" value="${product.model}"/>
 	<label for="url">Url</label>
-	<input name="url" type="text" placeholder="https://www.amazon.fr/ASRock-Radeon-Steel-Legend-GDDR6/dp/B0DTTGMFK3"/>
+	<input name="url" type="text" placeholder="https://www.amazon.fr/ASRock-Radeon-Steel-Legend-GDDR6/dp/B0DTTGMFK3" value="${product.url}"/>
 	<p>Ne pas garder les parametres apres ?</p>
 	<label for="msrp">MSRP</label>
-	<input name="msrp" type="text" placeholder="920€"/>
+	<input name="msrp" type="text" placeholder="920€" value="${product.msrp}"/>
 	<label for="notifyChannel">Canal de notification</label>
-	<input name="notifyChannel" type="text"/>
+	<input name="notifyChannel" type="text" value="${product.notifyChannel}"/>
 	<label for="scanner">Scanner</label>
-	<input name="scanner" type="text" placeholder="selenium / jsoop"/>
+	<input name="scanner" type="text" placeholder="selenium / jsoop" value="${product.scanner}"/>
 	<input type="Submit" value="valider">
 </form:form>
 

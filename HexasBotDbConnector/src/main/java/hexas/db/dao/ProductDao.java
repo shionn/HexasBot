@@ -26,4 +26,9 @@ public interface ProductDao {
 	@Select("SELECT * FROM product WHERE id = #{id}")
 	Product read(int id);
 
+	@Update("UPDATE product SET marque = #{marque}, meta_model = #{metaModel}, model = #{model}, "
+			+ "url = #{url}, msrp = #{msrp}, notify_channel = #{notifyChannel}, scanner = #{scanner} "
+			+ "WHERE id = #{id}")
+	int update(Product product);
+
 }
