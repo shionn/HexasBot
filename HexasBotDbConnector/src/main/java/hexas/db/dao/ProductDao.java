@@ -23,4 +23,7 @@ public interface ProductDao {
 			+ "VALUES (#{marque}, #{metaModel}, #{model}, #{url}, #{msrp}, #{notifyChannel}, #{scanner})")
 	int create(Product product);
 
+	@Select("SELECT * FROM product WHERE id = #{id}")
+	Product read(int id);
+
 }

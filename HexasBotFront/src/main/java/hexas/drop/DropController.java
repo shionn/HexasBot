@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -48,6 +49,12 @@ public class DropController {
 						.build());
 		session.commit();
 		return "redirect:/drops";
+	}
+
+	@GetMapping({ "/drops/edit/{id}" })
+	public ModelAndView editDrop(@PathVariable("id")int id) {
+		Product product = session.getMapper(ProductDao.class).read(id);
+		return new ModelAndView("drops-add").addObject("product", product);
 	}
 
 }

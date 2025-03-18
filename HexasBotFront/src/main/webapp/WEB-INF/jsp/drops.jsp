@@ -14,6 +14,7 @@
 		<th colspan="3">Model</th>
 		<th>Prix (msrp)</th>
 		<th>Vendeur</th>
+		<th>#</th>
 	</tr>
 </thead>
 <tbody>
@@ -34,6 +35,7 @@
 				<td>--</td>
 			</c:if>
 			<td>${d.vendor}</td>
+			<td><a href="<spring:url value='/drops/edit/${d.id}'/>" target="_blank">edit</a></td>
 		</tr>
 	</c:forEach>
 </tbody>

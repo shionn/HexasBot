@@ -9,9 +9,12 @@
 <jsp:attribute name="content">
 
 <spring:url  value="/drops/add" var="url"/>
+<c:if test="${not empty product}">
+	<spring:url  value="/drops/edit/${product.id}" var="url"/>
+</c:if>
 <form:form action="${url}" method="POST">
 	<label for="marque">Marque</label>
-	<input name="marque" type="text" placeholder="Asrock / Lego"/>
+	<input name="marque" type="text" placeholder="Asrock / Lego" value="${product.marque}"/>
 	<label for="metaModel">Metal Model</label>
 	<input name="metaModel" type="text" placeholder="RX 5070"/>
 	<label for="model">Model</label>
@@ -24,17 +27,16 @@
 	<label for="notifyChannel">Canal de notification</label>
 	<input name="notifyChannel" type="text"/>
 	<label for="scanner">Scanner</label>
-	<input name="scanner" type="text" placeholder="jsoop / javafx"/>
-	<p>javafx pour pccomponentes. jsoop sinon.</p>
+	<input name="scanner" type="text" placeholder="selenium / jsoop"/>
 	<input type="Submit" value="valider">
 </form:form>
 
 <p>Site :
 	<ul>
-		<li>Amazon.fr</li>
-		<li>Pccomponentes.fr (marche pas fou)</li>
-		<li>Cyberteck.fr</li>
-		<li>CaseKing.de</li>
+		<li>Amazon.fr (peu marché en jsoup)</li>
+		<li>Pccomponentes.fr (selenium)</li>
+		<li>Cyberteck.fr (selenium)</li>
+		<li>CaseKing.de (selenium)</li>
 	</ul> 
 </p>
 
