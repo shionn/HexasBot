@@ -23,17 +23,19 @@ public class SeleniumProductScanner {
 	private static void doParsing() {
 		FirefoxOptions options = new FirefoxOptions();
 		FirefoxDriver driver = new FirefoxDriver(options);
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
-		driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(30));
-		try(SqlSession session = new SessionFactory().open()) {
-			List<Product> products = session.getMapper(ProductScanDao.class).list("selenium");
-			for (Product product : products) {
-				doScan(driver, product);
+		try {
+			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+			driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
+			driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(30));
+			try (SqlSession session = new SessionFactory().open()) {
+				List<Product> products = session.getMapper(ProductScanDao.class).list("selenium");
+				for (Product product : products) {
+					doScan(driver, product);
+				}
 			}
+		} finally {
+			driver.quit();
 		}
-		driver.close();
-
 	}
 
 	private static void doScan(FirefoxDriver driver, Product product) {
