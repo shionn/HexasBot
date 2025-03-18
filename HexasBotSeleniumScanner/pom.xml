@@ -20,7 +20,7 @@
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>3.5.0</version>
 				<configuration>
-					<mainClass>hexas.todo</mainClass>
+					<mainClass>hexas.SeleniumProductScanner</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>
