@@ -1,5 +1,5 @@
 #!/bin/bash
 git pull
 mvn clean install -Dmaven.war.skip=true
-cd HexasSeleniumScanner
+cd HexasBotSeleniumScanner
 xvfb-run mvn exec:java
