@@ -124,7 +124,7 @@
 
 	<modules>
 		<module>HexasBotDbConnector</module>
-<!--		<module>HexasBotFront</module>-->
+		<!--		<module>HexasBotFront</module>-->
 		<module>HexasBotJfxScanner</module>
 		<module>HexasBotWebParser</module>
 	</modules>
