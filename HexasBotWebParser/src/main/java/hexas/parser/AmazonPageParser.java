@@ -1,5 +1,7 @@
 package hexas.parser;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 import org.jsoup.nodes.Document;
@@ -8,6 +10,8 @@ import org.jsoup.nodes.Element;
 import hexas.db.dbo.Product;
 
 public class AmazonPageParser implements PageParser {
+
+	private static final List<String> VENDORS = Arrays.asList("NR INFO", "Amazon");
 
 	@Override
 	public void parse(Document doc, Product product) {
@@ -23,9 +27,12 @@ public class AmazonPageParser implements PageParser {
 				.stream()
 				.map(Element::text)
 				.filter(Objects::nonNull)
+				.map(String::trim)
 				.findAny()
 				.orElse(null);
-		new PriceUpdater().update(product, price, vendor);
+		if (VENDORS.contains(vendor)) {
+			new PriceUpdater().update(product, price, vendor);
+		}
 	}
 
 }
