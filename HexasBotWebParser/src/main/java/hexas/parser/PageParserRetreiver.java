@@ -30,6 +30,10 @@ public class PageParserRetreiver {
 		if (url.startsWith("https://www.ldlc.com")) {
 			return new LdlcPageParser();
 		}
+		if (url.startsWith("https://marketplace.nvidia.com")) {
+			return new NvidiaPageParser();
+		}
+
 		throw new IllegalStateException("no parser : " + url);
 	}
 

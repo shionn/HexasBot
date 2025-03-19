@@ -16,7 +16,7 @@ public class SeleniumProductScannerMain {
 					.doScanGroup(driver, Product
 							.builder()
 							.metaModel("test")
-							.url("https://www.ldlc.com/informatique/pieces-informatique/carte-graphique-interne/c4684/+fv121-126518.html")
+							.url("https://marketplace.nvidia.com/fr-fr/consumer/graphics-cards/")
 							.build());
 		} finally {
 			driver.quit();

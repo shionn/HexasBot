@@ -40,6 +40,7 @@
 		<li>Compumsa.eu : selenium</li>
 		<li>Cdiscount.fr : selenium</li>
 		<li>LDLC.com : selenium-group</li>
+		<li>marketplace.nvidia.com : selenium-group</li>
 	</ul> 
 </p>
 
