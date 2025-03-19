@@ -11,16 +11,17 @@
 <table>
 <thead>
 	<tr>
+		<th>#</th>
 		<th colspan="3">Produit</th>
 		<th>Prix (msrp)</th>
 		<th>Vendeur</th>
 		<th>Scanner</th>
-		<th>#</th>
 	</tr>
 </thead>
 <tbody>
 	<c:forEach items="${drops}" var="d">
 		<tr id="${d.id}">
+			<td><a href="<spring:url value='/drops/edit/${d.id}'/>" style="text-decoration: none;">✎</a></td>
 			<td>${d.metaModel}</td>
 			<td>${d.marque}</td>
 			<td><a href="${d.url}" target="_blank">${d.model}</a></td>
@@ -37,7 +38,6 @@
 			</c:if>
 			<td>${d.formatedVendor}</td>
 			<td>${d.scanner}</td>
-			<td><a href="<spring:url value='/drops/edit/${d.id}'/>" >edit</a></td>
 		</tr>
 	</c:forEach>
 </tbody>

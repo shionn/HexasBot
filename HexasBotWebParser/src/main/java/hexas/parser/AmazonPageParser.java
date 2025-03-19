@@ -39,14 +39,7 @@ public class AmazonPageParser implements PageParser {
 	public void parseGroup(Document document, Product group) {
 		document.select(".s-search-results .puis-card-container").forEach(element -> {
 			String price = text(element, "span.a-price .a-offscreen");
-			String url = "https://www.amazon.fr" + element
-					.select("a.a-link-normal")
-					.stream()
-					.map(e -> e.attr("href"))
-					.filter(Objects::nonNull)
-					.distinct()
-					.findAny()
-					.orElse(null);
+			String url = "https://www.amazon.fr/dp/" + element.attr("data-dib-asin");
 			String name = text(element, "h2");
 			if (name.contains("RX 90")) {
 				new PriceUpdater().createOrUpdate(name, url, price, group.getVendor(), group);
