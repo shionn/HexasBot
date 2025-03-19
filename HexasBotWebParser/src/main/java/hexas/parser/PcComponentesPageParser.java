@@ -1,6 +1,9 @@
 package hexas.parser;
 
+import java.util.Objects;
+
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import hexas.db.dbo.Product;
 
@@ -20,5 +23,27 @@ public class PcComponentesPageParser implements PageParser {
 			new PriceUpdater().update(product, price, vendor);
 		}
 	}
+
+	@Override
+	public void parseGroup(Document document, Product group) {
+		document.select("#category-list-product-grid > a").forEach(element -> {
+			String price = text(element, ".product-card__price-container");
+			String url = element.attr("href");
+			String name = text(element, "H3");
+			new PriceUpdater().createOrUpdate(name, url, price, "PcComponentes", group);
+		});
+	}
+
+	private String text(Element element, String selector) {
+		return element
+				.select(selector)
+				.stream()
+				.map(Element::text)
+				.filter(Objects::nonNull)
+				.distinct()
+				.findAny()
+				.orElse(null);
+	}
+
 
 }
