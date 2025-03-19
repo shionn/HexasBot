@@ -27,7 +27,7 @@ public interface ProductDao {
 	Product read(int id);
 
 	@Update("UPDATE product SET marque = #{marque}, meta_model = #{metaModel}, model = #{model}, "
-			+ "url = #{url}, msrp = #{msrp}, notify_channel = #{notifyChannel}, scanner = #{scanner} "
+			+ "url = #{url}, msrp = #{msrp}, notify_channel = #{notifyChannel}, scanner = #{scanner}, last_price = #{lastPrice} "
 			+ "WHERE id = #{id}")
 	int update(Product product);
 

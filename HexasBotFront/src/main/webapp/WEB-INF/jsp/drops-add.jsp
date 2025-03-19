@@ -24,6 +24,10 @@
 	<p>Ne pas garder les parametres apres ?</p>
 	<label for="msrp">MSRP</label>
 	<input name="msrp" type="text" placeholder="920€" value="${product.msrp}"/>
+	<c:if test="${not empty product}">
+		<label for="lastPrice">Dernier prix</label>
+		<input name="lastPrice" type="text" value="${product.lastPrice}"/>
+	</c:if>
 	<label for="notifyChannel">Canal de notification</label>
 	<input name="notifyChannel" type="text" value="${product.notifyChannel}"/>
 	<label for="scanner">Scanner</label>

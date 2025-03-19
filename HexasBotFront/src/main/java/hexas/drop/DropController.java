@@ -61,7 +61,8 @@ public class DropController {
 	public String editDrop(@PathVariable("id") int id, @RequestParam("marque") String marque,
 			@RequestParam("metaModel") String metaModel, @RequestParam("model") String model,
 			@RequestParam("url") String url, @RequestParam("msrp") String msrp,
-			@RequestParam("notifyChannel") String notifyChannel, @RequestParam("scanner") String scanner) {
+			@RequestParam("notifyChannel") String notifyChannel, @RequestParam("scanner") String scanner,
+			@RequestParam("lastPrice") String lastPrice) {
 		ProductDao dao = session.getMapper(ProductDao.class);
 		Product product = dao.read(id);
 		product.setMarque(marque);
@@ -71,6 +72,7 @@ public class DropController {
 		product.setMsrp(msrp);
 		product.setNotifyChannel(notifyChannel);
 		product.setScanner(scanner);
+		product.setLastPrice(lastPrice);
 		dao.update(product);
 		session.commit();
 		return "redirect:/drops#" + id;

@@ -28,6 +28,7 @@ public class Product {
 	private String vendor;
 	private String notifyChannel;
 	private String scanner;
+	private boolean notify;
 
 	public String getFormatedVendor() {
 		if (vendor == null)

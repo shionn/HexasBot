@@ -12,24 +12,25 @@ public class PriceUpdater {
 
 	public void update(Product product, String price, String vendor) {
 		System.out.println("Found price " + price + ":" + vendor);
-		if (shouldUpdate(product, price)) {
-			product.setLastPrice(price);
-			product.setLastPriceDate(new Date());
-			product.setVendor(vendor);
-			try (SqlSession session = new SessionFactory().open()) {
-				ProductScanDao dao = session.getMapper(ProductScanDao.class);
-				dao.update(product);
-				session.commit();
-			}
+		product.setLastPrice(price);
+		product.setLastPriceDate(new Date());
+		product.setVendor(vendor);
+		product.setNotify(shouldNotify(product, price));
+		try (SqlSession session = new SessionFactory().open()) {
+			ProductScanDao dao = session.getMapper(ProductScanDao.class);
+			dao.update(product);
+			session.commit();
 		}
-
 	}
 
-	private boolean shouldUpdate(Product product, String price) {
-		if (product.getLastPrice() == null) {
-			return price != null;
+	private boolean shouldNotify(Product product, String price) {
+		if (price == null) {
+			return false;
 		}
-		return price != null && !product.getLastPrice().equals(price);
+		if (product.getLastPrice() == null) {
+			return true;
+		}
+		return !product.getLastPrice().equals(price);
 	}
 
 	public void createOrUpdate(String name, String url, String price, String vendor, Product group) {
@@ -49,10 +50,12 @@ public class PriceUpdater {
 						.url(url)
 						.vendor(vendor)
 						.scanner("group-" + group.getId())
+						.notify(price != null)
 						.build();
 				dao.create(product);
 				session.commit();
-			} else if (shouldUpdate(product, price)) {
+			} else {
+				product.setNotify(shouldNotify(product, price));
 				product.setLastPrice(price);
 				product.setLastPriceDate(new Date());
 				product.setVendor(vendor);
