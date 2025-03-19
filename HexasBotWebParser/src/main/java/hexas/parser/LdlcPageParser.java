@@ -29,10 +29,9 @@ public class LdlcPageParser implements PageParser {
 					.findAny()
 					.orElse(null);
 			String name = text(element, "h3 a");
-			if ("rupture".equalsIgnoreCase(stock)) {
-				price = null;
+			if (!"rupture".equalsIgnoreCase(stock)) {
+				new PriceUpdater().createOrUpdate(name, url, price, "LDLC", group);
 			}
-			new PriceUpdater().createOrUpdate(name, url, price, "LDLC", group);
 		});
 	}
 
