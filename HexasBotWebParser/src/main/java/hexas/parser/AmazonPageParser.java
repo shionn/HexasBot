@@ -39,7 +39,7 @@ public class AmazonPageParser implements PageParser {
 	public void parseGroup(Document document, Product group) {
 		document.select(".s-search-results .puis-card-container").forEach(element -> {
 			String price = text(element, "span.a-price .a-offscreen");
-			String url = element
+			String url = "https://www.amazon.fr" + element
 					.select("a.a-link-normal")
 					.stream()
 					.map(e -> e.attr("href"))
