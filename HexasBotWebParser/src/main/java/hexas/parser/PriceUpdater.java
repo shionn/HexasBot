@@ -37,7 +37,7 @@ public class PriceUpdater {
 		try (SqlSession session = new SessionFactory().open()) {
 			ProductScanDao dao = session.getMapper(ProductScanDao.class);
 			Product product = dao.readByUrl(url);
-			if (product == null) {
+			if (product == null && price != null) {
 				product = Product
 						.builder()
 						.marque("todo")
@@ -54,7 +54,7 @@ public class PriceUpdater {
 						.build();
 				dao.create(product);
 				session.commit();
-			} else {
+			} else if (price != null) {
 				product.setNotify(shouldNotify(product, price));
 				product.setLastPrice(price);
 				product.setLastPriceDate(new Date());
