@@ -1,8 +1,10 @@
 package hexas.db.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -33,5 +35,11 @@ public interface ProductDao {
 			+ "url = #{url}, msrp = #{msrp}, notify_channel = #{notifyChannel}, scanner = #{scanner}, last_price = #{lastPrice} "
 			+ "WHERE id = #{id}")
 	int update(Product product);
+
+	@Update("UPDATE product SET last_price = null " //
+			+ "WHERE last_price_date < #{date} " //
+			+ "AND url LIKE #{url} " //
+			+ "AND scanner LIKE 'group-%' ")
+	int clearOldDrop(@Param("url") String url, @Param("date") Date date);
 
 }

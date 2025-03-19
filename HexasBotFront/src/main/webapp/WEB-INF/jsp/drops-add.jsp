@@ -37,7 +37,7 @@
 
 <p>Site :
 	<ul>
-		<li>Amazon.fr : selenium / jsoup</li>
+		<li>Amazon.fr : selenium / selenium-group / jsoup</li>
 		<li>Pccomponentes.fr : selenium / selenium-group</li>
 		<li>Cyberteck.fr : selenium</li>
 		<li>CaseKing.de : selenium / selenium-group</li>

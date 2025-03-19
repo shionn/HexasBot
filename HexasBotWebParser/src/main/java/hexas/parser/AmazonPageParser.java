@@ -35,5 +35,35 @@ public class AmazonPageParser implements PageParser {
 		}
 	}
 
+	@Override
+	public void parseGroup(Document document, Product group) {
+		document.select(".s-search-results .puis-card-container").forEach(element -> {
+			String price = text(element, "span.a-price .a-offscreen");
+			String url = element
+					.select("a.a-link-normal")
+					.stream()
+					.map(e -> e.attr("href"))
+					.filter(Objects::nonNull)
+					.distinct()
+					.findAny()
+					.orElse(null);
+			String name = text(element, "h2");
+			if (name.contains("RX 90")) {
+				new PriceUpdater().createOrUpdate(name, url, price, group.getVendor(), group);
+			}
+		});
+	}
+
+	private String text(Element element, String selector) {
+		return element
+				.select(selector)
+				.stream()
+				.map(Element::text)
+				.filter(Objects::nonNull)
+				.distinct()
+				.findAny()
+				.orElse(null);
+	}
+
 }
 
