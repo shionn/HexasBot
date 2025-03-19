@@ -1,6 +1,7 @@
 package hexas.parser;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -31,4 +32,8 @@ public class CdiscountPageParser implements PageParser {
 		new PriceUpdater().update(product, price, vendor);
 	}
 
+	@Override
+	public void sleep() throws InterruptedException {
+		TimeUnit.SECONDS.sleep(1);
+	}
 }

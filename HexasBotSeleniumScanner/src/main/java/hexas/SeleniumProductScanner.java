@@ -2,7 +2,6 @@ package hexas;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.apache.ibatis.session.SqlSession;
 import org.jsoup.Jsoup;
@@ -33,9 +32,24 @@ public class SeleniumProductScanner {
 				for (Product product : products) {
 					doScan(driver, product);
 				}
+				List<Product> groups = session.getMapper(ProductScanDao.class).list("selenium-group");
+				for (Product group : groups) {
+					doScanGroup(driver, group);
+				}
 			}
 		} finally {
 			driver.quit();
+		}
+	}
+
+	static void doScanGroup(FirefoxDriver driver, Product group) {
+		try {
+			driver.get(group.getUrl());
+			PageParser parser = new PageParserRetreiver().resolve(group);
+			parser.sleep();
+			parser.parseGroup(Jsoup.parse(driver.getPageSource()), group);
+		} catch (Exception e) {
+			System.out.println(e);
 		}
 	}
 
@@ -44,7 +58,7 @@ public class SeleniumProductScanner {
 			System.out.println("scan " + product);
 			driver.get(product.getUrl());
 			PageParser parser = new PageParserRetreiver().resolve(product);
-			TimeUnit.SECONDS.sleep(1);
+			parser.sleep();
 			String source = driver.getPageSource();
 //			if (source.contains("Cookies et choix publicitaires")) {
 //				driver.findElement(Bys.id("sp-cc-rejectall-link")).click();

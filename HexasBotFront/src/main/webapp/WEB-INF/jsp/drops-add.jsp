@@ -37,6 +37,8 @@
 		<li>Pccomponentes.fr (selenium)</li>
 		<li>Cyberteck.fr (selenium)</li>
 		<li>CaseKing.de (selenium)</li>
+		<li>Compumsa.eu (selenium)</li>
+		<li>Cdiscount.fr (selenium)</li>
 	</ul> 
 </p>
 

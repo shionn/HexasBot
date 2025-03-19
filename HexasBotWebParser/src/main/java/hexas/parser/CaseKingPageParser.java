@@ -1,5 +1,7 @@
 package hexas.parser;
 
+import java.util.Objects;
+
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
@@ -17,6 +19,37 @@ public class CaseKingPageParser implements PageParser {
 //		} else {
 //			System.out.println(document);
 		}
+	}
+
+	@Override
+	public void parseGroup(Document document, Product group) {
+		document.select(".product-grid .product-tiles").forEach(element -> {
+			String stock = text(element, ".product-availability");
+			String price = text(element, ".price .value");
+			String url = "https://www.caseking.de" + element
+					.select("a")
+					.stream()
+					.map(e -> e.attr("href"))
+					.filter(Objects::nonNull)
+					.distinct()
+					.findAny()
+					.orElse(null);
+			String name = text(element, ".product-tile-product-name");
+			if (!"Out of stock".equalsIgnoreCase(stock)) {
+				new PriceUpdater().createOrUpdate(name, url, price, "CaseKing.de", group);
+			}
+		});
+	}
+
+	private String text(Element element, String selector) {
+		return element
+				.select(selector)
+				.stream()
+				.map(Element::text)
+				.filter(Objects::nonNull)
+				.distinct()
+				.findAny()
+				.orElse(null);
 	}
 
 }

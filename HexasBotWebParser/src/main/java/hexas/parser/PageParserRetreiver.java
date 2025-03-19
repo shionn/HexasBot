@@ -5,25 +5,29 @@ import hexas.db.dbo.Product;
 public class PageParserRetreiver {
 
 	public PageParser resolve(Product product) {
-		if (product.getUrl().startsWith("https://www.amazon.fr/")) {
+		return resolve(product.getUrl());
+	}
+
+	public PageParser resolve(String url) {
+		if (url.startsWith("https://www.amazon.fr/")) {
 			return new AmazonPageParser();
 		}
-		if (product.getUrl().startsWith("https://www.cybertek.fr")) {
+		if (url.startsWith("https://www.cybertek.fr")) {
 			return new CyberTeckPageParser();
 		}
-		if (product.getUrl().startsWith("https://www.pccomponentes.fr")) {
+		if (url.startsWith("https://www.pccomponentes.fr")) {
 			return new PcComponentesPageParser();
 		}
-		if (product.getUrl().startsWith("https://www.caseking.de")) {
+		if (url.startsWith("https://www.caseking.de")) {
 			return new CaseKingPageParser();
 		}
-		if (product.getUrl().startsWith("https://www.cdiscount.com")) {
+		if (url.startsWith("https://www.cdiscount.com")) {
 			return new CdiscountPageParser();
 		}
-		if (product.getUrl().startsWith("https://www.compumsa.eu")) {
+		if (url.startsWith("https://www.compumsa.eu")) {
 			return new CompumsaPageParser();
 		}
-		throw new IllegalStateException("no parser : " + product.getUrl());
+		throw new IllegalStateException("no parser : " + url);
 	}
 
 }
