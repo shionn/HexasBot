@@ -29,7 +29,7 @@ public class AmazonPageParser implements PageParser {
 				.filter(Objects::nonNull)
 				.map(String::trim)
 				.findAny()
-				.orElse(null);
+				.orElse("Amazon");
 		if (VENDORS.contains(vendor)) {
 			new PriceUpdater().update(product, price, vendor);
 		}
