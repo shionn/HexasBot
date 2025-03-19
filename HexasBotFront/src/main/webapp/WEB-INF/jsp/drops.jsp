@@ -42,10 +42,11 @@
 	</c:forEach>
 </tbody>
 </table>
-
 <p>
 <a href="<spring:url value="/drops/add"/>">Ajouter un produit</a>
+<a href="<spring:url value="/drops/all"/>">Voir tous les PRoduit</a>
 </p>
+
 
 </jsp:attribute>
 </t:template>

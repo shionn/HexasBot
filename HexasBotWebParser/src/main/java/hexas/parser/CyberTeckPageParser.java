@@ -14,7 +14,13 @@ public class CyberTeckPageParser implements PageParser {
 			price = null;
 		}
 		new PriceUpdater().update(product, price, "CyberTeck");
-
 	}
 
+	@Override
+	public void parseGroup(Document document, Product group) {
+		// TODO https://www.cybertek.fr/carte-graphique-6.aspx?crits=8737
+		PageParser.super.parseGroup(document, group);
+	}
+
+	
 }

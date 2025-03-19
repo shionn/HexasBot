@@ -2,6 +2,7 @@ package hexas.drop;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,20 +10,32 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
 import hexas.db.dao.ProductDao;
 import hexas.db.dbo.Product;
 
 @Controller
+@SessionScope
 public class DropController {
 
 	@Autowired
 	private SqlSession session;
 
+	private String last = "/drops";
+
 	@GetMapping({ "/", "/drops" })
 	public ModelAndView getDrops() {
+		List<Product> listAllDrops = session.getMapper(ProductDao.class).listFilteredDrops();
+		last = "/drops";
+		return new ModelAndView("drops").addObject("drops", listAllDrops);
+	}
+
+	@GetMapping({ "/drops/all" })
+	public ModelAndView getAllDrops() {
 		List<Product> listAllDrops = session.getMapper(ProductDao.class).listAllDrops();
+		last = "/drops/all";
 		return new ModelAndView("drops").addObject("drops", listAllDrops);
 	}
 
@@ -48,7 +61,7 @@ public class DropController {
 						.scanner(scanner)
 						.build());
 		session.commit();
-		return "redirect:/drops";
+		return "redirect:" + last;
 	}
 
 	@GetMapping({ "/drops/edit/{id}" })
@@ -72,10 +85,10 @@ public class DropController {
 		product.setMsrp(msrp);
 		product.setNotifyChannel(notifyChannel);
 		product.setScanner(scanner);
-		product.setLastPrice(lastPrice);
+		product.setLastPrice(StringUtils.trimToNull(lastPrice));
 		dao.update(product);
 		session.commit();
-		return "redirect:/drops#" + id;
+		return "redirect:" + last + "#" + id;
 	}
 
 }
