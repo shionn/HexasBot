@@ -28,7 +28,10 @@ public class NvidiaPageParser implements PageParser {
 					.findAny()
 					.orElse(null);
 			String name = text(element, "h2");
-			if ("acheter maintenant".equalsIgnoreCase(stock) && name.contains("RTX 50")) {
+			if (!"acheter maintenant".equalsIgnoreCase(stock)) {
+				price = null;
+			}
+			if (name.contains("RTX 50")) {
 				new PriceUpdater().createOrUpdate(name, url, price, "LDLC", group);
 			}
 		});

@@ -28,9 +28,10 @@ public class CompumsaPageParser implements PageParser {
 				.distinct()
 				.findAny()
 				.orElse(null);
-		if ("in stock".equalsIgnoreCase(stock)) {
-			new PriceUpdater().update(product, price, "Compumsa");
+		if (!"in stock".equalsIgnoreCase(stock)) {
+			price = null;
 		}
+		new PriceUpdater().update(product, price, "Compumsa");
 	}
 
 }

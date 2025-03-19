@@ -16,8 +16,8 @@ public class CaseKingPageParser implements PageParser {
 		System.out.println("Found stock " + stock + " price " + price);
 		if (stock != null) {
 			new PriceUpdater().update(product, price, "CaseKing.de");
-//		} else {
-//			System.out.println(document);
+		} else {
+			new PriceUpdater().update(product, null, "CaseKing.de");
 		}
 	}
 
@@ -35,9 +35,10 @@ public class CaseKingPageParser implements PageParser {
 					.findAny()
 					.orElse(null);
 			String name = text(element, ".product-tile-product-name");
-			if (!"Out of stock".equalsIgnoreCase(stock)) {
-				new PriceUpdater().createOrUpdate(name, url, price, "CaseKing.de", group);
+			if ("Out of stock".equalsIgnoreCase(stock)) {
+				price = null;
 			}
+			new PriceUpdater().createOrUpdate(name, url, price, "CaseKing.de", group);
 		});
 	}
 
