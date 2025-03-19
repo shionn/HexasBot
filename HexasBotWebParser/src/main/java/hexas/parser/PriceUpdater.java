@@ -54,7 +54,7 @@ public class PriceUpdater {
 						.build();
 				dao.create(product);
 				session.commit();
-			} else if (price != null) {
+			} else if (product != null) {
 				product.setNotify(shouldNotify(product, price));
 				product.setLastPrice(price);
 				product.setLastPriceDate(new Date());
