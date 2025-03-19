@@ -27,6 +27,9 @@ public class PageParserRetreiver {
 		if (url.startsWith("https://www.compumsa.eu")) {
 			return new CompumsaPageParser();
 		}
+		if (url.startsWith("https://www.ldlc.com")) {
+			return new LdlcPageParser();
+		}
 		throw new IllegalStateException("no parser : " + url);
 	}
 

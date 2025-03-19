@@ -33,12 +33,13 @@
 
 <p>Site :
 	<ul>
-		<li>Amazon.fr (peu marché en jsoup)</li>
-		<li>Pccomponentes.fr (selenium)</li>
-		<li>Cyberteck.fr (selenium)</li>
-		<li>CaseKing.de (selenium)</li>
-		<li>Compumsa.eu (selenium)</li>
-		<li>Cdiscount.fr (selenium)</li>
+		<li>Amazon.fr : selenium / jsoup</li>
+		<li>Pccomponentes.fr : selenium / selenium-group</li>
+		<li>Cyberteck.fr : selenium</li>
+		<li>CaseKing.de : selenium / selenium-group</li>
+		<li>Compumsa.eu : selenium</li>
+		<li>Cdiscount.fr : selenium</li>
+		<li>LDLC.com : selenium-group</li>
 	</ul> 
 </p>
 
