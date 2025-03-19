@@ -2,6 +2,7 @@ package hexas;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.ibatis.session.SqlSession;
 import org.jsoup.Jsoup;
@@ -38,10 +39,12 @@ public class SeleniumProductScanner {
 		}
 	}
 
-	private static void doScan(FirefoxDriver driver, Product product) {
+	static void doScan(FirefoxDriver driver, Product product) {
 		try {
 			System.out.println("scan " + product);
 			driver.get(product.getUrl());
+			PageParser parser = new PageParserRetreiver().resolve(product);
+			TimeUnit.SECONDS.sleep(1);
 			String source = driver.getPageSource();
 //			if (source.contains("Cookies et choix publicitaires")) {
 //				driver.findElement(Bys.id("sp-cc-rejectall-link")).click();
@@ -52,7 +55,6 @@ public class SeleniumProductScanner {
 //			if (source.contains("Do not accept")) {
 //				driver.findElement(Bys.text("Do not accept")).click();
 //			}
-			PageParser parser = new PageParserRetreiver().resolve(product);
 			parser.parse(Jsoup.parse(source), product);
 		} catch (Exception e) {
 			System.out.println(e);

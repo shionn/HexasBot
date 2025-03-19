@@ -17,6 +17,12 @@ public class PageParserRetreiver {
 		if (product.getUrl().startsWith("https://www.caseking.de")) {
 			return new CaseKingPageParser();
 		}
+		if (product.getUrl().startsWith("https://www.cdiscount.com")) {
+			return new CdiscountPageParser();
+		}
+		if (product.getUrl().startsWith("https://www.compumsa.eu")) {
+			return new CompumsaPageParser();
+		}
 		throw new IllegalStateException("no parser : " + product.getUrl());
 	}
 
