@@ -51,13 +51,14 @@ public class PriceUpdater {
 						.scanner("group-" + group.getId())
 						.build();
 				dao.create(product);
-			} else {
+				session.commit();
+			} else if (shouldUpdate(product, price)) {
 				product.setLastPrice(price);
 				product.setLastPriceDate(new Date());
 				product.setVendor(vendor);
 				dao.update(product);
+				session.commit();
 			}
-			session.commit();
 		}
 
 	}
