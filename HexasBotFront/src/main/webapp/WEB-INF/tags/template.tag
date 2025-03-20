@@ -33,7 +33,6 @@
 		<hr>
 		<p>Hexas by <a href="mailto:shionn@gmail.com">shionn</a></p>
 	</footer>
-	<script type="text/javascript" src='<spring:url value="/js/scripts.js"/>'></script>
 	<jsp:invoke fragment="scripts" />
 </body>
 </html>
