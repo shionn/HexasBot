@@ -32,7 +32,9 @@ public class LdlcPageParser implements PageParser {
 			if ("rupture".equalsIgnoreCase(stock)) {
 				price = null;
 			}
-			new PriceUpdater().createOrUpdate(name, url, price, "LDLC", group);
+			if (name.contains(group.getMetaModel())) {
+				new PriceUpdater().createOrUpdate(name, url, price, "LDLC", group);
+			}
 		});
 	}
 
