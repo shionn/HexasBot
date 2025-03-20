@@ -27,7 +27,7 @@ public class PcComponentesPageParser implements PageParser {
 	@Override
 	public void parseGroup(Document document, Product group) {
 		document.select("#category-list-product-grid > a").forEach(element -> {
-			String price = text(element, ".product-card__price-container");
+			String price = text(element, ".product-card__price-container [data-e2e='price-card']");
 			String url = element.attr("href");
 			String name = text(element, "H3");
 			new PriceUpdater().createOrUpdate(name, url, price, "PcComponentes", group);
