@@ -41,7 +41,7 @@ public class AmazonPageParser implements PageParser {
 			String price = text(element, "span.a-price .a-offscreen");
 			String url = "https://www.amazon.fr/dp/" + element.attr("data-dib-asin");
 			String name = text(element, "h2");
-			if (name.contains(group.getMetaModel())) {
+			if (name.contains(group.getMetaModel()) && element.text().contains("Ajouter au panier")) {
 				new PriceUpdater().createOrUpdate(name, url, price, group.getVendor(), group);
 			}
 		});
