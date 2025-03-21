@@ -1,6 +1,7 @@
 package hexas.parser;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -22,6 +23,11 @@ public class PcComponentesPageParser implements PageParser {
 			String vendor = doc.select("#pdp-section-offered-by span span").text();
 			new PriceUpdater().update(product, price, vendor);
 		}
+	}
+
+	@Override
+	public void sleep() throws InterruptedException {
+		TimeUnit.SECONDS.sleep(1);
 	}
 
 	@Override
