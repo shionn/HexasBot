@@ -1,5 +1,7 @@
 package hexas.parser;
 
+import java.util.concurrent.TimeUnit;
+
 import org.jsoup.nodes.Document;
 
 import hexas.db.dbo.Product;
@@ -13,6 +15,7 @@ public interface PageParser {
 	}
 
 	default void sleep() throws InterruptedException {
+		TimeUnit.SECONDS.sleep(1);
 	};
 
 }
