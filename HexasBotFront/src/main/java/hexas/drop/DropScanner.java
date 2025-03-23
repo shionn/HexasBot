@@ -1,5 +1,6 @@
 package hexas.drop;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -27,6 +28,21 @@ public class DropScanner implements Serializable {
 
 	private Iterator<Product> products;
 	private Map<String, Map<String, String>> cookiePerSites = new HashMap<>();
+
+	@Scheduled(fixedDelay = 1, timeUnit = TimeUnit.MINUTES)
+	public void scanWithSelenium() {
+		try {
+			System.out.println("Scan with selenium");
+			ProcessBuilder builder = new ProcessBuilder("./selenium.sh");
+			builder.redirectError(ProcessBuilder.Redirect.INHERIT);
+//			builder.directory(new File("/home/shionn/projects/HexasBot"));
+			builder.directory(new File("/var/lib/tomcat"));
+			builder.start().waitFor();
+			System.out.println("fin du scan");
+		} catch (IOException | InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Scheduled(fixedDelay = 4, timeUnit = TimeUnit.MINUTES)
 	public void scanWithJsoop() {

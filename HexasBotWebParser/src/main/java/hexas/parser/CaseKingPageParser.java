@@ -1,5 +1,7 @@
 package hexas.parser;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormatSymbols;
 import java.util.Objects;
 
 import org.jsoup.nodes.Document;
@@ -12,7 +14,7 @@ public class CaseKingPageParser implements PageParser {
 	@Override
 	public void parse(Document document, Product product) {
 		String stock = document.select(".add-to-cart").stream().map(Element::text).distinct().findAny().orElse(null);
-		String price = document.select(".prices .value").stream().map(Element::text).distinct().findAny().orElse(null);
+		BigDecimal price = price(document, ".prices .value");
 		System.out.println("Found stock " + stock + " price " + price);
 		if (stock != null) {
 			new PriceUpdater().update(product, price, "CaseKing.de");
@@ -25,7 +27,7 @@ public class CaseKingPageParser implements PageParser {
 	public void parseGroup(Document document, Product group) {
 		document.select(".product-grid .product-tiles").forEach(element -> {
 			String stock = text(element, ".product-availability");
-			String price = text(element, ".price .value");
+			BigDecimal price = price(element, ".price .value");
 			String url = "https://www.caseking.de" + element
 					.select("a")
 					.stream()
@@ -42,15 +44,13 @@ public class CaseKingPageParser implements PageParser {
 		});
 	}
 
-	private String text(Element element, String selector) {
-		return element
-				.select(selector)
-				.stream()
-				.map(Element::text)
-				.filter(Objects::nonNull)
-				.distinct()
-				.findAny()
-				.orElse(null);
+	@Override
+	public DecimalFormatSymbols getPriceSymbols() {
+		DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+		symbols.setGroupingSeparator('.');
+		symbols.setDecimalSeparator(',');
+		symbols.setCurrencySymbol("€");
+		return symbols;
 	}
 
 }

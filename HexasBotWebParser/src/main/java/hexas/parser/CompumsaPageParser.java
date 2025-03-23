@@ -1,5 +1,7 @@
 package hexas.parser;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormatSymbols;
 import java.util.Objects;
 
 import org.jsoup.nodes.Document;
@@ -19,12 +21,13 @@ public class CompumsaPageParser implements PageParser {
 				.distinct()
 				.findAny()
 				.orElse(null);
-		String price = document
+		BigDecimal price = document
 				.select("#ContentPlaceHolderMain_LabelPrice")
 				.stream()
 				.map(Element::text)
 				.filter(Objects::nonNull)
 				.map(p -> p.replaceAll(" VAT Incl", ""))
+				.map(this::parsePrice)
 				.distinct()
 				.findAny()
 				.orElse(null);
@@ -34,4 +37,12 @@ public class CompumsaPageParser implements PageParser {
 		new PriceUpdater().update(product, price, "Compumsa");
 	}
 
+	@Override
+	public DecimalFormatSymbols getPriceSymbols() {
+		DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+		symbols.setGroupingSeparator(' ');
+		symbols.setDecimalSeparator(',');
+		symbols.setCurrencySymbol("€");
+		return symbols;
+	}
 }

@@ -1,9 +1,11 @@
 package hexas.parser;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormatSymbols;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 
 import hexas.db.dbo.Product;
 
@@ -18,7 +20,11 @@ public class NvidiaPageParser implements PageParser {
 	public void parseGroup(Document document, Product group) {
 		document.select("#resultsDiv .droplink").forEach(element -> {
 			String stock = text(element, "a span");
-			String price = text(element, "div.price");
+			BigDecimal price = Optional
+					.ofNullable(text(element, "div.price"))
+					.map(t -> t.replace("€", " "))
+					.map(this::parsePrice)
+					.orElse(null);
 			String url = element
 					.select("a")
 					.stream()
@@ -32,20 +38,18 @@ public class NvidiaPageParser implements PageParser {
 				price = null;
 			}
 			if (name.contains("RTX 50")) {
-				new PriceUpdater().createOrUpdate(name, url, price, "LDLC", group);
+				new PriceUpdater().createOrUpdate(name, url, price, "Nvidia", group);
 			}
 		});
 	}
 
-	private String text(Element element, String selector) {
-		return element
-				.select(selector)
-				.stream()
-				.map(Element::text)
-				.filter(Objects::nonNull)
-				.distinct()
-				.findAny()
-				.orElse(null);
+	@Override
+	public DecimalFormatSymbols getPriceSymbols() {
+		DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+		symbols.setGroupingSeparator(',');
+		symbols.setDecimalSeparator('.');
+		symbols.setCurrencySymbol("€");
+		return symbols;
 	}
 
 }

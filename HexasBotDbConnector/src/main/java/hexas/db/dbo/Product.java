@@ -1,5 +1,6 @@
 package hexas.db.dbo;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.regex.Pattern;
 
@@ -23,7 +24,8 @@ public class Product {
 	private String model;
 	private String url;
 	private String msrp;
-	private String lastPrice;
+	private BigDecimal lastPrice;
+	private BigDecimal notifyPrice;
 	private Date lastPriceDate;
 	private String vendor;
 	private String notifyChannel;

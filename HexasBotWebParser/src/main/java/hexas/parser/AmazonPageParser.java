@@ -1,5 +1,7 @@
 package hexas.parser;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormatSymbols;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -15,13 +17,7 @@ public class AmazonPageParser implements PageParser {
 
 	@Override
 	public void parse(Document doc, Product product) {
-		String price = doc
-				.select("#corePrice_feature_div span.a-price .a-offscreen")
-				.stream()
-				.map(Element::text)
-				.filter(Objects::nonNull)
-				.findAny()
-				.orElse(null);
+		BigDecimal price = price(doc, "#corePrice_feature_div span.a-price .a-offscreen");
 		String vendor = doc
 				.select("#merchantInfoFeature_feature_div .offer-display-feature-text-message")
 				.stream()
@@ -38,7 +34,7 @@ public class AmazonPageParser implements PageParser {
 	@Override
 	public void parseGroup(Document document, Product group) {
 		document.select(".s-search-results .puis-card-container").forEach(element -> {
-			String price = text(element, "span.a-price .a-offscreen");
+			BigDecimal price = price(element, "span.a-price .a-offscreen");
 			String url = "https://www.amazon.fr/dp/" + element.attr("data-dib-asin");
 			String name = text(element, "h2");
 			if (name.contains(group.getMetaModel()) && element.text().contains("Ajouter au panier")) {
@@ -47,15 +43,13 @@ public class AmazonPageParser implements PageParser {
 		});
 	}
 
-	private String text(Element element, String selector) {
-		return element
-				.select(selector)
-				.stream()
-				.map(Element::text)
-				.filter(Objects::nonNull)
-				.distinct()
-				.findAny()
-				.orElse(null);
+	@Override
+	public DecimalFormatSymbols getPriceSymbols() {
+		DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+		symbols.setGroupingSeparator(' ');
+		symbols.setDecimalSeparator(',');
+		symbols.setCurrencySymbol("€");
+		return symbols;
 	}
 
 }

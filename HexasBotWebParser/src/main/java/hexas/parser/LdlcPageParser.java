@@ -1,10 +1,11 @@
 package hexas.parser;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormatSymbols;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 
 import hexas.db.dbo.Product;
 
@@ -19,7 +20,7 @@ public class LdlcPageParser implements PageParser {
 	public void parseGroup(Document document, Product group) {
 		document.select(".listing-product li").forEach(element -> {
 			String stock = text(element, "div.stock");
-			String price = text(element, "div.price");
+			BigDecimal price = price(element, "div.price");
 			String url = "https://www.ldlc.com" + element
 					.select("h3 a")
 					.stream()
@@ -38,19 +39,18 @@ public class LdlcPageParser implements PageParser {
 		});
 	}
 
-	private String text(Element element, String selector) {
-		return element
-				.select(selector)
-				.stream()
-				.map(Element::text)
-				.filter(Objects::nonNull)
-				.distinct()
-				.findAny()
-				.orElse(null);
-	}
-
 	@Override
 	public void sleep() throws InterruptedException {
 		TimeUnit.SECONDS.sleep(1);
 	}
+
+	@Override
+	public DecimalFormatSymbols getPriceSymbols() {
+		DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+		symbols.setGroupingSeparator(' ');
+		symbols.setDecimalSeparator('€');
+		symbols.setCurrencySymbol("€");
+		return symbols;
+	}
+
 }

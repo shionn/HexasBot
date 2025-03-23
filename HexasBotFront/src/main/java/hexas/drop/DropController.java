@@ -1,8 +1,8 @@
 package hexas.drop;
 
+import java.math.BigDecimal;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,7 +47,8 @@ public class DropController {
 	@PostMapping({ "/drops/add" })
 	public String addDrop(@RequestParam("marque") String marque, @RequestParam("metaModel") String metaModel,
 			@RequestParam("model") String model, @RequestParam("url") String url, @RequestParam("msrp") String msrp,
-			@RequestParam("notifyChannel") String notifyChannel, @RequestParam("scanner") String scanner) {
+			@RequestParam("notifyChannel") String notifyChannel, @RequestParam("scanner") String scanner,
+			@RequestParam("notifyPrice") BigDecimal notifyPrice) {
 		session
 				.getMapper(ProductDao.class)
 				.create(Product
@@ -58,6 +59,7 @@ public class DropController {
 						.url(url)
 						.msrp(msrp)
 						.notifyChannel(notifyChannel)
+						.notifyPrice(notifyPrice)
 						.scanner(scanner)
 						.build());
 		session.commit();
@@ -75,7 +77,8 @@ public class DropController {
 			@RequestParam("metaModel") String metaModel, @RequestParam("model") String model,
 			@RequestParam("url") String url, @RequestParam("msrp") String msrp,
 			@RequestParam("notifyChannel") String notifyChannel, @RequestParam("scanner") String scanner,
-			@RequestParam("lastPrice") String lastPrice) {
+			@RequestParam(name = "lastPrice", required = false) BigDecimal lastPrice,
+			@RequestParam("notifyPrice") BigDecimal notifyPrice) {
 		ProductDao dao = session.getMapper(ProductDao.class);
 		Product product = dao.read(id);
 		product.setMarque(marque);
@@ -85,7 +88,8 @@ public class DropController {
 		product.setMsrp(msrp);
 		product.setNotifyChannel(notifyChannel);
 		product.setScanner(scanner);
-		product.setLastPrice(StringUtils.trimToNull(lastPrice));
+		product.setNotifyPrice(notifyPrice);
+		product.setLastPrice(lastPrice);
 		dao.update(product);
 		session.commit();
 		return "redirect:" + last + "#" + id;

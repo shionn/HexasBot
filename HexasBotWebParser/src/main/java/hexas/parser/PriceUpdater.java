@@ -1,5 +1,6 @@
 package hexas.parser;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import org.apache.ibatis.session.SqlSession;
@@ -10,7 +11,7 @@ import hexas.db.dbo.Product;
 
 public class PriceUpdater {
 
-	public void update(Product product, String price, String vendor) {
+	public void update(Product product, BigDecimal price, String vendor) {
 		System.out.println("Found price " + price + ":" + vendor);
 		product.setLastPrice(price);
 		product.setLastPriceDate(new Date());
@@ -23,7 +24,7 @@ public class PriceUpdater {
 		}
 	}
 
-	private boolean shouldNotify(Product product, String price) {
+	private boolean shouldNotify(Product product, BigDecimal price) {
 		if (price == null) {
 			return false;
 		}
@@ -33,7 +34,7 @@ public class PriceUpdater {
 		return !product.getLastPrice().equals(price);
 	}
 
-	public void createOrUpdate(String name, String url, String price, String vendor, Product group) {
+	public void createOrUpdate(String name, String url, BigDecimal price, String vendor, Product group) {
 		try (SqlSession session = new SessionFactory().open()) {
 			ProductScanDao dao = session.getMapper(ProductScanDao.class);
 			Product product = dao.readByUrl(url);
@@ -47,6 +48,7 @@ public class PriceUpdater {
 						.metaModel(group.getMetaModel())
 						.msrp(group.getMsrp())
 						.notifyChannel(group.getNotifyChannel())
+						.notifyPrice(group.getNotifyPrice())
 						.url(url)
 						.vendor(vendor)
 						.scanner("group-" + group.getId())

@@ -28,6 +28,8 @@
 		<label for="lastPrice">Dernier prix</label>
 		<input name="lastPrice" type="text" value="${product.lastPrice}"/>
 	</c:if>
+	<label for="notifyPrice">Prix d'alerte</label>
+	<input name="notifyPrice" type="text" value="${product.notifyPrice}"/>
 	<label for="notifyChannel">Canal de notification</label>
 	<input name="notifyChannel" type="text" value="${product.notifyChannel}"/>
 	<label for="scanner">Scanner</label>

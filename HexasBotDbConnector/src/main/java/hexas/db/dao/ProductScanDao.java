@@ -19,7 +19,7 @@ public interface ProductScanDao {
 	@Select("SELECT * FROM product WHERE url = #{url}")
 	Product readByUrl(String url);
 
-	@Insert("INSERT INTO product(marque, meta_model, model, url, msrp, notify_channel, scanner, last_price, last_price_date, vendor, notify) "
-			+ "VALUES (#{marque}, #{metaModel}, #{model}, #{url}, #{msrp}, #{notifyChannel}, #{scanner}, #{lastPrice}, #{lastPriceDate}, #{vendor}, #{notify})")
+	@Insert("INSERT INTO product(marque, meta_model, model, url, msrp, notify_channel, scanner, last_price, last_price_date, vendor, notify, notify_price) "
+			+ "VALUES (#{marque}, #{metaModel}, #{model}, #{url}, #{msrp}, #{notifyChannel}, #{scanner}, #{lastPrice}, #{lastPriceDate}, #{vendor}, #{notify}, #{notifyPrice})")
 	int create(Product product);
 }

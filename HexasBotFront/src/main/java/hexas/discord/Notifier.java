@@ -44,8 +44,11 @@ public class Notifier implements EventListener {
 //						bot.getTextChannels().stream().forEach(System.out::println);
 						for (Product product : products) {
 							List<TextChannel> channels = getChannel(product, bot);
-							String message = buildMessage(product);
-							channels.forEach(c -> c.sendMessage(message).queue());
+							if (product.getNotifyPrice() == null
+									|| product.getLastPrice().compareTo(product.getNotifyPrice()) < 0) {
+								String message = buildMessage(product);
+								channels.forEach(c -> c.sendMessage(message).queue());
+							}
 							dao.markNotifyied(product);
 							session.commit();
 						}
