@@ -37,7 +37,7 @@ public class NvidiaPageParser implements PageParser {
 			if (!"acheter maintenant".equalsIgnoreCase(stock)) {
 				price = null;
 			}
-			if (name.contains("RTX 50")) {
+			if (name.contains("RTX 50") && !"javascript:void(0);".equalsIgnoreCase(url)) {
 				new PriceUpdater().createOrUpdate(name, url, price, "Nvidia", group);
 			}
 		});
