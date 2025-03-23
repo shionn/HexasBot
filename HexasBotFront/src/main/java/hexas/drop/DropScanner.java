@@ -36,7 +36,7 @@ public class DropScanner implements Serializable {
 			ProcessBuilder builder = new ProcessBuilder("./selenium.sh");
 			builder.redirectError(ProcessBuilder.Redirect.INHERIT);
 //			builder.directory(new File("/home/shionn/projects/HexasBot"));
-			builder.directory(new File("/var/lib/tomcat"));
+			builder.directory(new File("/var/lib/tomcat/HexasBot"));
 			builder.start().waitFor();
 			System.out.println("fin du scan");
 		} catch (IOException | InterruptedException e) {
