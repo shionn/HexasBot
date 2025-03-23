@@ -18,7 +18,7 @@ public interface ProductDao {
 	@Select("SELECT * FROM product ORDER BY meta_model, marque, model")
 	List<Product> listAllDrops();
 
-	@Select("SELECT * FROM product WHERE notify IS true LIMIT 1")
+	@Select("SELECT * FROM product WHERE notify IS true")
 	List<Product> toNotify();
 
 	@Update("UPDATE product SET notify = false WHERE id = #{id}")

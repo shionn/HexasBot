@@ -38,17 +38,15 @@ public class Notifier implements EventListener {
 				try (SqlSession session = new SessionFactory().open()) {
 					ProductDao dao = session.getMapper(ProductDao.class);
 					List<Product> products = dao.toNotify();
+					products = products.stream().filter(this::shouldBeNotified).toList();
 //					System.out.println(products);
 					if (!products.isEmpty()) {
 						JDA bot = buildBot();
 //						bot.getTextChannels().stream().forEach(System.out::println);
 						for (Product product : products) {
 							List<TextChannel> channels = getChannel(product, bot);
-							if (product.getNotifyPrice() == null
-									|| product.getLastPrice().compareTo(product.getNotifyPrice()) < 0) {
-								String message = buildMessage(product);
-								channels.forEach(c -> c.sendMessage(message).queue());
-							}
+							String message = buildMessage(product);
+							channels.forEach(c -> c.sendMessage(message).queue());
 							dao.markNotifyied(product);
 							session.commit();
 						}
@@ -60,10 +58,14 @@ public class Notifier implements EventListener {
 				}
 			}
 
+			private boolean shouldBeNotified(Product product) {
+				return product.getNotifyPrice() == null
+						|| product.getLastPrice().compareTo(product.getNotifyPrice()) < 0;
+			}
+
 			private String buildMessage(Product product) {
-				return "@here " + product.getMarque() + " " + product.getMetaModel() + " "
-						+ product.getModel() + " **" + product.getLastPrice() + "** par "
-						+ product.getVendor() + "\n" + product.getUrl();
+				return "@here " + product.getMarque() + " " + product.getMetaModel() + " " + product.getModel() + " **"
+						+ product.getLastPrice() + "** par " + product.getVendor() + "\n" + product.getUrl();
 			}
 		});
 	}
