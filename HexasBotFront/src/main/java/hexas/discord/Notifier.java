@@ -59,8 +59,8 @@ public class Notifier implements EventListener {
 			}
 
 			private boolean shouldBeNotified(Product product) {
-				return product.getNotifyPrice() == null
-						|| product.getLastPrice().compareTo(product.getNotifyPrice()) < 0;
+				return product.getNotifyPrice() == null || product.getLastPrice() != null
+						&& product.getLastPrice().compareTo(product.getNotifyPrice()) < 0;
 			}
 
 			private String buildMessage(Product product) {
