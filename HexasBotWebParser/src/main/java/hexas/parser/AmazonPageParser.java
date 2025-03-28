@@ -37,7 +37,7 @@ public class AmazonPageParser implements PageParser {
 			BigDecimal price = price(element, "span.a-price .a-offscreen");
 			String url = "https://www.amazon.fr/dp/" + element.attr("data-dib-asin");
 			String name = text(element, "h2");
-			if (name.contains(group.getMetaModel()) && element.text().contains("Ajouter au panier")) {
+			if (name.contains(group.getMetaModel()) && element.text().contains("Ajouter au panier") && !name.contains("Memory PC")) {
 				new PriceUpdater().createOrUpdate(name, url, price, group.getVendor(), group);
 			}
 		});
