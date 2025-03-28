@@ -36,7 +36,7 @@ public interface PageParser {
 	}
 
 	default BigDecimal price(Element element, String selector) {
-		return Optional.ofNullable(text(element, selector)).map(this::parsePrice).orElse(null);
+		return Optional.ofNullable(text(element, selector)).map(String::trim).map(this::parsePrice).orElse(null);
 	}
 
 	default BigDecimal parsePrice(String text) {
