@@ -30,6 +30,7 @@ public class Product {
 	private String vendor;
 	private String notifyChannel;
 	private String scanner;
+	private String includePattern, excludePattern;
 	private boolean notify;
 
 	public String getFormatedVendor() {

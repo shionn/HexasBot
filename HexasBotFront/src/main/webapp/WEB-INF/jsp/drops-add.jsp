@@ -34,6 +34,10 @@
 	<input name="notifyChannel" type="text" value="${product.notifyChannel}"/>
 	<label for="scanner">Scanner</label>
 	<input name="scanner" type="text" placeholder="selenium / jsoop" value="${product.scanner}"/>
+	<label for="includePattern">Include pattern</label>
+	<input name="includePattern" type="text" value="${product.includePattern}"/>
+	<label for="excludePattern">Exclude pattern</label>
+	<input name="excludePattern" type="text" value="${product.excludePattern}"/>
 	<input type="Submit" value="valider">
 </form:form>
 

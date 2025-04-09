@@ -24,15 +24,17 @@ public interface ProductDao {
 	@Update("UPDATE product SET notify = false WHERE id = #{id}")
 	int markNotifyied(Product product);
 
-	@Insert("INSERT INTO product(marque, meta_model, model, url, msrp, notify_channel, scanner, notify_price) "
-			+ "VALUES (#{marque}, #{metaModel}, #{model}, #{url}, #{msrp}, #{notifyChannel}, #{scanner}, #{notifyPrice})")
+	@Insert("INSERT INTO product(marque, meta_model, model, url, msrp, notify_channel, scanner, notify_price, include_pattern, exclude_pattern) "
+			+ "VALUES (#{marque}, #{metaModel}, #{model}, #{url}, #{msrp}, #{notifyChannel}, #{scanner}, #{notifyPrice}, #{includePattern}, #{excludePattern})")
 	int create(Product product);
 
 	@Select("SELECT * FROM product WHERE id = #{id}")
 	Product read(int id);
 
 	@Update("UPDATE product SET marque = #{marque}, meta_model = #{metaModel}, model = #{model}, "
-			+ "url = #{url}, msrp = #{msrp}, notify_channel = #{notifyChannel}, scanner = #{scanner}, last_price = #{lastPrice}, notify_price = #{notifyPrice} "
+			+ "url = #{url}, msrp = #{msrp}, notify_channel = #{notifyChannel}, scanner = #{scanner}, "
+			+ "last_price = #{lastPrice}, notify_price = #{notifyPrice}, "
+			+ "include_pattern = #{includePattern}, exclude_pattern = #{excludePattern} "
 			+ "WHERE id = #{id}")
 	int update(Product product);
 

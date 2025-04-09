@@ -48,6 +48,8 @@ public class DropController {
 	public String addDrop(@RequestParam("marque") String marque, @RequestParam("metaModel") String metaModel,
 			@RequestParam("model") String model, @RequestParam("url") String url, @RequestParam("msrp") String msrp,
 			@RequestParam("notifyChannel") String notifyChannel, @RequestParam("scanner") String scanner,
+			@RequestParam("excludePattern") String excludePattern,
+			@RequestParam("includePattern") String includePattern,
 			@RequestParam("notifyPrice") BigDecimal notifyPrice) {
 		session
 				.getMapper(ProductDao.class)
@@ -61,6 +63,8 @@ public class DropController {
 						.notifyChannel(notifyChannel)
 						.notifyPrice(notifyPrice)
 						.scanner(scanner)
+						.includePattern(includePattern)
+						.excludePattern(excludePattern)
 						.build());
 		session.commit();
 		return "redirect:" + last;
@@ -78,6 +82,8 @@ public class DropController {
 			@RequestParam("url") String url, @RequestParam("msrp") String msrp,
 			@RequestParam("notifyChannel") String notifyChannel, @RequestParam("scanner") String scanner,
 			@RequestParam(name = "lastPrice", required = false) BigDecimal lastPrice,
+			@RequestParam("excludePattern") String excludePattern,
+			@RequestParam("includePattern") String includePattern,
 			@RequestParam("notifyPrice") BigDecimal notifyPrice) {
 		ProductDao dao = session.getMapper(ProductDao.class);
 		Product product = dao.read(id);
@@ -90,6 +96,8 @@ public class DropController {
 		product.setScanner(scanner);
 		product.setNotifyPrice(notifyPrice);
 		product.setLastPrice(lastPrice);
+		product.setIncludePattern(includePattern);
+		product.setExcludePattern(excludePattern);
 		dao.update(product);
 		session.commit();
 		return "redirect:" + last + "#" + id;

@@ -29,7 +29,7 @@ public class DropScanner implements Serializable {
 	private Iterator<Product> products;
 	private Map<String, Map<String, String>> cookiePerSites = new HashMap<>();
 
-	@Scheduled(fixedDelay = 1, timeUnit = TimeUnit.MINUTES)
+	@Scheduled(fixedDelay = 15, timeUnit = TimeUnit.MINUTES)
 	public void scanWithSelenium() {
 		try {
 			System.out.println("Scan with selenium");
@@ -45,7 +45,7 @@ public class DropScanner implements Serializable {
 		}
 	}
 
-	@Scheduled(fixedDelay = 4, timeUnit = TimeUnit.MINUTES)
+	@Scheduled(fixedDelay = 15, timeUnit = TimeUnit.MINUTES)
 	public void scanWithJsoop() {
 		if (products == null || !products.hasNext()) {
 			System.out.println("list all product to scan ");
