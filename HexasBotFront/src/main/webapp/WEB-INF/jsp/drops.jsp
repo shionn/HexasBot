@@ -46,7 +46,7 @@
 
 <thead>
 	<tr>
-		<th colspan="5">group result</th>
+		<th colspan="7">group result</th>
 	</tr>
 </thead>
 <tbody>
