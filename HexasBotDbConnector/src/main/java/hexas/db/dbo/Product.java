@@ -38,4 +38,8 @@ public class Product {
 			return "--";
 		return VENDOR.matcher(vendor).replaceAll("");
 	}
+
+	public boolean isGroup() {
+		return scanner.startsWith("group-");
+	}
 }

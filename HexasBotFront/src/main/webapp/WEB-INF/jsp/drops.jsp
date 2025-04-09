@@ -20,25 +20,58 @@
 </thead>
 <tbody>
 	<c:forEach items="${drops}" var="d">
-		<tr id="${d.id}">
-			<td><a href="<spring:url value='/drops/edit/${d.id}'/>" style="text-decoration: none;">✎</a></td>
-			<td>${d.metaModel}</td>
-			<td>${d.marque}</td>
-			<td><a href="${d.url}" target="_blank">${d.model}</a></td>
-			<c:if test ="${not empty d.lastPrice}">
-				<td>
-					${d.lastPrice}
-					<c:if test ="${not empty d.msrp}">
-						<small><strike>(${d.msrp})</strike></small>
-					</c:if>
-				</td>
-			</c:if>
-			<c:if test ="${empty d.lastPrice}">
-				<td>--</td>
-			</c:if>
-			<td>${d.formatedVendor}</td>
-			<td>${d.scanner}</td>
-		</tr>
+		<c:if test="${not d.group}">
+			<tr id="${d.id}">
+				<td><a href="<spring:url value='/drops/edit/${d.id}'/>" style="text-decoration: none;">✎</a></td>
+				<td>${d.metaModel}</td>
+				<td>${d.marque}</td>
+				<td><a href="${d.url}" target="_blank">${d.model}</a></td>
+				<c:if test ="${not empty d.lastPrice}">
+					<td>
+						${d.lastPrice}
+						<c:if test ="${not empty d.msrp}">
+							<small><strike>(${d.msrp})</strike></small>
+						</c:if>
+					</td>
+				</c:if>
+				<c:if test ="${empty d.lastPrice}">
+					<td>--</td>
+				</c:if>
+				<td>${d.formatedVendor}</td>
+				<td>${d.scanner}</td>
+			</tr>
+		</c:if>
+	</c:forEach>
+</tbody>
+
+<thead>
+	<tr>
+		<th colspan="5">group result</th>
+	</tr>
+</thead>
+<tbody>
+	<c:forEach items="${drops}" var="d">
+		<c:if test="${d.group}">
+			<tr id="${d.id}">
+				<td><a href="<spring:url value='/drops/edit/${d.id}'/>" style="text-decoration: none;">✎</a></td>
+				<td>${d.metaModel}</td>
+				<td>${d.marque}</td>
+				<td><a href="${d.url}" target="_blank">${d.model}</a></td>
+				<c:if test ="${not empty d.lastPrice}">
+					<td>
+						${d.lastPrice}
+						<c:if test ="${not empty d.msrp}">
+							<small><strike>(${d.msrp})</strike></small>
+						</c:if>
+					</td>
+				</c:if>
+				<c:if test ="${empty d.lastPrice}">
+					<td>--</td>
+				</c:if>
+				<td>${d.formatedVendor}</td>
+				<td>${d.scanner}</td>
+			</tr>
+		</c:if>
 	</c:forEach>
 </tbody>
 </table>
