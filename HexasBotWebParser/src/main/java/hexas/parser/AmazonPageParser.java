@@ -37,9 +37,11 @@ public class AmazonPageParser implements PageParser {
 	public void parseGroup(Document document, Product group) {
 		document.select(".s-search-results .puis-card-container").forEach(element -> {
 			BigDecimal price = price(element, "span.a-price .a-offscreen");
-			String url = "https://www.amazon.fr/dp/" + element.attr("data-dib-asin");
 			String name = text(element, "h2");
-			if (isValidProduct(group, name) && isInStock(element) && !isIgnored(group, name)) {
+			String id = element.attr("data-dib-asin");
+			if (isValidProduct(group, name) && isInStock(element) && !isIgnored(group, name)
+					&& StringUtils.isNotBlank(id)) {
+				String url = "https://www.amazon.fr/dp/" + id;
 				new PriceUpdater().createOrUpdate(name, url, price, group.getVendor(), group);
 			}
 		});
