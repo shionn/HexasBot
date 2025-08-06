@@ -13,8 +13,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import hexas.db.SessionFactory;
-import hexas.db.dao.ProductDao;
-import hexas.db.dbo.Product;
+import hexas.db.dao.NotifyDao;
+import hexas.db.dbo.Notification;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
@@ -31,23 +31,21 @@ public class Notifier implements EventListener {
 
 	@Scheduled(fixedDelay = 1, timeUnit = TimeUnit.SECONDS)
 	public void notiyDiscord() throws IOException, InterruptedException {
-//		System.out.println("notify");
 		execute.submit(new Runnable() {
 			@Override
 			public void run() {
 				try (SqlSession session = new SessionFactory().open()) {
-					ProductDao dao = session.getMapper(ProductDao.class);
-					List<Product> products = dao.toNotify();
-					products = products.stream().filter(this::shouldBeNotified).toList();
-//					System.out.println(products);
-					if (!products.isEmpty()) {
+					NotifyDao dao = session.getMapper(NotifyDao.class);
+					List<Notification> notifications = dao.list();
+					notifications = notifications.stream().toList();
+					if (!notifications.isEmpty()) {
 						JDA bot = buildBot();
 //						bot.getTextChannels().stream().forEach(System.out::println);
-						for (Product product : products) {
-							List<TextChannel> channels = getChannel(product, bot);
-							String message = buildMessage(product);
+						for (Notification notification : notifications) {
+							List<TextChannel> channels = getChannel(notification, bot);
+							String message = buildMessage(notification);
 							channels.forEach(c -> c.sendMessage(message).queue());
-							dao.markNotifyied(product);
+							dao.markNotifyied(notification);
 							session.commit();
 						}
 						bot.shutdown();
@@ -58,20 +56,15 @@ public class Notifier implements EventListener {
 				}
 			}
 
-			private boolean shouldBeNotified(Product product) {
-				return product.getNotifyPrice() == null || product.getLastPrice() != null
-						&& product.getLastPrice().compareTo(product.getNotifyPrice()) < 0;
-			}
-
-			private String buildMessage(Product product) {
-				return "@here " + product.getMarque() + " " + product.getMetaModel() + " " + product.getModel() + " **"
-						+ product.getLastPrice() + "** par " + product.getVendor() + "\n" + product.getUrl();
+			private String buildMessage(Notification notification) {
+				return "@here " + notification.getMarque() + " " + notification.getName() + " **"
+						+ notification.getPrice() + "** " + "\n" + notification.getUrl();
 			}
 		});
 	}
 
-	private List<TextChannel> getChannel(Product product, JDA bot) {
-		List<TextChannel> channels = bot.getTextChannelsByName(product.getNotifyChannel(), true);
+	private List<TextChannel> getChannel(Notification notification, JDA bot) {
+		List<TextChannel> channels = bot.getTextChannelsByName(notification.getNotifyChannel(), true);
 		if (channels.isEmpty()) {
 			channels = Arrays.asList(bot.getTextChannelById(CANAL_NOTFICATION));
 		}
