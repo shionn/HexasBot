@@ -26,8 +26,7 @@
 			<td>${product.marque}</td>
 			<td>
 				<c:if test="${empty product.name}">
-					${product.metaModel}
-					${product.model}
+					<em>${product.metaModel} - ${product.model}</em>
 				</c:if>
 				${product.name}
 			</td>

@@ -6,7 +6,6 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import org.apache.ibatis.session.SqlSession;
 import org.jsoup.Connection;
@@ -14,7 +13,6 @@ import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import hexas.db.SpringSessionFactory;
@@ -35,7 +33,7 @@ public class DropScanner implements Serializable {
 	@Value("${scan.root.dir}")
 	private String rootDir;
 
-	@Scheduled(fixedDelay = 15, timeUnit = TimeUnit.MINUTES)
+//	@Scheduled(fixedDelay = 15, timeUnit = TimeUnit.MINUTES)
 	public void scanWithSelenium() {
 		try {
 			System.out.println("Scan with selenium");
@@ -50,7 +48,7 @@ public class DropScanner implements Serializable {
 		}
 	}
 
-	@Scheduled(fixedDelay = 15, timeUnit = TimeUnit.MINUTES)
+//	@Scheduled(fixedDelay = 15, timeUnit = TimeUnit.MINUTES)
 	public void scanWithJsoop() {
 		if (products == null || !products.hasNext()) {
 			System.out.println("list all product to scan ");

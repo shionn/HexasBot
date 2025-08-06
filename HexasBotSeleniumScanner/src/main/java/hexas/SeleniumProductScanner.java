@@ -7,12 +7,11 @@ import org.apache.ibatis.session.SqlSession;
 import org.jsoup.Jsoup;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
 
 import hexas.db.SessionFactory;
-import hexas.db.dao.ProductScanDao;
-import hexas.db.dbo.Product;
-import hexas.parser.PageParser;
-import hexas.parser.PageParserRetreiver;
+import hexas.db.dao.TasksDao;
+import hexas.db.dbo.Task;
 
 public class SeleniumProductScanner {
 
@@ -21,20 +20,21 @@ public class SeleniumProductScanner {
 	}
 
 	private static void doParsing() {
+		FirefoxProfile profile = new FirefoxProfile();
+		profile.setPreference("intl.accept_languages", "fr-FR");
 		FirefoxOptions options = new FirefoxOptions();
+		options.setProfile(profile);
 		FirefoxDriver driver = new FirefoxDriver(options);
 		try {
 			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 			driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
 			driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(30));
+
 			try (SqlSession session = new SessionFactory().open()) {
-				List<Product> products = session.getMapper(ProductScanDao.class).list("selenium");
-				for (Product product : products) {
-					doScan(driver, product);
-				}
-				List<Product> groups = session.getMapper(ProductScanDao.class).list("selenium-group");
-				for (Product group : groups) {
-					doScanGroup(driver, group);
+				TasksDao dao = session.getMapper(TasksDao.class);
+				List<Task> tasks = dao.listActiveTask();
+				for (Task task : tasks) {
+					doTask(driver, task);
 				}
 			}
 		} finally {
@@ -42,34 +42,12 @@ public class SeleniumProductScanner {
 		}
 	}
 
-	static void doScanGroup(FirefoxDriver driver, Product group) {
+	private static void doTask(FirefoxDriver driver, Task task) {
 		try {
-			driver.get(group.getUrl());
-			PageParser parser = new PageParserRetreiver().resolve(group);
+			driver.get(task.getUrl());
+			TaskParser parser = new TaskParserRetreiver().resolve(task);
 			parser.sleep();
-			parser.parseGroup(Jsoup.parse(driver.getPageSource()), group);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-	}
-
-	static void doScan(FirefoxDriver driver, Product product) {
-		try {
-			System.out.println("scan " + product);
-			driver.get(product.getUrl());
-			PageParser parser = new PageParserRetreiver().resolve(product);
-			parser.sleep();
-			String source = driver.getPageSource();
-//			if (source.contains("Cookies et choix publicitaires")) {
-//				driver.findElement(Bys.id("sp-cc-rejectall-link")).click();
-//			}
-//			if (source.contains("Rejeter les cookies")) {
-//				driver.findElement(Bys.text("Rejeter les cookies")).click();
-//			}
-//			if (source.contains("Do not accept")) {
-//				driver.findElement(Bys.text("Do not accept")).click();
-//			}
-			parser.parse(Jsoup.parse(source), product);
+			parser.parse(Jsoup.parse(driver.getPageSource()), task);
 		} catch (Exception e) {
 			System.out.println(e);
 		}

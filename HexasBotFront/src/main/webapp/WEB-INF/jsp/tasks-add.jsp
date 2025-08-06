@@ -21,10 +21,10 @@
 	</select>
 	<label for="url">Url</label>
 	<input name="url" type="text" placeholder="https://www.amazon.fr/ASRock-Radeon-Steel-Legend-GDDR6/dp/B0DTTGMFK3" value="${task.url}"/>
-	<label for="product">Product</label>
-	<select name="product">
+	<label for="product.id">Product</label>
+	<select name="product.id">
 		<c:forEach items="${products}" var="product">
-			<option value="${product}" <c:if test="${product.id==task.product.id}">selected="selected"</c:if>>${product.description}
+			<option value="${product.id}" <c:if test="${product.id==task.product.id}">selected="selected"</c:if>>${product.description}
 		</c:forEach>
 	</select>
 	<label for="includePattern">Include pattern</label>
@@ -45,6 +45,12 @@
 <!-- 		<li>LDLC.com : selenium-group</li> -->
 <!-- 		<li>marketplace.nvidia.com : selenium-group</li> -->
 	</ul> 
+</p>
+
+<p>
+	<c:if test="${not empty task}">
+		<a href="<spring:url value='/tasks/delete/${task.id}'/>">🗑 Supprimer</a>
+	</c:if>
 </p>
 
 </jsp:attribute>

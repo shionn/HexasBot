@@ -45,12 +45,14 @@ public class Product {
 	@Deprecated
 	private boolean notify;
 
+	@Deprecated
 	public String getFormatedVendor() {
 		if (vendor == null)
 			return "--";
 		return VENDOR.matcher(vendor).replaceAll("");
 	}
 
+	@Deprecated
 	public boolean isGroup() {
 		return scanner.startsWith("group-");
 	}
