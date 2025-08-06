@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Update;
 
 import hexas.db.dbo.Product;
 
+@Deprecated
 public interface ProductScanDao {
 
 	@Select("SELECT * FROM product WHERE scanner = #{scanner} ORDER BY last_price, last_price_date")

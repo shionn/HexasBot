@@ -12,6 +12,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.jsoup.Connection;
 import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -29,6 +31,10 @@ public class DropScanner implements Serializable {
 	private Iterator<Product> products;
 	private Map<String, Map<String, String>> cookiePerSites = new HashMap<>();
 
+	@Autowired
+	@Value("${scan.root.dir}")
+	private String rootDir;
+
 	@Scheduled(fixedDelay = 15, timeUnit = TimeUnit.MINUTES)
 	public void scanWithSelenium() {
 		try {
@@ -36,8 +42,7 @@ public class DropScanner implements Serializable {
 			ProcessBuilder builder = new ProcessBuilder("./selenium.sh");
 			builder.redirectError(ProcessBuilder.Redirect.INHERIT);
 			builder.redirectOutput(ProcessBuilder.Redirect.INHERIT);
-//			builder.directory(new File("/home/shionn/projects/HexasBot"));
-			builder.directory(new File("/var/lib/tomcat/HexasBot"));
+			builder.directory(new File(rootDir));
 			builder.start().waitFor();
 			System.out.println("fin du scan");
 		} catch (IOException | InterruptedException e) {

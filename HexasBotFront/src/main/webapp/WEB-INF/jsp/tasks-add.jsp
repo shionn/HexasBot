@@ -1,0 +1,51 @@
+<%@ page pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="t"%>
+<t:template>
+<jsp:attribute name="content">
+
+<spring:url  value="/tasks/add" var="url"/>
+<c:if test="${not empty task}">
+	<spring:url  value="/tasks/edit/${task.id}" var="url"/>
+</c:if>
+<form:form action="${url}" method="POST">
+	<label for="type">Type</label>
+	<select name="type">
+		<c:forEach items="${types}" var="type">
+			<option value="${type}" <c:if test="${task.type==type}">selected="selected"</c:if>>${type}
+		</c:forEach>
+	</select>
+	<label for="url">Url</label>
+	<input name="url" type="text" placeholder="https://www.amazon.fr/ASRock-Radeon-Steel-Legend-GDDR6/dp/B0DTTGMFK3" value="${task.url}"/>
+	<label for="product">Product</label>
+	<select name="product">
+		<c:forEach items="${products}" var="product">
+			<option value="${product}" <c:if test="${product.id==task.product.id}">selected="selected"</c:if>>${product.description}
+		</c:forEach>
+	</select>
+	<label for="includePattern">Include pattern</label>
+	<input name="includePattern" type="text" value="${task.includePattern}"/>
+	<label for="excludePattern">Exclude pattern</label>
+	<input name="excludePattern" type="text" value="${task.excludePattern}"/>
+	<input type="Submit" value="valider">
+</form:form>
+
+<p>Site :
+	<ul>
+		<li>Amazon.fr</li>
+<!-- 		<li>Pccomponentes.fr : selenium / selenium-group</li> -->
+<!-- 		<li>Cyberteck.fr : selenium</li> -->
+<!-- 		<li>CaseKing.de : selenium / selenium-group</li> -->
+<!-- 		<li>Compumsa.eu : selenium</li> -->
+<!-- 		<li>Cdiscount.fr : selenium</li> -->
+<!-- 		<li>LDLC.com : selenium-group</li> -->
+<!-- 		<li>marketplace.nvidia.com : selenium-group</li> -->
+	</ul> 
+</p>
+
+</jsp:attribute>
+</t:template>

@@ -23,6 +23,8 @@
 			<a href="<spring:url value="/"/>"><img src="<spring:url value="/img/favicon.ico"/>"/></a>
 			<ul>
 				<li><a href="<spring:url value="/drops"/>">Drop</a></li>
+				<li><a href="<spring:url value="/tasks"/>">Tasks</a></li>
+				<li><a href="<spring:url value="/products"/>">Produits</a></li>
 			</ul>
 		</nav>
 	</header>

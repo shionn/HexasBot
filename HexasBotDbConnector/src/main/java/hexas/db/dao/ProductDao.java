@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Update;
 
 import hexas.db.dbo.Product;
 
+@Deprecated
 public interface ProductDao {
 
 	@Select("SELECT * FROM product WHERE last_price IS NOT NULL OR marque = 'todo' OR scanner = 'selenium-group' ORDER BY meta_model, marque, model")

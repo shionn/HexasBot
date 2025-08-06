@@ -147,6 +147,7 @@
 	</dependencies>
 
 	<modules>
+<!--		<module>HexasBotAptUpdate</module>-->
 		<module>HexasBotDbConnector</module>
 		<module>HexasBotFront</module>
 		<!--		<module>HexasBotJfxScanner</module>-->

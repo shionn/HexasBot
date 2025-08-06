@@ -103,10 +103,16 @@
 			</activation>
 			<properties>
 				<mybatis.driver>com.mysql.cj.jdbc.Driver</mybatis.driver>
-				<mybatis.url>
-					jdbc:mysql://${hexas.mysql.host}:3306/hexas?serverTimezone=GMT</mybatis.url>
+				<mybatis.url>jdbc:mysql://${hexas.mysql.host}:3306/hexas?serverTimezone=GMT</mybatis.url>
 				<mybatis.username>${hexas.mysql.user}</mybatis.username>
 				<mybatis.password>${hexas.mysql.pass}</mybatis.password>
+				<scan.root.dir>/var/lib/tomcat/HexasBot</scan.root.dir>
+			</properties>
+		</profile>
+		<profile>
+			<id>local</id>
+			<properties>
+				<scan.root.dir>/home/shionn/projects/HexasBot</scan.root.dir>
 			</properties>
 		</profile>
 	</profiles>
