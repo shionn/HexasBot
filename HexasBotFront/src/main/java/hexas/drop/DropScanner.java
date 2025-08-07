@@ -18,8 +18,8 @@ import org.springframework.stereotype.Component;
 import hexas.db.SpringSessionFactory;
 import hexas.db.dao.ProductScanDao;
 import hexas.db.dbo.Product;
-import hexas.parser.PageParser;
-import hexas.parser.PageParserRetreiver;
+import hexas.zold.PageParser;
+import hexas.zold.PageParserRetreiver;
 
 @Component
 public class DropScanner implements Serializable {

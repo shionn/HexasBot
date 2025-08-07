@@ -1,4 +1,4 @@
-package hexas.parser;
+package hexas.zold;
 
 import java.math.BigDecimal;
 import java.util.Date;

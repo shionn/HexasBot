@@ -11,6 +11,28 @@
 <table>
 <thead>
 	<tr>
+		<th colspan="2">Produit</th>
+		<th>Prix (msrp)</th>
+		<th>Date</th>
+	</tr>
+</thead>
+<tbody>
+	<c:forEach items="${lastDrops}" var="drop">
+		<tr>
+			<td>${drop.marque}</td>
+			<td><a href="${drop.url}" target="_blank">${drop.name}</a></td>
+			<td>${drop.lastPrice}</td>
+			<td>${drop.lastPriceDate}</td>
+		</tr>
+	</c:forEach>
+</tbody>
+</table>
+
+
+<h1>Ancien Service</h1>
+<table>
+<thead>
+	<tr>
 		<th>#</th>
 		<th colspan="3">Produit</th>
 		<th>Prix (msrp)</th>

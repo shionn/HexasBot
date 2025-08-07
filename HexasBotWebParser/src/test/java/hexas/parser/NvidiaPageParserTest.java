@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 
 import org.junit.jupiter.api.Test;
 
+import hexas.zold.NvidiaPageParser;
+
 class NvidiaPageParserTest {
 
 	@Test

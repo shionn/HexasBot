@@ -10,7 +10,7 @@ import org.jsoup.nodes.Document;
 import hexas.db.SessionFactory;
 import hexas.db.dao.ProductScanDao;
 import hexas.db.dbo.Product;
-import hexas.parser.PageParserRetreiver;
+import hexas.zold.PageParserRetreiver;
 
 public class JsoopProductScanner {
 	private static final String USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64; rv:136.0) Gecko/20100101 Firefox/136.0";

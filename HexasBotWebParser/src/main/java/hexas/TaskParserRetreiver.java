@@ -3,8 +3,10 @@ package hexas;
 import hexas.db.dbo.Task;
 import hexas.group.AmazonGroupParser;
 import hexas.group.CaseKingGroupParser;
+import hexas.group.LdlcGroupParser;
 import hexas.price.AmazonPriceParser;
 import hexas.price.CaseKingPriceParser;
+import hexas.price.LdlcPriceParser;
 
 public class TaskParserRetreiver {
 
@@ -24,6 +26,9 @@ public class TaskParserRetreiver {
 		if (task.getUrl().startsWith("https://www.caseking.de")) {
 			return new CaseKingGroupParser();
 		}
+		if (task.getUrl().startsWith("https://www.ldlc.com")) {
+			return new LdlcGroupParser();
+		}
 		throw new IllegalStateException("no parser : " + task.getUrl());
 	}
 
@@ -33,6 +38,9 @@ public class TaskParserRetreiver {
 		}
 		if (task.getUrl().startsWith("https://www.caseking.de")) {
 			return new CaseKingPriceParser();
+		}
+		if (task.getUrl().startsWith("https://www.ldlc.com")) {
+			return new LdlcPriceParser();
 		}
 		throw new IllegalStateException("no parser : " + task.getUrl());
 	}

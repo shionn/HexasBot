@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
+import hexas.db.dao.LastProductPriceDao;
 import hexas.db.dao.ProductDao;
 import hexas.db.dbo.Product;
 
@@ -27,9 +28,10 @@ public class DropController {
 
 	@GetMapping({ "/", "/drops" })
 	public ModelAndView getDrops() {
+		List<Product> lastDrops = session.getMapper(LastProductPriceDao.class).list();
 		List<Product> listAllDrops = session.getMapper(ProductDao.class).listFilteredDrops();
 		last = "/drops";
-		return new ModelAndView("drops").addObject("drops", listAllDrops);
+		return new ModelAndView("drops").addObject("drops", listAllDrops).addObject("lastDrops", lastDrops);
 	}
 
 	@GetMapping({ "/drops/all" })

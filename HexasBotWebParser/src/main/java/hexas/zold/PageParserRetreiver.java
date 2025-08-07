@@ -1,4 +1,4 @@
-package hexas.parser;
+package hexas.zold;
 
 import hexas.db.dbo.Product;
 

@@ -24,18 +24,15 @@ public class Product {
 	private String msrp;
 	private BigDecimal notifyPrice;
 	private String notifyChannel;
+	private String url;
+	private BigDecimal lastPrice;
+	private Date lastPriceDate;
 
 	// à ne pas conservé
 	@Deprecated
 	private String metaModel;
 	@Deprecated
 	private String model;
-	@Deprecated
-	private String url;
-	@Deprecated
-	private BigDecimal lastPrice;
-	@Deprecated
-	private Date lastPriceDate;
 	@Deprecated
 	private String vendor;
 	@Deprecated

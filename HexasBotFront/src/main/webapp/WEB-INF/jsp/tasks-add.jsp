@@ -37,13 +37,13 @@
 <p>Site :
 	<ul>
 		<li>Amazon.fr</li>
-<!-- 		<li>Pccomponentes.fr : selenium / selenium-group</li> -->
-<!-- 		<li>Cyberteck.fr : selenium</li> -->
-<!-- 		<li>CaseKing.de : selenium / selenium-group</li> -->
-<!-- 		<li>Compumsa.eu : selenium</li> -->
-<!-- 		<li>Cdiscount.fr : selenium</li> -->
-<!-- 		<li>LDLC.com : selenium-group</li> -->
-<!-- 		<li>marketplace.nvidia.com : selenium-group</li> -->
+		<li>Pccomponentes.fr : TODO</li>
+		<li>Cyberteck.fr : TODO</li>
+		<li>CaseKing.de</li>
+		<li>Compumsa.eu : TODO</li>
+		<li>Cdiscount.fr : TODO</li>
+		<li>LDLC.com</li>
+		<li>marketplace.nvidia.com : TODO</li>
 	</ul> 
 </p>
 

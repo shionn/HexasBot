@@ -14,3 +14,14 @@ INNER JOIN product AS p ON p.id = t.product
 WHERE tp.notified IS FALSE 
 AND tp.price <= p.notify_price;
 
+
+CREATE OR REPLACE VIEW last_product_price AS
+SELECT p.id AS product_id, p.marque, p.name, 
+  t.id AS task_id, t.url, 
+  tp.date AS last_price_date, tp.price AS last_price 
+FROM       product    AS p
+INNER JOIN task       AS t ON p.id = t.product
+INNER JOIN task_price AS tp ON t.id = tp.task
+WHERE (tp.task, tp.date) IN (SELECT task, max(date) as date FROM task_price GROUP BY task)
+
+

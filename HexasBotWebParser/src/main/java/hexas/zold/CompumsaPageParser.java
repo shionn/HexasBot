@@ -1,4 +1,4 @@
-package hexas.parser;
+package hexas.zold;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormatSymbols;
@@ -9,21 +9,32 @@ import org.jsoup.nodes.Element;
 
 import hexas.db.dbo.Product;
 
-public class CdiscountPageParser implements PageParser {
+public class CompumsaPageParser implements PageParser {
 
 	@Override
 	public void parse(Document document, Product product) {
-		BigDecimal price = price(document, ".c-buybox__price .u-visually-hidden");
-		String vendor = document
-				.select(".c-sellerBy a")
+		String stock = document
+				.select("#ContentPlaceHolderMain_LabelStock")
 				.stream()
 				.map(Element::text)
 				.filter(Objects::nonNull)
 				.distinct()
 				.findAny()
 				.orElse(null);
-
-		new PriceUpdater().update(product, price, vendor);
+		BigDecimal price = document
+				.select("#ContentPlaceHolderMain_LabelPrice")
+				.stream()
+				.map(Element::text)
+				.filter(Objects::nonNull)
+				.map(p -> p.replaceAll(" VAT Incl", ""))
+				.map(this::parsePrice)
+				.distinct()
+				.findAny()
+				.orElse(null);
+		if (!"in stock".equalsIgnoreCase(stock)) {
+			price = null;
+		}
+		new PriceUpdater().update(product, price, "Compumsa");
 	}
 
 	@Override
