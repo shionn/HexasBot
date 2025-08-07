@@ -6,6 +6,7 @@ import hexas.group.CaseKingGroupParser;
 import hexas.group.LdlcGroupParser;
 import hexas.price.AmazonPriceParser;
 import hexas.price.CaseKingPriceParser;
+import hexas.price.CdiscountPriceParser;
 import hexas.price.LdlcPriceParser;
 
 public class TaskParserRetreiver {
@@ -42,6 +43,9 @@ public class TaskParserRetreiver {
 		if (task.getUrl().startsWith("https://www.ldlc.com")) {
 			return new LdlcPriceParser();
 		}
+		if (task.getUrl().startsWith("https://www.cdiscount.com")) {
+			return new CdiscountPriceParser();
+		}
 		throw new IllegalStateException("no parser : " + task.getUrl());
 	}
 
@@ -52,17 +56,8 @@ public class TaskParserRetreiver {
 //		if (url.startsWith("https://www.pccomponentes.fr")) {
 //			return new PcComponentesPageParser();
 //		}
-//		if (url.startsWith("https://www.caseking.de")) {
-//			return new CaseKingPageParser();
-//		}
-//		if (url.startsWith("https://www.cdiscount.com")) {
-//			return new CdiscountPageParser();
-//		}
 //		if (url.startsWith("https://www.compumsa.eu")) {
 //			return new CompumsaPageParser();
-//		}
-//		if (url.startsWith("https://www.ldlc.com")) {
-//			return new LdlcPageParser();
 //		}
 //		if (url.startsWith("https://marketplace.nvidia.com")) {
 //			return new NvidiaPageParser();

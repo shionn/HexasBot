@@ -41,7 +41,7 @@
 		<li>Cyberteck.fr : TODO</li>
 		<li>CaseKing.de : group / price</li>
 		<li>Compumsa.eu : TODO</li>
-		<li>Cdiscount.fr : TODO</li>
+		<li>Cdiscount.fr : price</li>
 		<li>LDLC.com : group / price</li>
 		<li>marketplace.nvidia.com : TODO</li>
 	</ul> 

@@ -13,7 +13,7 @@
 	<tr>
 		<th>#</th>
 		<th>Type</th>
-		<th>Produit</th>
+		<th colspan="2">Produit</th>
 		<th>Url</th>
 	</tr>
 </thead>
@@ -22,7 +22,8 @@
 		<tr id="${task.id}">
 			<td><a href="<spring:url value='/tasks/edit/${task.id}'/>" style="text-decoration: none;">✎</a></td>
 			<td>${task.type}</td>
-			<td>${task.product.description}</td>
+			<td>${task.product.marque}</td>
+			<td>${task.product.name}</td>
 			<td><a href="${task.url}" target="_blank">${task.url}</a></td>
 		</tr>
 	</c:forEach>
