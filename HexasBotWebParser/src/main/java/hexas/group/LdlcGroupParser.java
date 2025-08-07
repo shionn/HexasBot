@@ -5,7 +5,7 @@ import java.util.Objects;
 import org.jsoup.nodes.Document;
 
 import hexas.TaskParser;
-import hexas.creator.ProductPriceScanTaskCreator;
+import hexas.creator.ParserDbUpdater;
 import hexas.db.dbo.Task;
 
 public class LdlcGroupParser implements TaskParser {
@@ -25,7 +25,7 @@ public class LdlcGroupParser implements TaskParser {
 					.orElse(null);
 //			String name = text(element, "h3 a");
 			if (isInStock(stock)) {
-				new ProductPriceScanTaskCreator().createIfAbsent(task, url);
+				new ParserDbUpdater().createProductScanTask(task, url);
 			}
 		});
 

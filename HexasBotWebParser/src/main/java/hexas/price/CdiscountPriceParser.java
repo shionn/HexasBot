@@ -6,7 +6,7 @@ import java.text.DecimalFormatSymbols;
 import org.jsoup.nodes.Document;
 
 import hexas.TaskParser;
-import hexas.creator.ProductPriceCreator;
+import hexas.creator.ParserDbUpdater;
 import hexas.db.dbo.Task;
 
 public class CdiscountPriceParser implements TaskParser {
@@ -23,7 +23,7 @@ public class CdiscountPriceParser implements TaskParser {
 //				.findAny()
 //				.orElse(null);
 
-		new ProductPriceCreator().createIfAbsent(task, price);
+		new ParserDbUpdater().insertProductPrice(task, price);
 	}
 
 	@Override

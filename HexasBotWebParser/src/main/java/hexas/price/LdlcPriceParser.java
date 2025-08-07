@@ -6,7 +6,7 @@ import java.text.DecimalFormatSymbols;
 import org.jsoup.nodes.Document;
 
 import hexas.TaskParser;
-import hexas.creator.ProductPriceCreator;
+import hexas.creator.ParserDbUpdater;
 import hexas.db.dbo.Task;
 
 public class LdlcPriceParser implements TaskParser {
@@ -16,7 +16,7 @@ public class LdlcPriceParser implements TaskParser {
 		BigDecimal price = price(document, ".product-price .price .price");
 		String addToCard = text(document, ".add-to-cart-bloc");
 		if (addToCard != null && addToCard.contains("Ajouter au panier")) {
-			new ProductPriceCreator().createIfAbsent(task, price);
+			new ParserDbUpdater().insertProductPrice(task, price);
 		}
 	}
 

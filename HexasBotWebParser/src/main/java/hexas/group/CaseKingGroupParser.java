@@ -5,7 +5,7 @@ import java.util.Objects;
 import org.jsoup.nodes.Document;
 
 import hexas.TaskParser;
-import hexas.creator.ProductPriceScanTaskCreator;
+import hexas.creator.ParserDbUpdater;
 import hexas.db.dbo.Task;
 
 public class CaseKingGroupParser implements TaskParser {
@@ -25,7 +25,7 @@ public class CaseKingGroupParser implements TaskParser {
 					.orElse(null);
 //			String name = text(element, ".product-tile-product-name");
 			if (!"Out of stock".equalsIgnoreCase(stock)) {
-				new ProductPriceScanTaskCreator().createIfAbsent(task, url);
+				new ParserDbUpdater().createProductScanTask(task, url);
 			}
 		});
 

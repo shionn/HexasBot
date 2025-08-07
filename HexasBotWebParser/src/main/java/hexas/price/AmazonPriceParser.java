@@ -10,7 +10,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import hexas.TaskParser;
-import hexas.creator.ProductPriceCreator;
+import hexas.creator.ParserDbUpdater;
 import hexas.db.dbo.Task;
 
 public class AmazonPriceParser implements TaskParser {
@@ -28,7 +28,7 @@ public class AmazonPriceParser implements TaskParser {
 				.findAny()
 				.orElse("Amazon");
 		if (VENDORS.contains(vendor)) {
-			new ProductPriceCreator().createIfAbsent(task, price);
+			new ParserDbUpdater().insertProductPrice(task, price);
 		}
 	}
 

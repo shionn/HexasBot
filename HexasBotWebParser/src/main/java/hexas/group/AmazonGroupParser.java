@@ -7,7 +7,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import hexas.TaskParser;
-import hexas.creator.ProductPriceScanTaskCreator;
+import hexas.creator.ParserDbUpdater;
 import hexas.db.dbo.Task;
 
 public class AmazonGroupParser implements TaskParser {
@@ -21,7 +21,7 @@ public class AmazonGroupParser implements TaskParser {
 			if (isValidProduct(task, name) && isInStock(element) && !isIgnored(task, name)
 					&& StringUtils.isNotBlank(id)) {
 				String url = "https://www.amazon.fr/dp/" + id;
-				new ProductPriceScanTaskCreator().createIfAbsent(task, url);
+				new ParserDbUpdater().createProductScanTask(task, url);
 			}
 		});
 	}

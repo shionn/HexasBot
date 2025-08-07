@@ -1,15 +1,18 @@
 package hexas.creator;
 
+import java.math.BigDecimal;
+
 import org.apache.ibatis.session.SqlSession;
 
 import hexas.db.SessionFactory;
+import hexas.db.dao.TaskPriceDao;
 import hexas.db.dao.TasksDao;
 import hexas.db.dbo.Task;
 import hexas.db.dbo.TaskType;
 
-public class ProductPriceScanTaskCreator {
+public class ParserDbUpdater {
 
-	public void createIfAbsent(Task parent, String url) {
+	public void createProductScanTask(Task parent, String url) {
 		Task task = Task
 				.builder()
 				.parent(parent)
@@ -26,7 +29,18 @@ public class ProductPriceScanTaskCreator {
 				session.commit();
 			}
 		}
-
 	}
+
+	public void insertProductPrice(Task task, BigDecimal price) {
+		if (task.getLastPrice() == null || task.getLastPrice().compareTo(price) != 0) {
+			try (SqlSession session = new SessionFactory().open()) {
+				session.getMapper(TaskPriceDao.class).create(task.getId(), price);
+				session.commit();
+			}
+		} else {
+			System.out.println("price (" + price + ") already up to date " + task.getUrl());
+		}
+	}
+
 
 }
