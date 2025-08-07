@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import hexas.db.SpringSessionFactory;
-import hexas.db.dao.ProductDao;
+import hexas.db.dao.OldProductDao;
 
 @Component
 public class DropCleaner {
@@ -19,8 +19,8 @@ public class DropCleaner {
 	public void cleanOldDrop() {
 		try (SqlSession session = factory.open()) {
 			System.out.println("Delete old drop");
-			session.getMapper(ProductDao.class).clearOldDrop("%pccomponentes%", new Date());
-			session.getMapper(ProductDao.class).clearOldDrop("%amazon%", new Date());
+			session.getMapper(OldProductDao.class).clearOldDrop("%pccomponentes%", new Date());
+			session.getMapper(OldProductDao.class).clearOldDrop("%amazon%", new Date());
 			session.commit();
 		}
 	}

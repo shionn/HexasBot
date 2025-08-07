@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
-import hexas.db.dao.ProductsDao;
+import hexas.db.dao.ProductDao;
 import hexas.db.dao.TasksDao;
 import hexas.db.dbo.Product;
 import hexas.db.dbo.Task;
@@ -35,7 +35,7 @@ public class TasksController {
 
 	@GetMapping("/add")
 	public ModelAndView addTask() {
-		List<Product> products = session.getMapper(ProductsDao.class).listProducts();
+		List<Product> products = session.getMapper(ProductDao.class).listProducts();
 		return new ModelAndView("tasks-add").addObject("types", TaskType.values()).addObject("products", products);
 	}
 
@@ -49,7 +49,7 @@ public class TasksController {
 	@GetMapping("/edit/{id}")
 	public ModelAndView editTask(@PathVariable("id") int id) {
 		Task task = session.getMapper(TasksDao.class).read(id);
-		List<Product> products = session.getMapper(ProductsDao.class).listProducts();
+		List<Product> products = session.getMapper(ProductDao.class).listProducts();
 		return new ModelAndView("tasks-add")
 				.addObject("types", TaskType.values())
 				.addObject("products", products)

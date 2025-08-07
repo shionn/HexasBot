@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import hexas.db.dao.ProductsDao;
+import hexas.db.dao.ProductDao;
 import hexas.db.dbo.Product;
 import lombok.RequiredArgsConstructor;
 
@@ -22,7 +22,7 @@ public class ProductsController {
 
 	@GetMapping()
 	public ModelAndView viewProducts() {
-		ProductsDao dao = session.getMapper(ProductsDao.class);
+		ProductDao dao = session.getMapper(ProductDao.class);
 		return new ModelAndView("products").addObject("products", dao.listProducts());
 	}
 
@@ -33,7 +33,7 @@ public class ProductsController {
 
 	@PostMapping({ "/add" })
 	public String submitAddProduct(@ModelAttribute Product product) {
-		ProductsDao dao = session.getMapper(ProductsDao.class);
+		ProductDao dao = session.getMapper(ProductDao.class);
 		dao.create(product);
 		session.commit();
 		return "redirect:/products";
@@ -41,21 +41,21 @@ public class ProductsController {
 
 	@GetMapping({ "/edit/{id}" })
 	public ModelAndView editProduct(@PathVariable("id") int id) {
-		Product product = session.getMapper(ProductsDao.class).read(id);
+		Product product = session.getMapper(ProductDao.class).read(id);
 		return new ModelAndView("products-add").addObject("product", product);
 	}
 
 	@PostMapping({ "/edit/{id}" })
 	public String submitEditProduct(@PathVariable("id") int id, @ModelAttribute Product product) {
 		product.setId(id);
-		session.getMapper(ProductsDao.class).update(product);
+		session.getMapper(ProductDao.class).update(product);
 		session.commit();
 		return "redirect:/products#" + id;
 	}
 
 	@GetMapping({ "/delete/{id}" })
 	public String removeProduct(@PathVariable("id") int id) {
-		session.getMapper(ProductsDao.class).remove(id);
+		session.getMapper(ProductDao.class).remove(id);
 		session.commit();
 		return "redirect:/products";
 	}
