@@ -13,6 +13,7 @@
 	<tr>
 		<th>#</th>
 		<th>Marque</th>
+		<th>Meta Model</th>
 		<th>Nom</th>
 		<th>MSRP</th>
 		<th>Prix d'alerte</th>
@@ -24,6 +25,7 @@
 		<tr id="${product.id}">
 			<td><a href="<spring:url value='/products/edit/${product.id}'/>" style="text-decoration: none;">✎</a></td>
 			<td>${product.marque}</td>
+			<td>${product.metaModel}</td>
 			<td>
 				<c:if test="${empty product.name}">
 					<em>${product.metaModel} - ${product.model}</em>

@@ -1,7 +1,9 @@
 package hexas.drop;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,8 +23,12 @@ public class DropController {
 
 	@GetMapping({ "/", "/drops" })
 	public ModelAndView getDrops() {
-		List<Product> lastDrops = session.getMapper(LastProductPriceDao.class).list();
-		return new ModelAndView("drops").addObject("lastDrops", lastDrops);
+		List<Product> lasts = session.getMapper(LastProductPriceDao.class).list();
+		List<Pair<String, List<Product>>> drops = new ArrayList<>();
+		drops.add(Pair.of("Lego", lasts.stream().filter(p -> p.getMarque().equals("Lego")).toList()));
+		drops.add(Pair.of("RX 9070", lasts.stream().filter(p -> p.getMetaModel().equals("RX 9070")).toList()));
+		drops.add(Pair.of("RX 9070 XT", lasts.stream().filter(p -> p.getMetaModel().equals("RX 9070 XT")).toList()));
+		return new ModelAndView("drops").addObject("drops", drops);
 	}
 
 }

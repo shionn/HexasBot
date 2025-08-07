@@ -15,6 +15,8 @@
 <form:form action="${url}" method="POST">
 	<label for="marque">Marque</label>
 	<input name="marque" type="text" value="${product.marque}"/>
+	<label for="metaModel">Meta Model</label>
+	<input name="metaModel" type="text" value="${product.metaModel}"/>
 	<label for="name">Nom</label>
 	<input name="name" type="text" value="<c:if test="${empty product.name}">${product.metaModel} ${product.model}</c:if>${product.name}"/>
 	<label for="msrp">MSRP</label>

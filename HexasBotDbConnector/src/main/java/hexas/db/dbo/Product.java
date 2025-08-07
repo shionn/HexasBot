@@ -20,6 +20,7 @@ public class Product {
 	private static final Pattern VENDOR = Pattern.compile("(Braunecker Commerce )");
 	private int id;
 	private String marque;
+	private String metaModel;
 	private String name;
 	private String msrp;
 	private BigDecimal notifyPrice;
@@ -29,8 +30,6 @@ public class Product {
 	private Date lastPriceDate;
 
 	// à ne pas conservé
-	@Deprecated
-	private String metaModel;
 	@Deprecated
 	private String model;
 	@Deprecated

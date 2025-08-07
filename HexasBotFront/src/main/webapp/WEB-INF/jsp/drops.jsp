@@ -8,25 +8,29 @@
 <t:template>
 <jsp:attribute name="content">
 
-<table>
-<thead>
-	<tr>
-		<th colspan="2">Produit</th>
-		<th>Prix (msrp)</th>
-		<th>Date</th>
-	</tr>
-</thead>
-<tbody>
-	<c:forEach items="${lastDrops}" var="drop">
+<c:forEach items="${drops}" var="group">
+	<table>
+	<thead>
 		<tr>
-			<td>${drop.marque}</td>
-			<td><a href="${drop.url}" target="_blank">${drop.name}</a></td>
-			<td>${drop.lastPrice}</td>
-			<td>${drop.lastPriceDate}</td>
+			<th colspan="2">Produit ${group.left}</th>
+			<th>Prix (msrp)</th>
+			<th>Date</th>
 		</tr>
-	</c:forEach>
-</tbody>
-</table>
+	</thead>
+	<tbody>
+		<c:forEach items="${group.right}" var="drop">
+			<tr>
+				<td>${drop.marque}</td>
+				<td><a href="${drop.url}" target="_blank">${drop.metaModel} - ${drop.name}</a></td>
+				<td>${drop.lastPrice}</td>
+				<td><fmt:formatDate value="${drop.lastPriceDate}" pattern="dd MMMM à hh:mm"/> </td>
+			</tr>
+		</c:forEach>
+	</tbody>
+	</table>
+</c:forEach>
+
+
 
 
 </jsp:attribute>

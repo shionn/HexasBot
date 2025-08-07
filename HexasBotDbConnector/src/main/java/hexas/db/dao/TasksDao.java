@@ -17,7 +17,7 @@ public interface TasksDao {
 	int create(Task task);
 
 	@Select("SELECT t.id, t.type, t.url, t.include_pattern, t.exclude_pattern, " //
-			+ "p.id AS product_id, p.marque, p.name " //
+			+ "p.id AS product_id, p.marque, p.meta_model, p.name " //
 			+ "FROM task AS t " //
 			+ "LEFT JOIN product AS p ON t.product = p.id " //
 			+ "WHERE t.type <> 'Disable' " //
@@ -25,6 +25,7 @@ public interface TasksDao {
 	@Results({ //
 			@Result(column = "product_id", property = "product.id"),
 			@Result(column = "marque", property = "product.marque"),
+			@Result(column = "meta_model", property = "product.metaModel"),
 			@Result(column = "name", property = "product.name") //
 	})
 	List<Task> list();

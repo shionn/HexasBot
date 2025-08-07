@@ -24,7 +24,7 @@
 	<label for="product.id">Product</label>
 	<select name="product.id">
 		<c:forEach items="${products}" var="product">
-			<option value="${product.id}" <c:if test="${product.id==task.product.id}">selected="selected"</c:if>>${product.description}
+			<option value="${product.id}" <c:if test="${product.id==task.product.id}">selected="selected"</c:if>>${product.metaModel} - ${product.name}
 		</c:forEach>
 	</select>
 	<label for="includePattern">Include pattern</label>

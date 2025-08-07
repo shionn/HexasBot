@@ -30,7 +30,7 @@
 			<td><a href="<spring:url value='/tasks/edit/${task.id}'/>" style="text-decoration: none;">✎</a></td>
 			<td>${task.type}</td>
 			<td>${task.product.marque}</td>
-			<td>${task.product.name}</td>
+			<td>${task.product.metaModel} - ${task.product.name}</td>
 			<td><a href="${task.url}" target="_blank">${task.url}</a></td>
 		</tr>
 	</c:forEach>

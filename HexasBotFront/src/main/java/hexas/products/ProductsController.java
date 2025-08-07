@@ -50,7 +50,7 @@ public class ProductsController {
 		product.setId(id);
 		session.getMapper(ProductsDao.class).update(product);
 		session.commit();
-		return "redirect:/products";
+		return "redirect:/products#" + id;
 	}
 
 	@GetMapping({ "/delete/{id}" })
