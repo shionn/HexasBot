@@ -19,6 +19,7 @@ public interface TasksDao {
 			+ "p.id AS product_id, p.marque, p.name " //
 			+ "FROM task AS t " //
 			+ "LEFT JOIN product AS p ON t.product = p.id " //
+			+ "WHERE t.type <> 'Disable' " //
 			+ "ORDER BY type, marque, name")
 	@Results({ //
 			@Result(column = "product_id", property = "product.id"),
@@ -54,6 +55,7 @@ public interface TasksDao {
 			+ "FROM task AS t " //
 			+ "LEFT JOIN product AS p ON t.product = p.id " //
 			+ "LEFT JOIN last_task_price AS ltp ON ltp.task = t.id " //
+			+ "WHERE t.type <> 'Disable' " //
 			+ "ORDER BY type")
 	@Results({ //
 			@Result(column = "product_id", property = "product.id"), //
