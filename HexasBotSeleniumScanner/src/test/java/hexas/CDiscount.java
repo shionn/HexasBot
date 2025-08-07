@@ -9,7 +9,7 @@ import hexas.db.dbo.TaskType;
 
 public class CDiscount {
 	public static void main(String[] args) throws InterruptedException {
-		FirefoxDriver driver = new SeleniumProductScanner().initDriver();
+		FirefoxDriver driver = new SeleniumInitier().initDriver();
 		try {
 			Task task = Task
 					.builder()
