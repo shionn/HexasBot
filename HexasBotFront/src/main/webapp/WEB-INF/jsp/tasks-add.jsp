@@ -37,7 +37,7 @@
 <p>Site :
 	<ul>
 		<li>Amazon.fr : group / price</li>
-		<li>Pccomponentes.fr : TODO</li>
+		<li>Pccomponentes.fr : group / price</li>
 		<li>Cyberteck.fr : TODO</li>
 		<li>CaseKing.de : group / price</li>
 		<li>Compumsa.eu : TODO</li>

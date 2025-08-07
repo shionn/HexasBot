@@ -32,7 +32,7 @@ public class ParserDbUpdater {
 	}
 
 	public void insertProductPrice(Task task, BigDecimal price) {
-		if (task.getLastPrice() == null || task.getLastPrice().compareTo(price) != 0) {
+		if (shouldInsert(task, price)) {
 			try (SqlSession session = new SessionFactory().open()) {
 				session.getMapper(TaskPriceDao.class).create(task.getId(), price);
 				session.commit();
@@ -40,6 +40,10 @@ public class ParserDbUpdater {
 		} else {
 			System.out.println("price (" + price + ") already up to date " + task.getUrl());
 		}
+	}
+
+	private boolean shouldInsert(Task task, BigDecimal price) {
+		return task.getLastPrice() == null || task.getLastPrice().compareTo(price) != 0;
 	}
 
 
