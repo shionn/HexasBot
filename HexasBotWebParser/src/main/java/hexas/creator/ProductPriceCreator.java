@@ -17,7 +17,7 @@ public class ProductPriceCreator {
 				session.commit();
 			}
 		} else {
-			System.out.println("price (" + price + ")already up to date " + task.getUrl());
+			System.out.println("price (" + price + ") already up to date " + task.getUrl());
 		}
 	}
 

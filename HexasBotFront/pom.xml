@@ -30,6 +30,24 @@
 					<skipTests>true</skipTests>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>nl.geodienstencentrum.maven</groupId>
+				<artifactId>sass-maven-plugin</artifactId>
+				<version>3.7.2</version>
+				<executions>
+					<execution>
+						<id>sass</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>update-stylesheets</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<sassSourceDirectory>src/main/sass/</sassSourceDirectory>
+					<destination>src/main/webapp/css/</destination>
+				</configuration>
+			</plugin>
 		</plugins>
 		<resources>
 			<resource>
@@ -107,12 +125,14 @@
 				<mybatis.username>${hexas.mysql.user}</mybatis.username>
 				<mybatis.password>${hexas.mysql.pass}</mybatis.password>
 				<scan.root.dir>/var/lib/tomcat/HexasBot</scan.root.dir>
+				<scan.selenium.enable>true</scan.selenium.enable>
 			</properties>
 		</profile>
 		<profile>
 			<id>local</id>
 			<properties>
 				<scan.root.dir>/home/shionn/projects/HexasBot</scan.root.dir>
+				<scan.selenium.enable>false</scan.selenium.enable>
 			</properties>
 		</profile>
 	</profiles>

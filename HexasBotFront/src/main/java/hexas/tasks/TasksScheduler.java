@@ -22,19 +22,24 @@ public class TasksScheduler implements Serializable {
 	@Value("${scan.root.dir}")
 	private String rootDir;
 
+	@Autowired
+	@Value("${scan.selenium.enable}")
+	private boolean enable;
+
 	@Scheduled(fixedDelay = 15, timeUnit = TimeUnit.MINUTES)
 	public void scanWithSelenium() {
-		try {
-			System.out.println("Scan with selenium");
-			ProcessBuilder builder = new ProcessBuilder("./selenium.sh");
-			builder.redirectError(ProcessBuilder.Redirect.INHERIT);
-			builder.redirectOutput(ProcessBuilder.Redirect.INHERIT);
-			builder.directory(new File(rootDir));
-			builder.start().waitFor();
-			System.out.println("fin du scan");
-		} catch (IOException | InterruptedException e) {
-			e.printStackTrace();
-		}
+		if (enable)
+			try {
+				System.out.println("Scan with selenium");
+				ProcessBuilder builder = new ProcessBuilder("./selenium.sh");
+				builder.redirectError(ProcessBuilder.Redirect.INHERIT);
+				builder.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+				builder.directory(new File(rootDir));
+				builder.start().waitFor();
+				System.out.println("fin du scan");
+			} catch (IOException | InterruptedException e) {
+				e.printStackTrace();
+			}
 	}
 
 //	@Scheduled(fixedDelay = 15, timeUnit = TimeUnit.MINUTES)

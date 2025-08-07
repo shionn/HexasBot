@@ -30,7 +30,7 @@ public class AmazonGroupParser implements TaskParser {
 		if (StringUtils.isNotBlank(task.getIncludePattern())) {
 			return Pattern.compile(task.getIncludePattern()).matcher(name).find();
 		}
-		return false;
+		return true;
 	}
 
 	private boolean isIgnored(Task task, String name) {
@@ -38,7 +38,7 @@ public class AmazonGroupParser implements TaskParser {
 		if (StringUtils.isNotBlank(task.getExcludePattern())) {
 			ignored = Pattern.compile(task.getExcludePattern()).matcher(name).find();
 		}
-		return ignored || name.contains("Memory PC") || name.contains("VIBOX");
+		return ignored;
 	}
 
 	private boolean isInStock(Element element) {

@@ -19,7 +19,7 @@
 			<option value="${type}" <c:if test="${task.type==type}">selected="selected"</c:if>>${type}
 		</c:forEach>
 	</select>
-	<label for="url">Url</label>
+	<label for="url">Url <a href="${task.url}" target="_blank">👁</a></label>
 	<input name="url" type="text" placeholder="https://www.amazon.fr/ASRock-Radeon-Steel-Legend-GDDR6/dp/B0DTTGMFK3" value="${task.url}"/>
 	<label for="product.id">Product</label>
 	<select name="product.id">
