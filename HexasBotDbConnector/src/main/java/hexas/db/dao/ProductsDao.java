@@ -22,7 +22,7 @@ public interface ProductsDao {
 	int update(Product product);
 
 	@Update("INSERT product (marque, meta_model, name, msrp, notify_price, notify_channel) "
-			+ "VALUES (#{marque}, #{name}, #{metaModel}, #{msrp}, #{notifyPrice}, #{notifyChannel})")
+			+ "VALUES (#{marque}, #{metaModel}, #{name}, #{msrp}, #{notifyPrice}, #{notifyChannel})")
 	int create(Product product);
 
 	@Delete("DELETE FROM product WHERE id = #{id}")
