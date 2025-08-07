@@ -18,7 +18,14 @@
 	</tr>
 </thead>
 <tbody>
+	<c:set var="marque" value="NULL"/>
 	<c:forEach items="${tasks}" var="task">
+		<c:if test="${task.product.marque != marque}">
+			<c:set var="marque" value="${task.product.marque}"/>
+			<tr>
+				<th colspan="5">${task.product.marque}</th>
+			</tr>
+		</c:if>
 		<tr id="${task.id}">
 			<td><a href="<spring:url value='/tasks/edit/${task.id}'/>" style="text-decoration: none;">✎</a></td>
 			<td>${task.type}</td>

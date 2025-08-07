@@ -46,7 +46,7 @@ public interface TasksDao {
 			+ "WHERE id = #{id}")
 	int update(Task task);
 
-	@Select("SELECT EXISTS(SELECT * FROM task WHERE type = #{type} AND url = #{url})")
+	@Select("SELECT EXISTS(SELECT * FROM task WHERE type IN (#{type}, 'Disable') AND url = #{url})")
 	boolean contains(Task task);
 
 	@Select("SELECT t.id, t.type, t.url, t.include_pattern, t.exclude_pattern, " //
