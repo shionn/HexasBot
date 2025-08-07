@@ -36,13 +36,13 @@
 
 <p>Site :
 	<ul>
-		<li>Amazon.fr</li>
+		<li>Amazon.fr : group / price</li>
 		<li>Pccomponentes.fr : TODO</li>
 		<li>Cyberteck.fr : TODO</li>
-		<li>CaseKing.de</li>
+		<li>CaseKing.de : group / price</li>
 		<li>Compumsa.eu : TODO</li>
 		<li>Cdiscount.fr : TODO</li>
-		<li>LDLC.com</li>
+		<li>LDLC.com : group / price</li>
 		<li>marketplace.nvidia.com : TODO</li>
 	</ul> 
 </p>

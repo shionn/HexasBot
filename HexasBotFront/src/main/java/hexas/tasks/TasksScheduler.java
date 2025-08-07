@@ -28,7 +28,7 @@ public class TasksScheduler implements Serializable {
 
 	@Scheduled(fixedDelay = 15, timeUnit = TimeUnit.MINUTES)
 	public void scanWithSelenium() {
-		if (enable)
+		if (enable) {
 			try {
 				System.out.println("Scan with selenium");
 				ProcessBuilder builder = new ProcessBuilder("./selenium.sh");
@@ -40,6 +40,9 @@ public class TasksScheduler implements Serializable {
 			} catch (IOException | InterruptedException e) {
 				e.printStackTrace();
 			}
+		} else {
+			System.out.println("Scanner is disable");
+		}
 	}
 
 //	@Scheduled(fixedDelay = 15, timeUnit = TimeUnit.MINUTES)
