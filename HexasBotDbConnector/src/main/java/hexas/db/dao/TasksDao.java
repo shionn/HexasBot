@@ -2,6 +2,7 @@ package hexas.db.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -63,5 +64,8 @@ public interface TasksDao {
 			@Result(column = "name", property = "product.name") //
 	})
 	List<Task> listActiveTask();
+
+	@Delete("DELETE FROM task WHERE id = #{id}")
+	int delete(int id);
 
 }

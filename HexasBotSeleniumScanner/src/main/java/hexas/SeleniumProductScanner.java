@@ -16,19 +16,12 @@ import hexas.db.dbo.Task;
 public class SeleniumProductScanner {
 
 	public static void main(String[] args) {
-		doParsing();
+		new SeleniumProductScanner().doParsing();
 	}
 
-	private static void doParsing() {
-		FirefoxProfile profile = new FirefoxProfile();
-		profile.setPreference("intl.accept_languages", "fr-FR");
-		FirefoxOptions options = new FirefoxOptions();
-		options.setProfile(profile);
-		FirefoxDriver driver = new FirefoxDriver(options);
+	private void doParsing() {
+		FirefoxDriver driver = initDriver();
 		try {
-			driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-			driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
-			driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(30));
 
 			try (SqlSession session = new SessionFactory().open()) {
 				TasksDao dao = session.getMapper(TasksDao.class);
@@ -42,7 +35,19 @@ public class SeleniumProductScanner {
 		}
 	}
 
-	private static void doTask(FirefoxDriver driver, Task task) {
+	FirefoxDriver initDriver() {
+		FirefoxProfile profile = new FirefoxProfile();
+		profile.setPreference("intl.accept_languages", "fr-FR");
+		FirefoxOptions options = new FirefoxOptions();
+		options.setProfile(profile);
+		FirefoxDriver driver = new FirefoxDriver(options);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
+		driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(30));
+		return driver;
+	}
+
+	private void doTask(FirefoxDriver driver, Task task) {
 		try {
 			driver.get(task.getUrl());
 			TaskParser parser = new TaskParserRetreiver().resolve(task);

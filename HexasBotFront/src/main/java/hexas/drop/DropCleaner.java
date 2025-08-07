@@ -4,7 +4,6 @@ import java.util.Date;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import hexas.db.SpringSessionFactory;
@@ -16,7 +15,7 @@ public class DropCleaner {
 	@Autowired
 	private SpringSessionFactory factory;
 
-	@Scheduled(cron = "0 0 1 * * *")
+//	@Scheduled(cron = "0 0 1 * * *")
 	public void cleanOldDrop() {
 		try (SqlSession session = factory.open()) {
 			System.out.println("Delete old drop");

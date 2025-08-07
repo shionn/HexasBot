@@ -63,4 +63,11 @@ public class TasksController {
 		session.commit();
 		return "redirect:/tasks";
 	}
+
+	@GetMapping("/delete/{id}")
+	public String submitDeleteeTask(@PathVariable("id") int id) {
+		session.getMapper(TasksDao.class).delete(id);
+		session.commit();
+		return "redirect:/tasks";
+	}
 }

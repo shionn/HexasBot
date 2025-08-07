@@ -10,7 +10,7 @@ import hexas.db.dbo.Product;
 
 public interface LastProductPriceDao {
 
-	@Select("SELECT * FROM last_product_price ORDER BY last_price_date, marque, name DESC LIMIT 100")
+	@Select("SELECT * FROM last_product_price ORDER BY last_price_date DESC, marque, name LIMIT 100")
 	@Results({ @Result(column = "product_id", property = "id") })
 	List<Product> list();
 }
