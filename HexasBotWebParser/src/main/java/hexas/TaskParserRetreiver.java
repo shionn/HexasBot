@@ -51,7 +51,7 @@ public class TaskParserRetreiver {
 		if (task.getUrl().startsWith("https://www.ldlc.com")) {
 			return new LdlcPriceParser();
 		}
-		if (task.getUrl().startsWith("https://www.pccomponentes.com")) {
+		if (task.getUrl().startsWith("https://www.pccomponentes.fr")) {
 			return new PcComponentesPriceParser();
 		}
 		throw new IllegalStateException("no parser : " + task.getUrl());
