@@ -30,7 +30,7 @@ public interface HumbleBundleDao {
 	@Insert("INSERT INTO bundle_choice_game(choice,game) VALUES( #{choice.id}, #{game})")
 	int createChoiceGame(@Param("choice") BundleChoice choice, @Param("game") String game);
 
-	@Select("SELECT * FROM bundle WHERE notified IS FALSE LIMIT 1")
+	@Select("SELECT * FROM bundle WHERE notified IS FALSE ORDER BY end_date LIMIT 1")
 	@Results({ //
 			@Result(column = "id", property = "id"),
 			@Result(column = "id", property = "choices", many = @Many(select = "listChoices")),
