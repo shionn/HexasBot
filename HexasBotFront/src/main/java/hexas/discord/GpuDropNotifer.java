@@ -25,7 +25,7 @@ public class GpuDropNotifer implements Runnable, EventListener {
 		try (SqlSession session = new SessionFactory().open()) {
 			ProductPriceNotifyDao dao = session.getMapper(ProductPriceNotifyDao.class);
 			List<ProductPriceNotification> notifications = dao.list();
-			notifications = notifications.stream().toList();
+//			notifications = notifications.stream().toList();
 			if (!notifications.isEmpty()) {
 				JDA bot = buildBot();
 //				bot.getTextChannels().stream().forEach(System.out::println);
@@ -45,8 +45,8 @@ public class GpuDropNotifer implements Runnable, EventListener {
 	}
 
 	private String buildMessage(ProductPriceNotification notification) {
-		return "@here " + notification.getMarque() + " " + notification.getName() + " **" + notification.getPrice()
-				+ "** " + "\n" + notification.getUrl();
+		return "@here " + notification.getMarque() + " " + notification.getMetaModel() + " " + notification.getName()
+				+ " **" + notification.getPrice() + "**\n" + notification.getUrl();
 	}
 
 	private List<TextChannel> getChannel(ProductPriceNotification notification, JDA bot) {

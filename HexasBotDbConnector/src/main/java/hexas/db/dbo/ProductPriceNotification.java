@@ -15,7 +15,7 @@ public class ProductPriceNotification {
 	private Date date;
 	private TaskType type;
 	private String url;
-	private String marque, name;
+	private String marque, metaModel, name;
 	private BigDecimal price;
 	private String notifyChannel;
 }
