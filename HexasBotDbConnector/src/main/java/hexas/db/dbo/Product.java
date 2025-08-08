@@ -2,6 +2,7 @@ package hexas.db.dbo;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import lombok.AllArgsConstructor;
@@ -28,6 +29,7 @@ public class Product {
 	private String url;
 	private BigDecimal lastPrice;
 	private Date lastPriceDate;
+	private List<Product> prices;
 
 	// à ne pas conservé
 	@Deprecated

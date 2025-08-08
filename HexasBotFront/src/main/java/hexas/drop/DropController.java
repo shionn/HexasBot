@@ -28,7 +28,19 @@ public class DropController {
 		drops.add(Pair.of("Lego", lasts.stream().filter(p -> p.getMarque().equals("Lego")).toList()));
 		drops.add(Pair.of("RX 9070", lasts.stream().filter(p -> p.getMetaModel().equals("RX 9070")).toList()));
 		drops.add(Pair.of("RX 9070 XT", lasts.stream().filter(p -> p.getMetaModel().equals("RX 9070 XT")).toList()));
-		return new ModelAndView("drops").addObject("drops", drops);
+
+		lasts = session
+				.getMapper(LastProductPriceDao.class)
+				.listByProduct()
+				.stream()
+				.filter(p -> !p.getPrices().isEmpty())
+				.toList();
+		List<Pair<String, List<Product>>> gpus = new ArrayList<>();
+
+		gpus.add(Pair.of("RX 9070", lasts.stream().filter(p -> p.getMetaModel().equals("RX 9070")).toList()));
+		gpus.add(Pair.of("RX 9070 XT", lasts.stream().filter(p -> p.getMetaModel().equals("RX 9070 XT")).toList()));
+
+		return new ModelAndView("drops").addObject("drops", drops).addObject("gpus", gpus);
 	}
 
 }

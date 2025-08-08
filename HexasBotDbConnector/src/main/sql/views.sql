@@ -11,7 +11,7 @@ SELECT t.id AS task, tp.date, t.type, t.url, p.marque, p.meta_model, p.name, tp.
 FROM task_price AS tp 
 INNER JOIN task AS t on tp.task = t.id 
 INNER JOIN product AS p ON p.id = t.product 
-WHERE tp.notified IS FALSE 
+WHERE tp.notified IS FALSE
 AND tp.price <= p.notify_price;
 
 
