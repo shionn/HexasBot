@@ -5,14 +5,14 @@ import java.util.List;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-import hexas.db.dbo.Notification;
+import hexas.db.dbo.ProductPriceNotification;
 
-public interface NotifyDao {
+public interface ProductPriceNotifyDao {
 
 	@Select("SELECT * FROM notification")
-	List<Notification> list();
+	List<ProductPriceNotification> list();
 
 	@Update("UPDATE task_price SET notified = TRUE WHERE task = #{task} AND date = #{date}")
-	void markNotifyied(Notification notification);
+	void markNotifyied(ProductPriceNotification notification);
 	
 }

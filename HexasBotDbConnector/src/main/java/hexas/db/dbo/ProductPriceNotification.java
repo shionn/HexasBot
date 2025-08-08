@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Notification {
+public class ProductPriceNotification {
 	private int task;
 	private Date date;
 	private TaskType type;
