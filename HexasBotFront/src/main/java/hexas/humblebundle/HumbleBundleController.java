@@ -1,7 +1,5 @@
 package hexas.humblebundle;
 
-import java.util.List;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -22,9 +20,8 @@ public class HumbleBundleController {
 
 	@GetMapping(path = "/json", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	List<Bundle> getJson() {
-		List<Bundle> bundles = session.getMapper(HumbleBundleDao.class).list();
-		return bundles;
+	Bundle getJson() {
+		return session.getMapper(HumbleBundleDao.class).retreiveLast();
 	}
 
 }
