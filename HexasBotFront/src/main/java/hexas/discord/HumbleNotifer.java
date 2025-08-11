@@ -50,7 +50,7 @@ public class HumbleNotifer implements Runnable, EventListener {
 		String message = "@here **Humble Bundle** propose un pack de jeu [" + bundle.getName() + "](" + bundle.getUrl()
 				+ ") contenant :\n";
 		for (String game : choice.getGames()) {
-			message += " - " + game + "\n";
+			message += "- " + game + "\n";
 		}
 		message += "Pour " + choice.getPrice() + "€, disponible jusqu'au "
 				+ new SimpleDateFormat("dd MMMM yyyy").format(bundle.getEndDate()) + ".";
