@@ -12,6 +12,10 @@ import hexas.db.dbo.Task;
 
 public class SeleniumProductScanner {
 
+	public static void main(String[] args) {
+		new SeleniumProductScanner().doParsing();
+	}
+
 	public void doParsing() {
 		FirefoxDriver driver = new SeleniumInitier().initDriver();
 		try {

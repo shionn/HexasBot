@@ -16,7 +16,7 @@ import hexas.db.dbo.BundleChoice;
 
 public interface HumbleBundleDao {
 
-	@Select("SELECT EXISTS(SELECT * FROM bundle WHERE url = #{url})")
+	@Select("SELECT EXISTS(SELECT * FROM bundle WHERE name = #{name})")
 	boolean exists(Bundle bundle);
 
 	@Insert("INSERT INTO bundle(url, name, end_date) VALUES (#{url}, #{name}, #{endDate})")

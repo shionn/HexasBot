@@ -67,6 +67,7 @@ public class SeleniumHumbleBundleScanner {
 
 		} finally {
 			driver.quit();
+			driver.close();
 		}
 
 	}

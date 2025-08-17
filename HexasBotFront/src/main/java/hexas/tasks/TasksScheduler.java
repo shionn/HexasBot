@@ -27,15 +27,11 @@ public class TasksScheduler implements Serializable {
 	private boolean enable;
 
 	@Scheduled(fixedDelay = 15, timeUnit = TimeUnit.MINUTES)
-	public void scanWithSelenium() {
+	public void scanProductWithSelenium() {
 		if (enable) {
 			try {
 				System.out.println("Scan with selenium");
-				ProcessBuilder builder = new ProcessBuilder("./selenium.sh");
-				builder.redirectError(ProcessBuilder.Redirect.INHERIT);
-				builder.redirectOutput(ProcessBuilder.Redirect.INHERIT);
-				builder.directory(new File(rootDir));
-				builder.start().waitFor();
+				execBash("./selenium.sh");
 				System.out.println("fin du scan");
 			} catch (IOException | InterruptedException e) {
 				e.printStackTrace();
@@ -43,6 +39,35 @@ public class TasksScheduler implements Serializable {
 		} else {
 			System.out.println("Scanner is disable");
 		}
+	}
+
+	@Scheduled(fixedDelay = 6, timeUnit = TimeUnit.HOURS)
+	public void scanHumbleBundle() {
+		if (enable) {
+			try {
+				execBash("./selenium-humble-bundle.sh");
+			} catch (IOException | InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Scheduled(cron = "0 0 3 *  * *")
+	public void scanAptUpdate() {
+		try {
+			execBash("./selenium-apt-cache.sh");
+			System.out.println("fin du scan");
+		} catch (IOException | InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void execBash(String script) throws InterruptedException, IOException {
+		ProcessBuilder builder = new ProcessBuilder(script);
+		builder.redirectError(ProcessBuilder.Redirect.INHERIT);
+		builder.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+		builder.directory(new File(rootDir));
+		builder.start().waitFor();
 	}
 
 //	@Scheduled(fixedDelay = 15, timeUnit = TimeUnit.MINUTES)
