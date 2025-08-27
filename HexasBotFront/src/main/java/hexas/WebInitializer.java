@@ -13,6 +13,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -58,6 +59,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	@Configuration
 	@ComponentScan({ "hexas" })
 	@PropertySource("classpath:configuration.properties")
+	@EnableMethodSecurity
 	public static class WebMvcConfig implements WebMvcConfigurer {
 		@Bean
 		public InternalResourceViewResolver viewResolver() {
