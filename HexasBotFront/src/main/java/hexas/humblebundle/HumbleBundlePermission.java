@@ -20,7 +20,7 @@ public class HumbleBundlePermission {
 		if (key != null && dao.isAuthorized(key))
 			return true;
 		System.out.println("non authorisé " + key);
-		return true;
+		return false;
 	}
 
 }
