@@ -16,11 +16,7 @@ public class HumbleBundlePermission {
 
 	public boolean isValid() {
 		String key = request.getHeader("api-key");
-		HumbleBundleDao dao = session.getMapper(HumbleBundleDao.class);
-		if (key != null && dao.isAuthorized(key))
-			return true;
-		System.out.println("non authorisé " + key);
-		return false;
+		return key != null && session.getMapper(HumbleBundleDao.class).isAuthorized(key);
 	}
 
 }
