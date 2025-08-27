@@ -16,6 +16,9 @@ import hexas.db.dbo.BundleChoice;
 
 public interface HumbleBundleDao {
 
+	@Select("SELECT EXISTS(SELECT * FROM api_key WHERE value = #{key} and type = 'humble-bundle')")
+	boolean isAuthorized(String key);
+
 	@Select("SELECT EXISTS(SELECT * FROM bundle WHERE name = #{name})")
 	boolean exists(Bundle bundle);
 
