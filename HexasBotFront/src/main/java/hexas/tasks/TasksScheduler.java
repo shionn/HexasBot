@@ -26,7 +26,7 @@ public class TasksScheduler implements Serializable {
 	public void scanProductWithSelenium() {
 		if (enable) {
 			try {
-				System.out.println("Scan with selenium");
+				System.out.println("Scan product selenium");
 				execBash("./selenium.sh");
 				System.out.println("fin du scan");
 			} catch (IOException | InterruptedException | RuntimeException e) {
@@ -41,7 +41,9 @@ public class TasksScheduler implements Serializable {
 	public void scanHumbleBundle() {
 		if (enable) {
 			try {
+				System.out.println("start humble bundle");
 				execBash("./selenium-humble-bundle.sh");
+				System.out.println("fin du scan");
 			} catch (IOException | InterruptedException | RuntimeException e) {
 				e.printStackTrace();
 			}
@@ -51,6 +53,7 @@ public class TasksScheduler implements Serializable {
 	@Scheduled(cron = "0 0 3 *  * *")
 	public void scanAptUpdate() {
 		try {
+			System.out.println("start selenium scan");
 			execBash("./selenium-apt-cache.sh");
 			System.out.println("fin du scan");
 		} catch (IOException | InterruptedException | RuntimeException e) {
