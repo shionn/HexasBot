@@ -1,24 +1,24 @@
 package hexas.discord;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
 
 import org.apache.ibatis.session.SqlSession;
 
 import hexas.db.SessionFactory;
 import hexas.db.dao.ProductPriceNotifyDao;
 import hexas.db.dbo.ProductPriceNotification;
+import lombok.RequiredArgsConstructor;
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
-import net.dv8tion.jda.api.requests.GatewayIntent;
 
+@RequiredArgsConstructor
 public class GpuDropNotifer implements Runnable, EventListener {
 	private static final long CANAL_NOTFICATION = 1123512494468644984L;
+
+	private final JDA bot;
 
 	@Override
 	public void run() {
@@ -27,7 +27,8 @@ public class GpuDropNotifer implements Runnable, EventListener {
 			List<ProductPriceNotification> notifications = dao.list();
 //			notifications = notifications.stream().toList();
 			if (!notifications.isEmpty()) {
-				JDA bot = buildBot();
+//				JDA bot = buildBot();
+				bot.awaitReady();
 //				bot.getTextChannels().stream().forEach(System.out::println);
 				for (ProductPriceNotification notification : notifications) {
 					List<TextChannel> channels = getChannel(notification, bot);
@@ -57,15 +58,15 @@ public class GpuDropNotifer implements Runnable, EventListener {
 		return channels;
 	}
 
-	private JDA buildBot() throws IOException, InterruptedException {
-		Properties properties = new Properties();
-		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("token.properties"));
-		return JDABuilder
-				.create(properties.getProperty("token"), Arrays.asList(GatewayIntent.MESSAGE_CONTENT))
-				.addEventListeners(this)
-				.build()
-				.awaitReady();
-	}
+//	private JDA buildBot() throws IOException, InterruptedException {
+//		Properties properties = new Properties();
+//		properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("token.properties"));
+//		return JDABuilder
+//				.create(properties.getProperty("token"), Arrays.asList(GatewayIntent.MESSAGE_CONTENT))
+////				.addEventListeners(this)
+//				.build()
+//				.awaitReady();
+//	}
 
 	@Override
 	public void onEvent(GenericEvent event) {
