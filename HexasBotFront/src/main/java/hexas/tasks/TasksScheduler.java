@@ -37,19 +37,6 @@ public class TasksScheduler implements Serializable {
 		}
 	}
 
-	@Scheduled(fixedDelay = 6, timeUnit = TimeUnit.HOURS)
-	public void scanHumbleBundle() {
-		if (enable) {
-			try {
-				System.out.println("start humble bundle");
-				execBash("./selenium-humble-bundle.sh");
-				System.out.println("fin du scan");
-			} catch (IOException | InterruptedException | RuntimeException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
 	@Scheduled(cron = "0 0 3 *  * *")
 	public void scanAptUpdate() {
 		try {

@@ -36,7 +36,7 @@ public interface HumbleBundleDao {
 	@Select("SELECT * FROM bundle WHERE end_date > NOW() ORDER BY id DESC LIMIT 1")
 	@Results({ //
 			@Result(column = "id", property = "id"),
-			@Result(column = "id", property = "choices", many = @Many(select = "listChoices")), 
+			@Result(column = "id", property = "choices", many = @Many(select = "listChoices")),
 	})
 	Bundle retreiveLast();
 
@@ -46,7 +46,7 @@ public interface HumbleBundleDao {
 			@Result(column = "id", property = "choices", many = @Many(select = "listChoices")),
 	})
 	Bundle oneToNotify();
-	
+
 	@Select("SELECT * FROM bundle_choice WHERE bundle = #{bundle} ORDER BY price DESC")
 	@Results({ //
 			@Result(column = "id", property = "id"),
