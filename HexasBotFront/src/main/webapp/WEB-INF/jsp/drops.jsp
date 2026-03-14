@@ -13,7 +13,7 @@
 		<thead>
 			<tr>
 				<th colspan="2">Last Drop ${group.left}</th>
-				<th>Prix (msrp)</th>
+				<th><s>MSRP</s> Prix <small><em>%</em></small></th>
 				<th>Date</th>
 			</tr>
 		</thead>
