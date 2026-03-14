@@ -1,6 +1,7 @@
 package hexas.db.dbo;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -58,4 +59,13 @@ public class Product {
 	public String getDescription() {
 		return marque + " " + (name == null ? model : name);
 	}
+
+	public BigDecimal getSoldPct() {
+		if (lastPrice == null || msrp == null)
+			return BigDecimal.ZERO;
+		return BigDecimal.ONE
+				.subtract(getLastPrice().divide(new BigDecimal(msrp), RoundingMode.DOWN))
+				.multiply(BigDecimal.valueOf(100));
+	}
+
 }

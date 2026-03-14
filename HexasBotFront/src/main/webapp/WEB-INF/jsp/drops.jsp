@@ -22,7 +22,7 @@
 				<tr>
 					<td>${drop.marque}</td>
 					<td><a href="${drop.url}" target="_blank">${drop.metaModel} - ${drop.name}</a></td>
-					<td>${drop.lastPrice}</td>
+					<td><s>${drop.msrp}</s> ${drop.lastPrice} <small><em>-${drop.soldPct}%</em></small></td>
 					<td><fmt:formatDate value="${drop.lastPriceDate}" pattern="dd MMMM à hh:mm"/> </td>
 				</tr>
 			</c:forEach>
